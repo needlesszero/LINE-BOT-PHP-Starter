@@ -13,21 +13,22 @@ $events = json_decode($content, true);
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
+		foreach ($objs['events'] as $obj) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
-
+			$status = $obj['link']['status'];
 
 			
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				foreach ($objs['events'] as $obj) {
-				'text' => 'status'.$objs['events']['link']
-				}
+				
+				'text' => 'status' . $status
+				
 			];
 			
 
@@ -51,6 +52,7 @@ if (!is_null($events['events'])) {
 
 			echo $result . "\r\n";
 		}
+	}
 	}
 }
 echo "OK";
