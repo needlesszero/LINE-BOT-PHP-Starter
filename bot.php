@@ -8,9 +8,13 @@ $events = json_decode($content, true);
 
 
 $json = file_get_contents('https://powerful-badlands-66623.herokuapp.com/test.json');
-$json = json_decode($json);
+$jsons = json_decode($json);
 
 // Validate parsed JSON data
+
+foreach ($jsons['events'] as $j){
+	$status = $j['link']['status'];
+}
 
 if (!is_null($events['events'])) {
 
@@ -26,7 +30,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $text
+				'text' => $status
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
