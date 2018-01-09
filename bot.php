@@ -8,7 +8,7 @@ $events = json_decode($content, true);
 
 
 $json = file_get_contents('https://powerful-badlands-66623.herokuapp.com/test.json');
-$jsons = json_decode($content);
+$jsons = json_decode($content, true);
 
 // Validate parsed JSON data
 
