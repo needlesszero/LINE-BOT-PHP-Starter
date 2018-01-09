@@ -20,11 +20,11 @@ if (!is_null($events['events'])) {
 			    $text = 'ข้อ A';
 			}
 
-			else if (strpos($text,'B') !== false) {
+			elseif (strpos($text,'B') !== false) {
 			    $text = 'ข้อ B';
 			}
 
-			else if (strpos($text,'C') !== false) {
+			elseif (strpos($text,'C') !== false) {
 			    $text = 'ข้อ C';
 			}
 
