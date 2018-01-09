@@ -52,7 +52,4 @@ if (!is_null($events['events'])) {
 	}
 }
 
-foreach ($json['events'] as $jsonz){
-	echo $jsonz['link']['status'];
-}
 echo "OK";
