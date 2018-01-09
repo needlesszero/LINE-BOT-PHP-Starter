@@ -12,14 +12,29 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
-			$text = $event['message']['text'];
+			$text = $event['message']['type'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
+			if (strpos($text, 'A') !== false) {
+			    $text = 'ข้อ A ';
+			}
+
+			else if (strpos($text, 'B') !== false) {
+			    $text = 'ข้อ B ';
+			}
+
+			else if (strpos($text, 'C') !== false) {
+			    $text = 'ข้อ C ';
+			}
+
+			else {
+				$text = 'ไม่รู้โว้ยยยยยยย';
+			}
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'texxxxxx'
+				'text' => $text
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
