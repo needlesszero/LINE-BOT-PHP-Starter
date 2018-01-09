@@ -3,7 +3,7 @@ $access_token = 'BzkGADGi+Cxxqos+aQZornbJuzvRZwcbEeyVmz5cNkKkjOqgN7h7HwhtLWpy55g
 
 
 // Url Json
-$url = "http://maps.google.com/maps/api/geocode/json?address=$address";
+$url = "https://powerful-badlands-66623.herokuapp.com/test";
 
 // Get POST body content
 $content = file_get_contents('php://input');
@@ -12,7 +12,7 @@ $content = file_get_contents('php://input');
 
 //call api
 $json = file_get_contents($url);
-$json = json_decode($json);
+$objs = json_decode($json, true);
 
 // Parse JSON
 $events = json_decode($content, true);
@@ -27,10 +27,12 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
+
+			foreach ($objs['events'] as $obj) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $text
+				'text' => 'link status :'.$obj[$link]
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
