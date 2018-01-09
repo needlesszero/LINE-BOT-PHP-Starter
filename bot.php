@@ -1,9 +1,5 @@
 <?php
-$access_token = 'wOmdybqvdoB9zp57NrCBTWzdjqcxlmLS6bQKpEluB1aXRv6RAPPbP8NVHYmI4UPZOROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj5EaBYGaWVlfimMh8Gjzup2iMpEtbaOAi+sDWZDifetYQdB04t89/1O/w1cDnyilFU=';
-
-
-$json = file_get_contents('https://powerful-badlands-66623.herokuapp.com/test.json');
-$objs = json_decode($json);
+$access_token = 'BzkGADGi+Cxxqos+aQZornbJuzvRZwcbEeyVmz5cNkKkjOqgN7h7HwhtLWpy55gTOROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj4Jby+oGllRd3oKACAun1ofoTDf7JYz/mpDN+xDmhsHGgdB04t89/1O/w1cDnyilFU=';
 
 // Get POST body content
 $content = file_get_contents('php://input');
@@ -13,24 +9,18 @@ $events = json_decode($content, true);
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
-		foreach ($objs['events'] as $obj) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
-			$status = $obj['link']['status'];
 
-			
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				
-				'text' => 'status' . $status
-				
+				'text' => $text
 			];
-			
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
@@ -52,7 +42,6 @@ if (!is_null($events['events'])) {
 
 			echo $result . "\r\n";
 		}
-	}
 	}
 }
 echo "OK";
