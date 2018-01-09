@@ -1,19 +1,8 @@
 <?php
 $access_token = 'BzkGADGi+Cxxqos+aQZornbJuzvRZwcbEeyVmz5cNkKkjOqgN7h7HwhtLWpy55gTOROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj4Jby+oGllRd3oKACAun1ofoTDf7JYz/mpDN+xDmhsHGgdB04t89/1O/w1cDnyilFU=';
 
-
-// Url Json
-$url = "https://powerful-badlands-66623.herokuapp.com/test";
-
 // Get POST body content
 $content = file_get_contents('php://input');
-
-
-
-//call api
-$json = file_get_contents($url);
-$objs = json_decode($json, true);
-
 // Parse JSON
 $events = json_decode($content, true);
 // Validate parsed JSON data
@@ -27,14 +16,11 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
-
-			foreach ($objs['events'] as $obj) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'link status :'.$obj[$link]
+				'text' => $text
 			];
-			}
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
