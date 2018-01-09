@@ -16,7 +16,7 @@ if (!is_null($events['events'])) {
 				$text = 'หัวเราะอะไร'
 			}
 			else {
-			$text = $event['message']['text'];
+			$text = 'งงครับ;
 			}
 			// Get replyToken
 			$replyToken = $event['replyToken'];
