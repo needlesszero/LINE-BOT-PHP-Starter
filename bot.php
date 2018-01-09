@@ -7,14 +7,14 @@ $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 
 
-$json = file_get_contents('https://powerful-badlands-66623.herokuapp.com/test.json');
+/*$json = file_get_contents('https://powerful-badlands-66623.herokuapp.com/test.json');
 $jsons = json_decode($content, true);
 
 // Validate parsed JSON data
 
 foreach ($jsons['events'] as $j){
 	$status = $j['link']['status'];
-}
+}*/
 
 if (!is_null($events['events'])) {
 
