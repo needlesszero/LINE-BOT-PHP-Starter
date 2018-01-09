@@ -5,8 +5,15 @@ $access_token = 'wOmdybqvdoB9zp57NrCBTWzdjqcxlmLS6bQKpEluB1aXRv6RAPPbP8NVHYmI4UP
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
+
+
+$json = file_get_contents('https://powerful-badlands-66623.herokuapp.com/test.json');
+$json = json_decode($json);
+
 // Validate parsed JSON data
+
 if (!is_null($events['events'])) {
+if (!is_null($json['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
@@ -43,5 +50,6 @@ if (!is_null($events['events'])) {
 			echo $result . "\r\n";
 		}
 	}
+}
 }
 echo "OK";
