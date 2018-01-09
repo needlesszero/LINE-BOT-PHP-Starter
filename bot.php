@@ -13,7 +13,7 @@ $json = json_decode($json);
 // Validate parsed JSON data
 
 if (!is_null($events['events'])) {
-if (!is_null($json['events'])) {
+
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
@@ -51,5 +51,5 @@ if (!is_null($json['events'])) {
 		}
 	}
 }
-}
+
 echo "OK";
