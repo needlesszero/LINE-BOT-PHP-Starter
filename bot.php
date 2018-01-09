@@ -1,6 +1,10 @@
 <?php
 $access_token = 'wOmdybqvdoB9zp57NrCBTWzdjqcxlmLS6bQKpEluB1aXRv6RAPPbP8NVHYmI4UPZOROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj5EaBYGaWVlfimMh8Gjzup2iMpEtbaOAi+sDWZDifetYQdB04t89/1O/w1cDnyilFU=';
 
+
+$json = file_get_contents('url_here');
+$objs = json_decode($json);
+
 // Get POST body content
 $content = file_get_contents('php://input');
 // Parse JSON
@@ -16,11 +20,16 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
+
+			
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $text
+				foreach ($objs['events'] as $obj) {
+				'text' => 'status'.$objs['events']['link']
+				}
 			];
+			
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
