@@ -5,19 +5,8 @@ $access_token = 'wOmdybqvdoB9zp57NrCBTWzdjqcxlmLS6bQKpEluB1aXRv6RAPPbP8NVHYmI4UP
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
-
-
-/*$json = file_get_contents('https://powerful-badlands-66623.herokuapp.com/test.json');
-$jsons = json_decode($content, true);
-
 // Validate parsed JSON data
-
-foreach ($jsons['events'] as $j){
-	$status = $j['link']['status'];
-}*/
-
 if (!is_null($events['events'])) {
-
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
@@ -30,7 +19,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $status
+				'text' => $text
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
@@ -55,5 +44,4 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-
 echo "OK";
