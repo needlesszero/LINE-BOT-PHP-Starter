@@ -16,16 +16,16 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
-			if (strpos($text, 'A') !== false) {
-			    $text = 'ข้อ A ';
+			if (strpos($text,'A') !== false) {
+			    $text = 'ข้อ A';
 			}
 
-			else if (strpos($text, 'B') !== false) {
-			    $text = 'ข้อ B ';
+			else if (strpos($text,'B') !== false) {
+			    $text = 'ข้อ B';
 			}
 
-			else if (strpos($text, 'C') !== false) {
-			    $text = 'ข้อ C ';
+			else if (strpos($text,'C') !== false) {
+			    $text = 'ข้อ C';
 			}
 
 			else {
