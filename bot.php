@@ -2,7 +2,7 @@
 $access_token = 'wOmdybqvdoB9zp57NrCBTWzdjqcxlmLS6bQKpEluB1aXRv6RAPPbP8NVHYmI4UPZOROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj5EaBYGaWVlfimMh8Gjzup2iMpEtbaOAi+sDWZDifetYQdB04t89/1O/w1cDnyilFU=';
 
 
-$json = file_get_contents('url_here');
+$json = file_get_contents('https://powerful-badlands-66623.herokuapp.com/test.json');
 $objs = json_decode($json);
 
 // Get POST body content
