@@ -7,9 +7,7 @@ $data = '{
 	"descript": "Im groot"
 }';
 
-
-
-echo "asdasdsad";
+$url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im.json'
 
 $access_token = 'uqhIt5rrQz+lIsYeKXJj1vN0uN/iGOI82cpggWhyLW/0xqEAudj9NCX+YgM9HA+lOROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj7QDByc60mpmBvWUGg/gfSoxyRNlv4BwVwdD+wsgmpzDgdB04t89/1O/w1cDnyilFU=';
 
@@ -17,6 +15,9 @@ $access_token = 'uqhIt5rrQz+lIsYeKXJj1vN0uN/iGOI82cpggWhyLW/0xqEAudj9NCX+YgM9HA+
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
+
+$result = file_get_contents($url);
+var_dump(json_decode($result, true));
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -31,7 +32,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $events
+				'text' => $t
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
