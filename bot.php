@@ -50,4 +50,4 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-echo "OKttt";
+echo "OK";
