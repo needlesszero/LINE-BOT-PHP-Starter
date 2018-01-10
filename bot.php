@@ -6,16 +6,20 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-$url = 'https://powerful-badlands-66623.herokuapp.com/test.json';
+$url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im.json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 
-foreach ($json['events'] as $js) {
+echo $json;
+
+foreach ($json as $js) {
 		// Reply only when message sent is in 'text' format
 		if ($js['type'] == 'message' && $js['message']['type'] == 'text') {
 			// Get text sent
 			$tt = $js['message']['id'];
 		}
+
+		else $tt = $json[descript];
 	}
 
 
