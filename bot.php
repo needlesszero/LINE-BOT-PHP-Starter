@@ -6,7 +6,13 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-echo $events ;
+
+$json = file_get_contents('https://powerful-badlands-66623.herokuapp.com/test.json');
+$jsons = json_decode($content, true);
+
+// Validate parsed JSON data
+
+echo $events;
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -46,4 +52,4 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-echo "OK";
+echo "OKttt";
