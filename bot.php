@@ -10,6 +10,18 @@ $url = 'https://powerful-badlands-66623.herokuapp.com/test.json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 
+echo $json;
+
+foreach ($json['events'] as $js) {
+		// Reply only when message sent is in 'text' format
+		if ($js['type'] == 'message' && $js['message']['type'] == 'text') {
+			// Get text sent
+
+			echo $js['message']['id'];
+		}
+	}
+
+
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
