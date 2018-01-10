@@ -6,17 +6,7 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-
-$json = file_get_contents('https://powerful-badlands-66623.herokuapp.com/test.json');
-$jsons = json_decode($content, true);
-
-// Validate parsed JSON data
-
-echo $events;
-
-foreach ($jsons['events'] as $jso) {
-		$status =  $jso['type'];
-	}
+echo $events ;
 
 if (!is_null($events['events'])) {
 
