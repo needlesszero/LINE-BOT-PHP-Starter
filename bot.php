@@ -12,7 +12,7 @@ $jsons = json_decode($content, true);
 
 // Validate parsed JSON data
 
-echo $jsons;
+echo 'testtttt';
 
 foreach ($jsons['events'] as $jso) {
 		$status =  $jso['type'];
