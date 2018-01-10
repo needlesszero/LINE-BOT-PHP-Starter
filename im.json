@@ -1,6 +1,6 @@
-$data = '{
+{
 	"name": "Aragorn",
 	"race": "Human",
 	"type": "text",
 	"descript": "Im groot"
-}';
+}
