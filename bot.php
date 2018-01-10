@@ -12,8 +12,6 @@ $jsons = json_decode($content, true);
 
 // Validate parsed JSON data
 
-echo $events;
-
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
