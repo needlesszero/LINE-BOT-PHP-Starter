@@ -12,6 +12,9 @@ if (!is_null($events['events'])) {
 
 	// Loop through each event
 	foreach ($events['events'] as $event) {
+
+		echo $event ;
+		
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
