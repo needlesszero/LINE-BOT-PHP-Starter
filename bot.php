@@ -11,7 +11,6 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 
 if (!is_null($events['events'])) {
-
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
@@ -24,14 +23,14 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $status
+				'text' => $text
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
-				'messages' => $status,
+				'messages' => [$messages],
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
@@ -49,5 +48,4 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-
 echo "OK";
