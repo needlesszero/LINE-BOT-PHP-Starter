@@ -6,6 +6,10 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
+$url = 'https://powerful-badlands-66623.herokuapp.com/test.json';
+$content = file_get_contents($url);
+$json = json_decode($content, true);
+
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
