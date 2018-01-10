@@ -12,22 +12,7 @@ $json = json_decode($content, true);
 
 echo $json;
 
-foreach ($json as $js) {
-		// Reply only when message sent is in 'text' format
-		if ($js['type'] == 'message' && $js['message']['type'] == 'text') {
-			// Get text sent
-			$tt = $js['message']['id'];
-		}
 
-		else 
-			foreach ($js as $key => $value) {
-				if($key == 'status'){
-					$tt = $json['status'];
-				}
-				else $tt = 'fails';
-			}
-			
-	}
 
 
 if (!is_null($events['events'])) {
@@ -39,6 +24,25 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
+
+
+
+			foreach ($json as $js) {
+				// Reply only when message sent is in 'text' format
+				if ($js['type'] == 'message' && $js['message']['type'] == 'text') {
+					// Get text sent
+					$tt = $js['message']['id'];
+				}
+
+				else 
+					foreach ($js as $key => $value) {
+						if($event['message']['text'] == 'status'){
+							$tt = $json['status'];
+						}
+						else $tt = 'fails';
+					}
+					
+			}
 
 			// Build message to reply back
 			$messages = [
