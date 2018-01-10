@@ -21,7 +21,7 @@ foreach ($json as $js) {
 
 		else 
 			foreach ($js as $key => $value) {
-				if($value == 'status'){
+				if($key == 'status'){
 					$tt = $json['status'];
 				}
 				else $tt = 'fails';
