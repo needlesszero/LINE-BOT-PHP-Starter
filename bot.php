@@ -8,7 +8,7 @@ $data = '{
 }';
 
 $json = file_get_contents('https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im.json')
-$character = json_decode($data);
+$character = json_decode($json);
 $t = $character->descript;
 echo "\n".$t."asdasdsad";
 
