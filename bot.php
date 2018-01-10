@@ -14,7 +14,7 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) {
 
 		echo $event ;
-		
+
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
@@ -51,4 +51,4 @@ if (!is_null($events['events'])) {
 	}
 }
 
-echo "OK";
+echo "OKๅๅๅ";
