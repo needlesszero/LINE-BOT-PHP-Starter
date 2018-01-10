@@ -19,7 +19,7 @@ foreach ($json as $js) {
 			$tt = $js['message']['id'];
 		}
 
-		else $tt = $json['result']['status'];
+		else $tt = $json['status'];
 	}
 
 
