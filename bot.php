@@ -48,4 +48,4 @@ if (!is_null($events['events'])) {
 	}
 }
 
-echo "O55555K";
+echo "OK";
