@@ -12,7 +12,7 @@ $jsons = json_decode($content, true);
 
 // Validate parsed JSON data
 
-echo $events;
+echo $content;
 
 if (!is_null($events['events'])) {
 	// Loop through each event
