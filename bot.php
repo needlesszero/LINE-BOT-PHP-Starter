@@ -4,9 +4,9 @@ $data = '{
 	"name": "Aragorn",
 	"race": "Human"
 }';
-
 $character = json_decode($data);
-echo $character->name;
+$t = $character->name;
+echo "\n".$t;
 
 $access_token = 'uqhIt5rrQz+lIsYeKXJj1vN0uN/iGOI82cpggWhyLW/0xqEAudj9NCX+YgM9HA+lOROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj7QDByc60mpmBvWUGg/gfSoxyRNlv4BwVwdD+wsgmpzDgdB04t89/1O/w1cDnyilFU=';
 
@@ -28,7 +28,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $character->name
+				'text' => $text
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
