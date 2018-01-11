@@ -11,7 +11,7 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 
 echo $json;
-echo $json->status;
+echo $json['status'];
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -70,4 +70,4 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-echo "OK";
+echo "OK555";
