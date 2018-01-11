@@ -71,4 +71,4 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-echo "Oๅ/-ๅ/ๅ-K";
+echo "OK";
