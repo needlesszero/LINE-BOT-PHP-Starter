@@ -10,7 +10,8 @@ $url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/mast
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 
-echo $json['toppings'][2]['type'];
+echo $json;
+echo $json['results']['address_components'][1]['long_name'];
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -24,7 +25,7 @@ if (!is_null($events['events'])) {
 
 
 
-			foreach ($json as $js) {
+			foreach ($json['results'] as $js) {
 				// Reply only when message sent is in 'text' format
 				if ($js['type'] == 'message' && $js['message']['type'] == 'text') {
 					// Get text sent
@@ -32,9 +33,9 @@ if (!is_null($events['events'])) {
 				}
 
 				else 
-					foreach ($js as $key) {
+					foreach ($js['address_components'] as $key) {
 						if($event['message']['text'] == 'status'){
-							$tt = $json['toppings'][2]['type'];
+							$tt = $json['results'][0]['address_components'][0]['long_name'];
 						}
 						else $tt = 'fails';
 					}
@@ -69,4 +70,4 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-echo "OK";
+echo "OasdsaK";
