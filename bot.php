@@ -10,7 +10,7 @@ $url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/mast
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 
-echo $json;
+echo $json['toppings'][2]['type'];
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -34,7 +34,7 @@ if (!is_null($events['events'])) {
 				else 
 					foreach ($js as $key) {
 						if($event['message']['text'] == 'status'){
-							$tt = $key['toppings'][2]['type'];;
+							$tt = $key['toppings'][2]['type'];
 						}
 						else $tt = 'fails';
 					}
