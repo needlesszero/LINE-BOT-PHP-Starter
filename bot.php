@@ -34,7 +34,6 @@ if (!is_null($events['events'])) {
 
 				else 
 					foreach ($js['address_components'] as $key => $value) {
-						
 						if($event['message']['text'] == 'status'){
 							$tt = $value;
 						}
@@ -71,4 +70,4 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-echo "OK";
+echo "O/-ภK";
