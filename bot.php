@@ -8,10 +8,9 @@ $events = json_decode($content, true);
 
 $url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im.json';
 $content = file_get_contents($url);
-$json = json_decode($content, true);
+$json = json_decode($content);
 
 echo $json;
-echo $json['results']['address_components'][1]['long_name'];
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -25,7 +24,7 @@ if (!is_null($events['events'])) {
 
 
 
-			foreach ($json['results'] as $js) {
+			foreach ($json->results as $js) {
 				// Reply only when message sent is in 'text' format
 				if ($js['type'] == 'message' && $js['message']['type'] == 'text') {
 					// Get text sent
@@ -33,9 +32,9 @@ if (!is_null($events['events'])) {
 				}
 
 				else 
-					foreach ($js['address_components'] as $key => $value) {
+					foreach ($js->address_components as $key => $value) {
 						if($event['message']['text'] == 'status'){
-							$tt = $js['geometry']['location']['lng'];
+							$tt = $js->address_components[0]->long_name;
 							break;
 						}
 						else $tt = 'fails';
