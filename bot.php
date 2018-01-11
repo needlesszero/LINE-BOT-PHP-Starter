@@ -10,7 +10,7 @@ $url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/mast
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 
-echo $json->['result'][0];
+echo $json->['result'];
 
 
 if (!is_null($events['events'])) {
