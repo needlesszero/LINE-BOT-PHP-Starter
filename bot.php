@@ -11,7 +11,7 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 
 echo $json;
-echo $json['result'];
+echo $json['results'];
 
 
 if (!is_null($events['events'])) {
@@ -26,7 +26,7 @@ if (!is_null($events['events'])) {
 
 
 
-			foreach ($json['result'] as $js) {
+			foreach ($json['results'] as $js) {
 				// Reply only when message sent is in 'text' format
 				if ($js['type'] == 'message' && $js['message']['type'] == 'text') {
 					// Get text sent
@@ -71,4 +71,4 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-echo "OK";
+echo "OK2";
