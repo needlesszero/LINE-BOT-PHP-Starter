@@ -38,6 +38,8 @@ if (!is_null($events['events'])) {
 					foreach ($js['address_components'] as $key => $value) {
 						if($key == $text){
 							$tt = $value;
+							echo $key;
+							echo $value;
 						}
 						else $tt = 'fails';
 					}
