@@ -33,9 +33,9 @@ if (!is_null($events['events'])) {
 				}
 
 				else 
-					foreach ($js['address_components'] as $key => $value) {
+					foreach ($js['address_components'] as $jk) {
 						if($event['message']['text'] == 'status'){
-							$tt = $key;
+							$tt = $jk[1]['long_name'];
 						}
 						else $tt = 'fails';
 					}
@@ -70,4 +70,4 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-echo "Oๅ/-ๅ/ๅ-K";
+echo "OK";
