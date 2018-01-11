@@ -1,68 +1,9 @@
 {
-    "results" : [
-  {
-     "address_components" : [
-        {
-           "long_name" : "1600",
-           "short_name" : "1600",
-           "types" : [ "street_number" ]
-        },
-        {
-           "long_name" : "Amphitheatre Pkwy",
-           "short_name" : "Amphitheatre Pkwy",
-           "types" : [ "route" ]
-        },
-        {
-           "long_name" : "Mountain View",
-           "short_name" : "Mountain View",
-           "types" : [ "locality", "political" ]
-        },
-        {
-           "long_name" : "San Jose",
-           "short_name" : "San Jose",
-           "types" : [ "administrative_area_level_3", "political" ]
-        },
-        {
-           "long_name" : "Santa Clara",
-           "short_name" : "Santa Clara",
-           "types" : [ "administrative_area_level_2", "political" ]
-        },
-        {
-           "long_name" : "California",
-           "short_name" : "CA",
-           "types" : [ "administrative_area_level_1", "political" ]
-        },
-        {
-           "long_name" : "United States",
-           "short_name" : "US",
-           "types" : [ "country", "political" ]
-        },
-        {
-           "long_name" : "94043",
-           "short_name" : "94043",
-           "types" : [ "postal_code" ]
-        }
-     ],
-     "formatted_address" : "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
-     "geometry" : {
-        "location" : {
-           "lat" : 37.4220110,
-           "lng" : -122.08406610
-        },
-        "location_type" : "ROOFTOP",
-        "viewport" : {
-           "northeast" : {
-              "lat" : 37.42335998029150,
-              "lng" : -122.0827171197085
-           },
-           "southwest" : {
-              "lat" : 37.42066201970850,
-              "lng" : -122.0854150802915
-           }
-        }
-     },
-     "types" : [ "street_address" ]
-  }
-    ],
-    "status" : "UP"
- }
+    "type": "donut",
+    "name": "Cake",
+    "toppings": [
+        { "id": "5002", "type": "Glazed" },
+        { "id": "5006", "type": "Chocolate with Sprinkles" },
+        { "id": "5004", "type": "Maple" }
+    ]
+}
