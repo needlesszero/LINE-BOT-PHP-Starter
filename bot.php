@@ -8,10 +8,10 @@ $events = json_decode($content, true);
 
 $url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im.json';
 $content = file_get_contents($url);
-$json = json_decode($content, true);
+$json = json_decode($content);
 
 echo $json;
-echo $json['status'];
+echo $json->results[0];
 
 if (!is_null($events['events'])) {
 	// Loop through each event
