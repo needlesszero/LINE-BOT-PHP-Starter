@@ -36,6 +36,7 @@ if (!is_null($events['events'])) {
 					foreach ($js['address_components'] as $jk) {
 						if($event['message']['text'] == 'status'){
 							$tt = $jk[1];
+							break;
 						}
 						else $tt = 'fails';
 					}
