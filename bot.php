@@ -35,7 +35,7 @@ if (!is_null($events['events'])) {
 				else 
 					foreach ($js['address_components'] as $key => $value) {
 						if($event['message']['text'] == 'status'){
-							$tt = $key['long_name'];
+							$tt = $js['address_components'][$key];
 							break;
 						}
 						else $tt = 'fails';
