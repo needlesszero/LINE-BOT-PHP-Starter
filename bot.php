@@ -27,7 +27,7 @@ if (!is_null($events['events'])) {
 
 
 
-			foreach ($json as $js) {
+			foreach ($json['result'] as $js) {
 				// Reply only when message sent is in 'text' format
 				if ($js['type'] == 'message' && $js['message']['type'] == 'text') {
 					// Get text sent
