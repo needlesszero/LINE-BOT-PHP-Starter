@@ -11,7 +11,7 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 
 echo $json;
-echo $json['results']['address_components'];
+echo $json['geometry']['location']['lat'];
 
 
 if (!is_null($events['events'])) {
