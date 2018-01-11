@@ -34,7 +34,7 @@ if (!is_null($events['events'])) {
 				else 
 					foreach ($js as $key) {
 						if($event['message']['text'] == 'status'){
-							$tt = $key['toppings'][2]['type'];
+							$tt = $json['toppings'][2]['type'];
 						}
 						else $tt = 'fails';
 					}
