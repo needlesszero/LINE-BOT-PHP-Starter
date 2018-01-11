@@ -11,7 +11,7 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 
 echo $json;
-echo $json['results'];
+echo $json->['results'];
 
 
 if (!is_null($events['events'])) {
