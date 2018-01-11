@@ -27,7 +27,7 @@ if (!is_null($events['events'])) {
 
 
 
-			foreach ($json as $js) {
+			foreach ($json['result'] as $js) {
 				// Reply only when message sent is in 'text' format
 				if ($js['type'] == 'message' && $js['message']['type'] == 'text') {
 					// Get text sent
@@ -35,9 +35,9 @@ if (!is_null($events['events'])) {
 				}
 
 				else 
-					foreach ($js as $key => $value) {
-						if($event['message']['text'] == 'status'){
-							$tt = $json['status'];
+					foreach ($js['address_components'] as $key => $value) {
+						if($key == $text){
+							$tt = $value;
 						}
 						else $tt = 'fails';
 					}
