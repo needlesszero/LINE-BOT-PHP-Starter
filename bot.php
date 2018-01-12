@@ -34,8 +34,8 @@ if (!is_null($events['events'])) {
 
 				else 
 					foreach ($js['address_components'] as $key) {
-						if($event['message']['text'] == 'status'){
-							$tt = $json['results'][0]['address_components'][0]['long_name'];
+						if(strcasecmp($event['message']['text'], 'status') == 0){
+							$tt = $json['results'][0]['address_components'][$key]['long_name'];
 						}
 						else $tt = 'fails';
 					}
