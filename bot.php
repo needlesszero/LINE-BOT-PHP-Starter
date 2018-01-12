@@ -76,8 +76,6 @@ if (!is_null($events['events'])) {
 
 		//if sent by sticker
 		if ($event['type'] == 'message' && $event['message']['type'] == 'sticker') {
-
-
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
@@ -87,9 +85,9 @@ if (!is_null($events['events'])) {
 
 			foreach ($json['results'] as $js) {
 
-			foreach ($js['address_components'] as $key=>$value) {
+					foreach ($js['address_components'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
-			$tt = $js['address_components'][$key]['short_name'];			
+							$tt = $js['address_components'][$key]['short_name'];			
 					
 
 
@@ -124,8 +122,6 @@ if (!is_null($events['events'])) {
 
 	//if sent by sticker
 		if ($event['type'] == 'message' && $event['message']['type'] == 'sticker') {
-
-			
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
@@ -135,9 +131,9 @@ if (!is_null($events['events'])) {
 
 			foreach ($json['results'] as $js) {
 
-			foreach ($js['address_components'] as $key=>$value) {
+					foreach ($js['address_components'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
-			$tt = $js['address_components'][$key]['short_name'];			
+							$tt = $js['address_components'][$key]['short_name'];			
 					
 
 
