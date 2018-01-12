@@ -42,7 +42,7 @@ if (!is_null($events['events'])) {
 							$tt = $js['address_components'][$key]['short_name'];
 							break;						
 						}
-						else $tt = 'fails';
+						else $tt = 'failsddd';
 					}
 					
 			}
@@ -89,7 +89,7 @@ if (!is_null($events['events'])) {
 
 			foreach ($json['results'] as $js) {
 			$json = json_decode($content, true);
-			
+
 			foreach ($js['address_components'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 			$tt = $js['address_components'][$key]['short_name'];			
@@ -118,7 +118,7 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 			$result = curl_exec($ch);
-			curl_close($ch);
+			//curl_close($ch);
 
 			echo $result . "\r\n";
 						}
