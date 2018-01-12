@@ -87,16 +87,14 @@ if (!is_null($events['events'])) {
 
 			foreach ($js['address_components'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
-				$tt = $js['address_components'][$key]['short_name'];
-				$ttt = $js['address_components'][$key]['long_name'];
-				$tttt = 'success';			
+				$tt = $js['address_components'][$key]['short_name'];			
 					
 
 
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => [$tt,$ttt,$ttt]
+				'text' => $tt
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
