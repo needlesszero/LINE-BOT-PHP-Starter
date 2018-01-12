@@ -33,11 +33,11 @@ if (!is_null($events['events'])) {
 				}
 
 				else 
-
-					foreach ($js['address_components'] as $j) {
+					
+					foreach ($js['address_components'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(strpos($js['address_components'][$key]['long_name'],$event['message']['text']) !== false){
-							$tt = $j['short_name'];
+							$tt = $js['address_components'][$key]['short_name'];
 							break;						
 						}
 						else $tt = 'fails';
