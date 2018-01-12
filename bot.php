@@ -35,7 +35,7 @@ if (!is_null($events['events'])) {
 				else 
 					foreach ($js['address_components'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
-						if(strpos($json['results'][0]['address_components'][$key]['long_name'],$event['message']['text']) !== false){
+						if(strpos($js['address_components'][$key]['long_name'],$event['message']['text']) !== false){
 							$tt = $js['address_components'][$key]['short_name'];
 							break;						
 						}
@@ -72,4 +72,4 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-echo "OK555";
+echo "OK";
