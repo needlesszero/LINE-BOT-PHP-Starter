@@ -85,16 +85,18 @@ if (!is_null($events['events'])) {
 
 			foreach ($json['results'] as $js) {
 
-					foreach ($js['address_components'] as $key=>$value) {
+			foreach ($js['address_components'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
-							$tt = $js['address_components'][$key]['short_name'];			
+				$tt = $js['address_components'][$key]['short_name'];
+				$ttt = $js['address_components'][$key]['long_name'];
+				$tttt = 'success';			
 					
 
 
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $tt
+				'text' => [$tt,$ttt,$ttt]
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
@@ -105,14 +107,6 @@ if (!is_null($events['events'])) {
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			$result = curl_exec($ch);
 
 			$ch = curl_init($url);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
