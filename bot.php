@@ -35,7 +35,7 @@ if (!is_null($events['events'])) {
 				else 
 					foreach ($js['address_components'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
-						if(strpos($event['message']['text'], 'Amphitheatre Pkwy') !== false){
+						if(strpos('Amphitheatre Pkwy',$event['message']['text']) !== false){
 							$tt = $json['results'][0]['address_components'][$key]['long_name'];						
 						}
 						else $tt = 'fails';
