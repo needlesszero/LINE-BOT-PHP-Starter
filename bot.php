@@ -17,7 +17,9 @@ if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
-		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+
+
+		if ($event['type'] == 'message' && $event['message']['type'] == 'sticker') {
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
@@ -25,7 +27,7 @@ if (!is_null($events['events'])) {
 
 
 
-			foreach ($json['results'] as $js) {
+			/*foreach ($json['results'] as $js) {
 				// Reply only when message sent is in 'text' format
 				if ($js['type'] == 'message' && $js['message']['type'] == 'text') {
 					// Get text sent
@@ -33,7 +35,7 @@ if (!is_null($events['events'])) {
 				}
 
 				else 
-					
+
 					foreach ($js['address_components'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(strpos($js['address_components'][$key]['long_name'],$event['message']['text']) !== false){
@@ -43,12 +45,12 @@ if (!is_null($events['events'])) {
 						else $tt = 'fails';
 					}
 					
-			}
+			}*/
 
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $tt
+				'text' => 'sticker'
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
