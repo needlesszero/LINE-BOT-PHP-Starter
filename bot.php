@@ -38,7 +38,7 @@ if (!is_null($events['events'])) {
 
 					foreach ($js['address_components'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
-						if(strpos($js['address_components'][$key]['long_name'],$event['message']['text']) !== false){
+						if(stripos($js['address_components'][$key]['long_name'],$event['message']['text']) !== false){
 							$tt = $js['address_components'][$key]['short_name'];
 							break;						
 						}
