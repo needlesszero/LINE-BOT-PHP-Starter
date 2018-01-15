@@ -40,7 +40,7 @@ if (!is_null($events['events'])) {
 					
 			}
 
-			if(findPlace==2){				
+			if(findPlace==1){				
 				$url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im2.json';
 				$content = file_get_contents($url);
 				$json = json_decode($content, true);
