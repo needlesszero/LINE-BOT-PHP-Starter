@@ -6,7 +6,7 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-$url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im.json';
+$url = 'https://powerful-badlands-66623.herokuapp.com/im.json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
@@ -41,7 +41,7 @@ if (!is_null($events['events'])) {
 			}
 
 			if($findPlace==false){				
-				$url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im2.json';
+				$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
 				$content = file_get_contents($url);
 				$json = json_decode($content, true);
 
