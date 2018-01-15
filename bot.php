@@ -48,7 +48,7 @@ if (!is_null($events['events'])) {
 				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDorations']
+							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']
 							."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes'];
 							$findPlace = true;
 							break;						
