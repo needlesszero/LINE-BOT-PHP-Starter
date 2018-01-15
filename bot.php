@@ -28,11 +28,9 @@ if (!is_null($events['events'])) {
 
 			foreach ($json['results'] as $js) {
 				// Reply only when message sent is in 'text' format
-					// Get text sent
+				
 					$tt = $text;
 				
-
-				else 
 
 					foreach ($js as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
