@@ -60,10 +60,8 @@ if (!is_null($events['events'])) {
 
 			// Build message to reply back
 			$messages = [
-				['type' => 'text',
-				'text' => $tt],
-				['type' => 'text',
-				'text' => 'second message'],
+				'type' => 'text',
+				'text' => $tt
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
