@@ -9,7 +9,7 @@ $events = json_decode($content, true);
 $url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im.json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
-$findPlace = 1;
+$findPlace = false;
 
 echo $json;
 echo $json['results'][0]['Customer_Name'];
@@ -33,14 +33,14 @@ if (!is_null($events['events'])) {
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
 							$tt = $json['results'][$key]['Customer_Name']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']
 							."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes'];
-							$findPlace = 2;
+							$findPlace = true;
 							break;						
 						}
 						else $tt = 'fails';					
 					
 			}
 
-			if($findPlace==1){				
+			if($findPlace==false){				
 				$url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im2.json';
 				$content = file_get_contents($url);
 				$json = json_decode($content, true);
@@ -86,7 +86,7 @@ if (!is_null($events['events'])) {
 
 			echo $result . "\r\n";
 
-			$findPlace = 1;
+			$findPlace = false;
 			$url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im.json';
 		}
 
