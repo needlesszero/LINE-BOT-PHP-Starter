@@ -9,6 +9,7 @@ $events = json_decode($content, true);
 $url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im.json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
+$findPlace = false;
 
 echo $json;
 echo $json['results'][0]['Customer_Name'];
@@ -32,10 +33,38 @@ if (!is_null($events['events'])) {
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
 							$tt = $json['results'][$key]['Customer_Name']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']
 							."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes'];
+							$findPlace = true;
 							break;						
 						}
 						else $tt = 'fails';					
 					
+			}
+
+			if(findPlace!==true){				
+				$url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im2.json';
+				$content = file_get_contents($url);
+				$json = json_decode($content, true);
+
+				foreach ($json['results'] as $js) {
+				// Reply only when message sent is in 'text' format
+				if ($js['type'] == 'message' && $js['message']['type'] == 'text') {
+					// Get text sent
+					$tt = $js['message']['id'];
+				}
+
+				else 
+
+					foreach ($js['address_components'] as $key=>$value) {
+						//if($event['message']['text'] == 'status'){
+						if(strpos($js['address_components'][$key]['long_name'],$event['message']['text']) !== false){
+							$tt = $js['address_components'][$key]['short_name'];
+							break;						
+						}
+						else $tt = 'fails';
+					}
+					
+			}
+
 			}
 
 			// Build message to reply back
