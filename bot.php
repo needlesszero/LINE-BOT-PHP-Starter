@@ -72,7 +72,7 @@ if (!is_null($events['events'])) {
 				'messages' => [$messages],
 			];
 
-			for($i = 1; $i <= 3; $i++){}
+			for($i = 1; $i <= 3; $i++){
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
