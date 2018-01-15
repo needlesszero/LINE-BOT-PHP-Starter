@@ -31,7 +31,7 @@ if (!is_null($events['events'])) {
 			foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = $json['results'][$key]['Customer_Name']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']
+							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']
 							."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes'];
 							$findPlace = true;
 							break;						
@@ -45,18 +45,17 @@ if (!is_null($events['events'])) {
 				$content = file_get_contents($url);
 				$json = json_decode($content, true);
 
-				foreach ($json['results'] as $js) {
-
-					foreach ($js['address_components'] as $key=>$value) {
+				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
-						if(strpos($js['address_components'][$key]['long_name'],$event['message']['text']) !== false){
-							$tt = $js['address_components'][$key]['short_name'];
+						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
+							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']
+							."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes'];
+							$findPlace = true;
 							break;						
 						}
-						else $tt = 'fails';
-					}
+						else $tt = 'fails';					
 					
-				}
+			}
 
 			}
 
