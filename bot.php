@@ -11,7 +11,7 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 
 echo $json;
-echo $json['results']['address_components'][1]['long_name'];
+echo $json['results'][0]['Customer_Name'];
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -39,7 +39,7 @@ if (!is_null($events['events'])) {
 					foreach ($js['address_components'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(strpos($js[$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = $js['address_components'][$key]['short_name'];
+							$tt = $js[$key]['Customer_Name'].':'.$js[$key]['DowntimeDorations'];
 							break;						
 						}
 						else $tt = 'fails';
