@@ -1,6 +1,4 @@
 <?php
-
-for($i = 1; $i <= 3; $i++){
 $access_token = 'KygJBTnV/xAS9QNhJgQymbEZFw92G8Mj0RjrD3ycZEYbO9+I1a4e4dUqbvIo9Rv+OROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj60DFs60UEbMhmV1fc5mEFF+GXDdqzqmAs+50FUkrVwCwdB04t89/1O/w1cDnyilFU=';
 
 // Get POST body content
@@ -51,7 +49,7 @@ if (!is_null($events['events'])) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
 							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']
-							."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes'];
+							."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
 							break;						
 						}
@@ -73,8 +71,6 @@ if (!is_null($events['events'])) {
 				'replyToken' => $replyToken,
 				'messages' => [$messages],
 			];
-
-			
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
@@ -88,10 +84,8 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 
 			echo $result . "\r\n";
-			
 		}
 
 	}
-}
 }
 echo "OK";
