@@ -11,6 +11,7 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 
 echo $json;
+echo $json['results'][0]['Customer_Name'];
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -26,20 +27,13 @@ if (!is_null($events['events'])) {
 
 
 
-			foreach ($json['results'] as $js) {
-				// Reply only when message sent is in 'text' format
-				
-					$tt = $text;
-				
-
-					foreach ($js as $key=>$value) {
+			foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
-						if(stripos($js[$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = $js[$key]['Customer_Name'].':'.$js[$key]['DowntimeDorations'];
+						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
+							$tt = $json['results'][$key]['Customer_Name'].':'.$js[$key]['DowntimeDorations'];
 							break;						
 						}
-						else $tt = 'fails';
-					}
+						else $tt = 'fails';					
 					
 			}
 
