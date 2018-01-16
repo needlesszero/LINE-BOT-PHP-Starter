@@ -35,7 +35,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = 'fails';					
+						else $tt = 'ไม่พบข้อมูล';					
 					
 			}
 
@@ -52,7 +52,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = 'fails';					
+						else $tt = 'ไม่พบข้อมูล';					
 					
 			}
 
