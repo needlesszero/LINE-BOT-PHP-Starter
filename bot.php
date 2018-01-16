@@ -31,8 +31,7 @@ if (!is_null($events['events'])) {
 			foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = $json['results'][$key]['Customer_Name']."\n";
-							$tt2 = 'Status: '.$json['status']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
+							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
 							break;						
 						}
@@ -48,8 +47,7 @@ if (!is_null($events['events'])) {
 				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = $json['results'][$key]['Customer_Name']."\n";
-							$t1 ='Status: '.$json['status']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']
+							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']
 							."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
 							break;						
@@ -60,37 +58,20 @@ if (!is_null($events['events'])) {
 
 			}
 
-			if($findPlace==false){	
-				$messages = [
-				['type' => 'text',
-				'text' => $tt]
-			];
-			}
 			// Build message to reply back
-			else {
-				$messages = [
+			$messages = [
 				['type' => 'text',
 				'text' => $tt],
 				['type' => 'text',
-				'text' => $t1]
+				'text' => $tt]
 			];
-		}
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
-
-			if($findPlace==false){	
 			$data = [
 				'replyToken' => $replyToken,
 				'messages' => [$messages[0]],
 			];
-		}
-		else {
-			$data = [
-				'replyToken' => $replyToken,
-				'messages' => [$messages[0],$messages[1]],
-			];
-		}
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
