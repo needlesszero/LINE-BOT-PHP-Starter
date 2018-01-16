@@ -35,7 +35,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = 'ไม่พบข้อมูล';					
+						else $tt = 'fails';					
 					
 			}
 
@@ -47,15 +47,12 @@ if (!is_null($events['events'])) {
 				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = $json['results'][$key]['Customer_Name']."\n";
-							$tt2='Status: '.$json['status']."\n";
-							$tt3='UptimeDurations: '.$json['results'][$key]['UptimeDurations']
-							."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes']."\n".'Customer_SLA: '.$json['results']."\n";
-							$tt4=[$key]['Customer_SLA'];
+							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']
+							."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
-							break;
+							break;						
 						}
-						else $tt = 'ไม่พบข้อมูล';					
+						else $tt = 'fails';					
 					
 			}
 
@@ -66,18 +63,14 @@ if (!is_null($events['events'])) {
 				['type' => 'text',
 				'text' => $tt],
 				['type' => 'text',
-				'text' => $tt2],
-				['type' => 'text',
-				'text' => $tt3],
-				['type' => 'text',
-				'text' => $tt4]
+				'text' => $tt]
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
-				'messages' => [$messages[0],$messages[1],$messages[2],$messages[3]],
+				'messages' => [$messages[0]],
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
