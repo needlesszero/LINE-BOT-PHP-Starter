@@ -48,7 +48,8 @@ if (!is_null($events['events'])) {
 				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']
+							$tt = $json['results'][$key]['Customer_Name']."\n";
+							$t1 ='Status: '.$json['status']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']
 							."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
 							break;						
@@ -59,13 +60,21 @@ if (!is_null($events['events'])) {
 
 			}
 
-			// Build message to reply back
-			$messages = [
-				['type' => 'text',
-				'text' => $tt],
+			if($findPlace==false){	
+				$messages = [
 				['type' => 'text',
 				'text' => $tt]
 			];
+			}
+			// Build message to reply back
+			else {
+				$messages = [
+				['type' => 'text',
+				'text' => $tt],
+				['type' => 'text',
+				'text' => $t1]
+			];
+		}
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
