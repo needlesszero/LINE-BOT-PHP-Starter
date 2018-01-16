@@ -48,11 +48,11 @@ if (!is_null($events['events'])) {
 				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']
+							$tt = $json['results'][$key]['Customer_Name']."\n";
+							$tt2='Status: '.$json['status']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']
 							."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
 							break;						
-						}
 						else $tt = 'fails';					
 					
 			}
@@ -79,7 +79,7 @@ if (!is_null($events['events'])) {
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
-				'messages' => [$messages[0]],
+				'messages' => [$messages[0],$messages[1]],
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
