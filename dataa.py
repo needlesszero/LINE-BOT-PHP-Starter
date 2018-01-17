@@ -15,7 +15,7 @@ def get_bitcoin_returnop(_block_start,_block_end,_folder):
 		resp = json.loads(json_str) #load json
 		var = resp['timestamp'] #get data timestamp
 		if not var: #if json is null
-			print "data empty, Not Save"
+			print i," data empty, Not Save"
 		else :
 		#with urllib.request.urlopen(bitcoin_block_url) as url:
 			#data=json.loads(url.read().decode())
@@ -23,7 +23,7 @@ def get_bitcoin_returnop(_block_start,_block_end,_folder):
 			with open(file_path,'w')as f :
 				json.dump(data, f)
 				print(i)
-get_bitcoin_returnop(339480,339500,'block_5_100')
+get_bitcoin_returnop(0,4000,'block_0_100')
 stop = timeit.default_timer()
 print ("RUN TIME !! : ",stop - start)
 
