@@ -1,17 +1,68 @@
 <?php
-$access_token = 'uqhIt5rrQz+lIsYeKXJj1vN0uN/iGOI82cpggWhyLW/0xqEAudj9NCX+YgM9HA+lOROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj7QDByc60mpmBvWUGg/gfSoxyRNlv4BwVwdD+wsgmpzDgdB04t89/1O/w1cDnyilFU=';
+
+/**
+ * Copyright 2016 LINE Corporation
+ *
+ * LINE Corporation licenses this file to you under the Apache License,
+ * version 2.0 (the "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at:
+ *
+ *   https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+require_once('./LINEBotTiny.php');
+
+$channelAccessToken = '<your channel access token>';
+$channelSecret = '<your channel secret>';
+
+$client = new LINEBotTiny($channelAccessToken, $channelSecret);
+foreach ($client->parseEvents() as $event) {
+    switch ($event['type']) {
+        case 'message':
+            $message = $event['message'];
+            switch ($message['type']) {
+                case 'text':
+                    $client->replyMessage(array(
+                        'replyToken' => $event['replyToken'],
+                        'messages' => array(
+                            array(
+                                'type' => 'text',
+                                'text' => $message['text']
+                            )
+                        )
+                    ));
+                    break;
+                default:
+                    error_log("Unsupporeted message type: " . $message['type']);
+                    break;
+            }
+            break;
+        default:
+            error_log("Unsupporeted event type: " . $event['type']);
+            break;
+    }
+};
+=======
+$access_token = 'KygJBTnV/xAS9QNhJgQymbEZFw92G8Mj0RjrD3ycZEYbO9+I1a4e4dUqbvIo9Rv+OROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj60DFs60UEbMhmV1fc5mEFF+GXDdqzqmAs+50FUkrVwCwdB04t89/1O/w1cDnyilFU=';
 
 // Get POST body content
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-$url = 'https://raw.githubusercontent.com/needlesszero/LINE-BOT-PHP-Starter/master/im.json';
+$url = 'https://powerful-badlands-66623.herokuapp.com/im.json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
+$findPlace = false;
 
 echo $json;
-echo $json['results']['address_components'][1]['long_name'];
+echo $json['results'][0]['Customer_Name'];
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -27,37 +78,48 @@ if (!is_null($events['events'])) {
 
 
 
-			foreach ($json['results'] as $js) {
-				// Reply only when message sent is in 'text' format
-				if ($js['type'] == 'message' && $js['message']['type'] == 'text') {
-					// Get text sent
-					$tt = $js['message']['id'];
-				}
-
-				else 
-
-					foreach ($js['address_components'] as $key=>$value) {
+			foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
-						if(strpos($js['address_components'][$key]['long_name'],$event['message']['text']) !== false){
-							$tt = $js['address_components'][$key]['short_name'];
+						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
+							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'IP Address: '.$json['results'][$key]['IP_Address']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
+							$findPlace = true;
 							break;						
 						}
-						else $tt = 'fails';
-					}
+						else $tt = 'ไม่พบข้อมูล';					
 					
+			}
+
+			if($findPlace==false){				
+				$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
+				$content = file_get_contents($url);
+				$json = json_decode($content, true);
+
+				foreach ($json['results'] as $key=>$value) {
+						//if($event['message']['text'] == 'status'){
+						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
+							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'IP Address: '.$json['results'][$key]['IP_Address']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
+							$findPlace = true;
+							break;						
+						}
+						else $tt = 'ไม่พบข้อมูล';					
+					
+			}
+
 			}
 
 			// Build message to reply back
 			$messages = [
-				'type' => 'text',
-				'text' => $tt
+				['type' => 'text',
+				'text' => $tt],
+				['type' => 'text',
+				'text' => $tt]
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
-				'messages' => [$messages],
+				'messages' => [$messages[0]],
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
@@ -69,7 +131,7 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 			$result = curl_exec($ch);
-			curl_close($ch);
+			//curl_close($ch);
 
 			echo $result . "\r\n";
 		}
