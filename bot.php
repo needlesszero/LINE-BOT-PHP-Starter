@@ -59,7 +59,7 @@ if (!is_null($events['events'])) {
 
 			}
 
-			if(preg_match('/^ความ/', 'ความดีของคน')){
+			if(preg_match('/^-stat/', $event['message']['text'])){
 				$tt = 'test';
 			}
 
