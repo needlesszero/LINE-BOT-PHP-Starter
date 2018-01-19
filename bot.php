@@ -78,7 +78,10 @@ if (!is_null($events['events'])) {
 								}
 								else $tt = 'ไม่พบข้อมูล';	
 						}
-						else $tt = '-help เพื่อแสดงคำสั่ง';						
+						else $tt = '-help เพื่อแสดงคำสั่ง';		
+
+						$command = strtok($text, ' ');
+									
 						
 					}
 
