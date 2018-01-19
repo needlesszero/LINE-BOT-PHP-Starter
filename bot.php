@@ -32,7 +32,7 @@ if (!is_null($events['events'])) {
 			$replyToken = $event['replyToken'];
 
 
-			if(strcmp('-help',$text) == false){
+			if(stripos('-help',$event['message']['text']) == false){
 			foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
@@ -40,7 +40,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
+						else $tt = stripos('-help',$event['message']['text']);					
 					
 			}
 
@@ -56,7 +56,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
+						else $tt = stripos('-help',$event['message']['text']);					
 					
 			}
 
