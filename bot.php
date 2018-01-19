@@ -17,6 +17,9 @@ echo $json;
 echo $json['results'][0]['Customer_Name'];
 
 if (!is_null($events['events'])) {
+
+	$defaultCommand = 'คำสั่ง /help : เพื่อแสดงคำสั่งต่างๆ'."\n".'<ชื่อหน่วยงาน> : แสดงข้อมูลทั้งหมดของหน่วยงาน'."\n".'/status <ชื่อหน่วยงาน> : เพื่อแสดง status link ของหน่วยงาน'."\n".'/Ldown <ชื่อหน่วยงาน> : เพื่อแสดง LastDownTimes';
+	
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
@@ -29,7 +32,7 @@ if (!is_null($events['events'])) {
 			$replyToken = $event['replyToken'];
 
 
-
+			if(stripos('/help',$event['message']['text'])!== false){
 			foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
@@ -58,6 +61,10 @@ if (!is_null($events['events'])) {
 			}
 
 			}
+		}
+		else{
+			$tt = $defaultCommand ;
+		}
 
 			// Build message to reply back
 			$messages = [
