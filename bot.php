@@ -14,7 +14,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 
 echo $json;
-echo preg_match('/^ความ/',$event['message']['text'])
+echo preg_match('/^ความ',$event['message']['text'])
 
 if (!is_null($events['events'])) {
 
@@ -39,10 +39,6 @@ if (!is_null($events['events'])) {
 							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'IP Address: '.$json['results'][$key]['IP_Address']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
 							break;						
-						}
-
-						elseif(preg_match('/^stat/',$event['message']['text'])){
-							$tt = 'Test OK';
 						}
 						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
 					
