@@ -42,17 +42,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						if(ereg("^/status", $event['message']['text'])){
-							$tmp_txt = $event['message']['text'];
-							$whatIWant = substr($data, strpos($data, " ") + 1);
-							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant)!== false){
-								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
-							}
-							else{
-							$tt = '/help เพื่อแสดงคำสั่งต่างๆ'
-							}
-						}
-						else $tt = '/help เพื่อแสดงคำสั่งต่างๆ';					
+							
 					
 				}
 
