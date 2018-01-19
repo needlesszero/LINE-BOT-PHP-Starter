@@ -28,7 +28,7 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
-			if(stripos('/help',$event['message']['text'])!== false){
+			if(stripos('-help',$event['message']['text'])!== false){
 				$tt = 'คำสั่ง /help เพื่อแสดงคำสั่งต่างๆ'."\n".'<ชื่อหน่วยงาน> แสดงข้อมูลทั้งหมดของหน่วยงาน'."\n".'/status <ชื่อหน่วยงาน> เพื่อแสดง status link ของหน่วยงาน'."\n".'/Ldown <ชื่อหน่วยงาน> เพื่อแสดง LastDownTimes';
 			}
 
