@@ -14,7 +14,6 @@ $json = json_decode($content, true);
 $findPlace = false;
 
 echo $json;
-echo $json['results'][0]['Customer_Name'];
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -29,38 +28,39 @@ if (!is_null($events['events'])) {
 			$replyToken = $event['replyToken'];
 
 
+			if(preg_match('/^-help/', $event['message']['text'])){
+				$tt = '-help : เพื่อแสดงคำสั่ง'."\n".'-stat <ชื่อหน่วนงาน> : แสดง status link';
+			}
 
-			foreach ($json['results'] as $key=>$value) {
+			else{
+				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
 							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'IP Address: '.$json['results'][$key]['IP_Address']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
 							break;						
 						}
-						else $tt = 'ไม่พบข้อมูล';					
+						else $tt = '-help เพื่อแสดงคำสั่ง';					
 					
-			}
+				}
 
-			if($findPlace==false){				
-				$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
-				$content = file_get_contents($url);
-				$json = json_decode($content, true);
+				if($findPlace==false){				
+					$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
+					$content = file_get_contents($url);
+					$json = json_decode($content, true);
 
-				foreach ($json['results'] as $key=>$value) {
-						//if($event['message']['text'] == 'status'){
-						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'IP Address: '.$json['results'][$key]['IP_Address']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
-							$findPlace = true;
-							break;						
-						}
-						else $tt = 'ไม่พบข้อมูล';					
-					
-			}
+					foreach ($json['results'] as $key=>$value) {
+							//if($event['message']['text'] == 'status'){
+							if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'IP Address: '.$json['results'][$key]['IP_Address']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
+								$findPlace = true;
+								break;						
+							}
+							else $tt = '-help เพื่อแสดงคำสั่ง';					
+						
+					}
 
-			}
-
-			if(preg_match('/^-stat/', $event['message']['text'])){
-				$tt = 'test';
+				}
 			}
 
 			// Build message to reply back
