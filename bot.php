@@ -14,6 +14,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 
 echo $json;
+echo $json['results'][0]['Customer_Name'];
 
 if (!is_null($events['events'])) {
 
