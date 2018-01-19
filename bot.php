@@ -14,6 +14,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 
 echo $json;
+echo preg_match('/^ความ/',$event['message']['text'])
 
 if (!is_null($events['events'])) {
 
