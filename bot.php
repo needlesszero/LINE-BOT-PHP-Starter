@@ -28,12 +28,12 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
-			if(stripos('-help',$event['message']['text'])!== false){
+			if(stripos('/help',$event['message']['text'])!== false){
 				$tt = 'คำสั่ง /help เพื่อแสดงคำสั่งต่างๆ'."\n".'<ชื่อหน่วยงาน> แสดงข้อมูลทั้งหมดของหน่วยงาน'."\n".'/status <ชื่อหน่วยงาน> เพื่อแสดง status link ของหน่วยงาน'."\n".'/Ldown <ชื่อหน่วยงาน> เพื่อแสดง LastDownTimes';
 			}
 
-
-			foreach ($json['results'] as $key=>$value) {
+			else {
+				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
 							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'IP Address: '.$json['results'][$key]['IP_Address']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
@@ -61,6 +61,11 @@ if (!is_null($events['events'])) {
 			}
 
 			}
+
+			}
+
+
+			
 
 			// Build message to reply back
 			$messages = [
