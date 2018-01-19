@@ -42,7 +42,13 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
+						elseif(ereg("^/status", $event['message']['text'])){
+							$tmp_txt = $event['message']['text'];
 							
+						}
+						else {
+							$tt = '/help เพื่อแสดงคำสั่งต่างๆ';	
+						}				
 					
 				}
 
