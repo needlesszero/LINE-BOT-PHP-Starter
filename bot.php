@@ -14,7 +14,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 
 echo $json;
-echo preg_match('/^ความ/','ความดี');
+echo preg_match('/^stat/','status 5555555');
 
 if (!is_null($events['events'])) {
 
@@ -40,11 +40,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						elseif(preg_match('/^stat/',$event['message']['text'])){
-							$tt = 'test complete';
-							$findPlace = true;
-						}
-						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
+						else $tt = preg_match('/^-stat/',$text);					
 					
 			}
 
@@ -62,7 +58,7 @@ if (!is_null($events['events'])) {
 						}
 						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
 					
-			}
+					}
 
 			}
 		}
