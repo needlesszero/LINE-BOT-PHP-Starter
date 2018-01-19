@@ -37,7 +37,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = preg_match('/^ความ/', "ความดีของคน");					
+						else $tt = preg_match('/^ความ/', 'ความดีของคน');					
 					
 			}
 
@@ -53,11 +53,11 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = preg_match('/^ความ/', "ความดีของคน");					
+						else $tt = preg_match('/^ความ/', 'ความดีของคน');					
 					
 			}
 
-			}z
+			}
 
 			// Build message to reply back
 			$messages = [
