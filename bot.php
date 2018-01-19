@@ -28,6 +28,9 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
+			if($event['message']['text'] == "/help"){
+				$tt = "คำสั่ง /help เพื่อแสดงคำสั่งต่างๆ"."\n"."<ชื่อหน่วยงาน> แสดงข้อมูลทั้งหมดของหน่วยงาน"."\n"."/status <ชื่อหน่วยงาน> เพื่อแสดง status link ของหน่วยงาน"."\n"."/Ldown <ชื่อหน่วยงาน> เพื่อแสดง LastDownTimes"
+			}
 
 
 			foreach ($json['results'] as $key=>$value) {
