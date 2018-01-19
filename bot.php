@@ -14,7 +14,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 
 echo $json;
-echo array_keys($json['results'][0]);
+echo array_keys($json['results'][0][0]);
 
 if (!is_null($events['events'])) {
 	// Loop through each event
