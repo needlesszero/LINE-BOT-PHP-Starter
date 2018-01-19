@@ -18,8 +18,7 @@ echo $json['results'][0]['Customer_Name'];
 
 if (!is_null($events['events'])) {
 
-	$defaultCommand = 'คำสั่ง -help : เพื่อแสดงคำสั่งต่างๆ'."\n".'<ชื่อหน่วยงาน> : แสดงข้อมูลทั้งหมดของหน่วยงาน'."\n".'-status <ชื่อหน่วยงาน> : เพื่อแสดง status link ของหน่วยงาน'."\n".'-Ldown <ชื่อหน่วยงาน> : เพื่อแสดง LastDownTimes';
-
+	$defaultCommand = 'คำสั่ง /help : เพื่อแสดงคำสั่งต่างๆ'."\n".'<ชื่อหน่วยงาน> : แสดงข้อมูลทั้งหมดของหน่วยงาน'."\n".'/status <ชื่อหน่วยงาน> : เพื่อแสดง status link ของหน่วยงาน'."\n".'/Ldown <ชื่อหน่วยงาน> : เพื่อแสดง LastDownTimes';
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
@@ -31,18 +30,23 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
+			if(stripos('/help',$event['message']['text'])!== false){
+				$tt = $defaultCommand ;
+			}
 
-			if(strcasecmp('-help',$text) == false){
-			foreach ($json['results'] as $key=>$value) {
+			else {
+				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
 							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'IP Address: '.$json['results'][$key]['IP_Address']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
 							break;						
 						}
-						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
+						else {
+							$tt = ereg("^ความ", "ความดีของคน");	
+						}				
 					
-			}
+				}
 
 			if($findPlace==false){				
 				$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
@@ -56,15 +60,13 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
+						else $tt = '/help เพื่อแสดงคำสั่งต่างๆ';					
 					
 			}
 
 			}
-		}
-		elseif{
-			$tt = $defaultCommand ;
-		}
+
+			}			
 
 			// Build message to reply back
 			$messages = [
