@@ -40,6 +40,10 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
+						elseif(preg_match('/^stat/',$event['message']['text'])){
+							$tt = 'test complete';
+							$findPlace = true;
+						}
 						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
 					
 			}
