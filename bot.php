@@ -16,8 +16,6 @@ $findPlace = false;
 echo $json;
 
 $mystring = 'home/cat1/subcat2/';
-$first = strtok($mystring, '/');
-echo $first; 
 
 if (!is_null($events['events'])) {
 	// Loop through each event
