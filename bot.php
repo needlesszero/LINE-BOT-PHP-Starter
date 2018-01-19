@@ -44,8 +44,8 @@ if (!is_null($events['events'])) {
 						}
 						elseif(ereg("^-status", $event['message']['text'])){
 							$tmp_txt = $event['message']['text'];
-							$whatIWant = substr($tmp_txt, strpos($tmp_txt, " ") + 1);
-							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant)!== false){
+							//$whatIWant = substr($tmp_txt, strpos($tmp_txt, " ") + 1);
+							if(stripos($json['results'][$key]['Customer_Name'],$tmp_txt)!== false){
 								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
 							}
 							else{
