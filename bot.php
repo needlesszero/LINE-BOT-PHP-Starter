@@ -14,7 +14,6 @@ $json = json_decode($content, true);
 $findPlace = false;
 
 echo $json;
-echo preg_match('/^ความ/','ความดี');
 
 if (!is_null($events['events'])) {
 
@@ -40,7 +39,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = preg_match('/^ความ/','ความดี');		
+						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
 					
 			}
 
@@ -56,7 +55,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = preg_match('/^ความ/','ความดี');					
+						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
 					
 			}
 
