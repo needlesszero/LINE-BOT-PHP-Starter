@@ -40,7 +40,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = 'ไม่พบข้อมูล';					
+						else $tt = '/help เพื่อแสดงคำสั่งต่างๆ';					
 					
 			}
 
@@ -56,7 +56,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = 'ไม่พบข้อมูล';					
+						else $tt = '/help เพื่อแสดงคำสั่งต่างๆ';					
 					
 			}
 
