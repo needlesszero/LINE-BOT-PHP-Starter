@@ -35,13 +35,6 @@ if (!is_null($events['events'])) {
 			}
 
 			else {
-				if(ereg("^/status", $event['message']['text'])){
-					foreach ($json['results'] as $key=>$value) {
-						$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
-					}
-				}
-
-				else{
 				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
@@ -49,10 +42,19 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = '/help เพื่อแสดงคำสั่งต่างๆ';
-				}				
+						if(ereg("^/status", $event['message']['text'])){
+							$tmp_txt = $event['message']['text'];
+							$whatIWant = substr($data, strpos($data, " ") + 1);
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant)!== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
+							}
+							else{
+							$tt = '/help เพื่อแสดงคำสั่งต่างๆ'
+							}
+						}
+						else $tt = '/help เพื่อแสดงคำสั่งต่างๆ';					
 					
-			}
+				}
 
 			if($findPlace==false){				
 				$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
