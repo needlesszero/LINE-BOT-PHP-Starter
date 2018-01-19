@@ -14,7 +14,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 
 echo $json;
-echo ereg("^ความ", "ความดีของคน");
+echo preg_match("^ความ", "ความดีของคน");
 
 if (!is_null($events['events'])) {
 
