@@ -81,7 +81,7 @@ if (!is_null($events['events'])) {
 						else $tt = '-help เพื่อแสดงคำสั่ง';		
 
 						$command = strtok($text, ' ');
-						if(stripos(array_keys($json['results'][$key])),$command){
+						if(stripos(array_keys($json['results'][0][$key])),$command){
 							$tt = stripos(array_keys($json['results'][$key]);
 						}					
 						
