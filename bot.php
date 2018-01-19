@@ -41,7 +41,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
+						else $tt = preg_match("^ความ", "ความดีของคน");					
 					
 			}
 
@@ -57,7 +57,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
+						else $tt = preg_match("^ความ", "ความดีของคน");					
 					
 			}
 
