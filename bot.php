@@ -1,6 +1,5 @@
 <?php
 
-echo 'Current PHP version: ' . phpversion();
 
 $access_token = 'KygJBTnV/xAS9QNhJgQymbEZFw92G8Mj0RjrD3ycZEYbO9+I1a4e4dUqbvIo9Rv+OROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj60DFs60UEbMhmV1fc5mEFF+GXDdqzqmAs+50FUkrVwCwdB04t89/1O/w1cDnyilFU=';
 
@@ -41,7 +40,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = preg_match("^ความ", "ความดีของคน");					
+						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
 					
 			}
 
@@ -57,7 +56,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = preg_match("^ความ", "ความดีของคน");					
+						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
 					
 			}
 
