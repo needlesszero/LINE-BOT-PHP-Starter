@@ -41,8 +41,16 @@ if (!is_null($events['events'])) {
 							break;						
 						}
 						elseif(preg_match('/^-stat/', $event['message']['text'])){
+							$data = $event['message']['text'];    
+							$whatIWant = substr($data, strpos($data, ' ') + 1);
 							$tt = 'status : Link';	
-							$findPlace = true;
+
+							if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
+								$findPlace = true;
+								break;						
+							}
+							else $tt = '-help เพื่อแสดงคำสั่ง';	
 						}
 						else $tt = '-help เพื่อแสดงคำสั่ง';					
 					
