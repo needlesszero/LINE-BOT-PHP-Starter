@@ -14,7 +14,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 
 echo $json;
-echo $json['results'][0]['Customer_Name'];
+echo ereg("^ความ", "ความดีของคน");
 
 if (!is_null($events['events'])) {
 
@@ -62,7 +62,7 @@ if (!is_null($events['events'])) {
 
 			}
 		}
-		if(stripos('-help',$event['message']['text'])!== false){
+		if(stripos('-help',$event['message']['text']) !== false){
 			$tt = $defaultCommand ;
 		}
 
