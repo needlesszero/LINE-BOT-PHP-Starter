@@ -40,7 +40,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
+						else $tt = stripos('-help',$event['message']['text']);					
 					
 			}
 
@@ -56,7 +56,7 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
-						else $tt = '-help เพื่อแสดงคำสั่งต่างๆ';					
+						else $tt = stripos('-help',$event['message']['text']);					
 					
 			}
 
