@@ -42,6 +42,15 @@ if (!is_null($events['events'])) {
 							$findPlace = true;
 							break;						
 						}
+						elseif(ereg("^ความ", "ความดีของคน")){
+							$tmp_txt = $event['message']['text'];
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant)!== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
+							}
+							else{
+							$tt = '/help เพื่อแสดงคำสั่งต่างๆ'
+							}
+						}
 						else {
 							$tt = '/help เพื่อแสดงคำสั่งต่างๆ';	
 						}				
