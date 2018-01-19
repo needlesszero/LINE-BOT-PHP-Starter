@@ -14,7 +14,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 
 echo $json;
-echo preg_match('/^คำวาม/','ความดี');
+echo preg_match('/^ความ/','ความดี');
 
 if (!is_null($events['events'])) {
 
