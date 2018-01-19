@@ -14,7 +14,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 
 echo $json;
-echo array_keys($json);
+echo array_keys($json['results'][0][0]);
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -36,10 +36,7 @@ if (!is_null($events['events'])) {
 			else{
 				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
-						$command = strtok($text, ' ');
-						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text'])){
 
-						}
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
 							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'IP Address: '.$json['results'][$key]['IP_Address']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
@@ -86,6 +83,11 @@ if (!is_null($events['events'])) {
 					}
 
 				}
+			}
+
+			$command = strtok($text, ' ');
+			if(stripos(array_keys($json['results'][$key]),$command)){
+				$tt = stripos(array_keys($json['results'][$key]);
 			}
 
 			// Build message to reply back
