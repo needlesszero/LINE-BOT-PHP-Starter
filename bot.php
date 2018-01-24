@@ -13,6 +13,7 @@ $url = 'https://powerful-badlands-66623.herokuapp.com/im.json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
+$ttt .="\n".'asdasd';
 
 echo $ttt;
 echo $json;
