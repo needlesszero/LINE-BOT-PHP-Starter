@@ -29,6 +29,7 @@ if (!is_null($events['events'])) {
 
 			if(preg_match('/^-help/', $event['message']['text'])||preg_match('/^-h/', $event['message']['text'])){
 				$tt = '-help : เพื่อแสดงคำสั่ง'."\n".
+					  '-f <คำค้นหา> : เพื่อค้นหาสถานที่ประกอบคำที่ต้องการค้นหา'."\n".
 					  '-stat <ชื่อหน่วนงาน> : แสดง status link'."\n".
 					  '-ld /-lastd <ชื่อหน่วนงาน> : แสดง LastDownTimes'."\n".
 					  '-down / -dt <ชื่อหน่วนงาน> : แสดง DowntimeDurations'."\n".
@@ -48,10 +49,23 @@ if (!is_null($events['events'])) {
 									$findPlace = true;					
 								}
 							}
+
+							$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
+							$content = file_get_contents($url);
+							$json = json_decode($content, true);
+							foreach ($json['results'] as $key=>$value){
+								$data = $event['message']['text'];    
+								$whatIWant = substr($data, strpos($data, ' ') + 1);
+								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+									$tt .= '-'.$json['results'][$key]['Customer_Name']."\n";
+									$c += 1;
+									$findPlace = true;					
+								}
+							}
 							$tt .='ค้นพบทั้งหมด '.$c.' สถานที่' ;
 
 							if($c==0){
-								$tt='ไม่พบสถานที่ที่ค้นหา';
+								$tt='ไม่พบข้อมูล';
 							}
 						}
 
