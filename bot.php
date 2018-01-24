@@ -37,15 +37,18 @@ if (!is_null($events['events'])) {
 					  
 			}
 			elseif(preg_match('/^-f/', $event['message']['text'])){
-							$tt ='สถานที่ที่ค้นหา'."\n";
+							$tt ='สถานที่ที่ค้นหา :'."\n";
+							$c = 1;
 							foreach ($json['results'] as $key=>$value){
 								$data = $event['message']['text'];    
 								$whatIWant = substr($data, strpos($data, ' ') + 1);
 								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-									$tt .= $json['results'][$key]['Customer_Name']."\n";
+									$tt .= '-'.$json['results'][$key]['Customer_Name']."\n";
+									$c += 1;
 									$findPlace = true;					
 								}
-							}	
+							}
+							$tt .='ค้นพบทั้งหมด '.$c.' สถานที่' ;
 						}
 
 			else{
