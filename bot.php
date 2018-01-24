@@ -45,6 +45,19 @@ if (!is_null($events['events'])) {
 			else{
 				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
+					if(preg_match('/^-f/', $event['message']['text'])){
+							$tt ='สถานที่ที่ค้นหา'."\n";
+							foreach ($json['results'] as $key=>$value){
+								$data = $event['message']['text'];    
+								$whatIWant = substr($data, strpos($data, ' ') + 1);
+								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+									$tt .= $json['results'][$key]['Customer_Name']."\n";
+									$findPlace = true;
+									break;						
+							}
+							else $tt = 'ไม่พบข้อมูล';
+							}	
+						}
 
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
 							$tt = 'ชื่อ: '."\n".$json['results'][$key]['Customer_Name']."\n".'จังหวัด: '.$json['results'][$key]['Province']."\n".'Status: '.$json['status']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
