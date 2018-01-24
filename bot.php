@@ -38,7 +38,7 @@ if (!is_null($events['events'])) {
 			}
 			elseif(preg_match('/^-f/', $event['message']['text'])){
 							$tt ='สถานที่ที่ค้นหา :'."\n";
-							$c = 1;
+							$c = 0;
 							foreach ($json['results'] as $key=>$value){
 								$data = $event['message']['text'];    
 								$whatIWant = substr($data, strpos($data, ' ') + 1);
@@ -49,6 +49,10 @@ if (!is_null($events['events'])) {
 								}
 							}
 							$tt .='ค้นพบทั้งหมด '.$c.' สถานที่' ;
+
+							if($c==0){
+								$tt='ไม่พบสถานที่ที่ค้นหา'
+							}
 						}
 
 			else{
