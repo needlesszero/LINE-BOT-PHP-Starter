@@ -43,10 +43,8 @@ if (!is_null($events['events'])) {
 								$whatIWant = substr($data, strpos($data, ' ') + 1);
 								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
 									$tt .= $json['results'][$key]['Customer_Name']."\n";
-									$findPlace = true;
-									break;						
+									$findPlace = true;					
 								}
-								else $tt = 'ไม่พบข้อมูล';
 							}	
 						}
 
