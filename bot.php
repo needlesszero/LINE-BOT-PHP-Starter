@@ -58,13 +58,25 @@ if (!is_null($events['events'])) {
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
 							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = $json['results'][$key]['Customer_Name']."\n".'DowntimeDuration: '.$json['DowntimeDorations'];
+								$tt = $json['results'][$key]['Customer_Name']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations'];
 								$findPlace = true;
 								break;						
 							}
 							else $tt = 'ไม่พบข้อมูล';	
 						}
 
+						elseif(preg_match('/^-ld/', $event['message']['text']))|| preg_match('/^-last/', $event['message']['text']){
+							$data = $event['message']['text'];    
+							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = $json['results'][$key]['Customer_Name']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes'];
+									$findPlace = true;
+									break;						
+								}
+								else $tt = 'ไม่พบข้อมูล';
+							}
+
+						}
 						else $tt = '-help เพื่อแสดงคำสั่ง';					
 					
 				}
