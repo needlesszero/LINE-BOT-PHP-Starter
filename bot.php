@@ -15,6 +15,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 $ttt = $ttt+'asdasd';
 
+echo $ttt;
 echo $json;
 echo array_keys($json['results'][0][0]);
 
