@@ -33,7 +33,13 @@ if (!is_null($events['events'])) {
 
 
 			if(preg_match('/^-help/', $event['message']['text'])){
-				$tt = '-help : เพื่อแสดงคำสั่ง'."\n".'-stat <ชื่อหน่วนงาน> : แสดง status link'."\n".'-ld /-lastd <ชื่อหน่วนงาน> : แสดง LastDownTimes'."\n".'-down / -dt <ชื่อหน่วนงาน> : แสดง DowntimeDurations';
+				$tt = '-help : เพื่อแสดงคำสั่ง'."\n".
+					  '-stat <ชื่อหน่วนงาน> : แสดง status link'."\n".
+					  '-ld /-lastd <ชื่อหน่วนงาน> : แสดง LastDownTimes'."\n".
+					  '-down / -dt <ชื่อหน่วนงาน> : แสดง DowntimeDurations'."\n".
+					  '-lu /-lastu <ชื่อหน่วนงาน> : แสดง LastUpTimes'."\n".
+					  '-up / -ut <ชื่อหน่วนงาน> : แสดง UptimeDurations';
+					  
 			}
 
 			else{
@@ -104,6 +110,27 @@ if (!is_null($events['events'])) {
 									break;						
 								}
 								else $tt = 'ไม่พบข้อมูล';	
+						}
+						elseif(preg_match('/^-ut/', $event['message']['text']) || preg_match('/^-up/', $event['message']['text'])){
+							$data = $event['message']['text'];    
+							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations'];
+								$findPlace = true;
+								break;						
+							}
+							else $tt = 'ไม่พบข้อมูล';	
+						}
+
+						elseif(preg_match('/^-ltd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
+							$data = $event['message']['text'];    
+							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'LastUpTimes: '.$json['results'][$key]['LastDownTimes'];
+								$findPlace = true;
+								break;						
+							}
+							else $tt = 'ไม่พบข้อมูล';	
 						}
 						else $tt = '-help เพื่อแสดงคำสั่ง';		
 
