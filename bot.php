@@ -65,20 +65,6 @@ if (!is_null($events['events'])) {
 							else $tt = 'ไม่พบข้อมูล';	
 						}
 
-						elseif(preg_match('/^-ld/', $event['message']['text']))|| preg_match('/^-last/', $event['message']['text']){
-							$data = $event['message']['text'];    
-							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(preg_match('/^-lastd/', $event['message']['text'])){
-								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-									$tt = $json['results'][$key]['Customer_Name']."\n".'LastDownTimes: '.$json['LastDownTimes'];
-									$findPlace = true;
-									break;						
-								}
-								else $tt = 'ไม่พบข้อมูล';
-							}
-							else $tt = '-lastd / -ld: เพื่อแสดงข้อมูล LastDownTimes'."\n".'-lastu / -lu: เพื่อแสดงข้อมูล LastUpTimes';
-
-						}
 						else $tt = '-help เพื่อแสดงคำสั่ง';					
 					
 				}
