@@ -32,7 +32,7 @@ if (!is_null($events['events'])) {
 			$replyToken = $event['replyToken'];
 
 
-			if(preg_match('/^-help/', $event['message']['text'])){
+			if(preg_match('/^-help/', $event['message']['text'])||preg_match('/^-h/', $event['message']['text'])){
 				$tt = '-help : เพื่อแสดงคำสั่ง'."\n".
 					  '-stat <ชื่อหน่วนงาน> : แสดง status link'."\n".
 					  '-ld /-lastd <ชื่อหน่วนงาน> : แสดง LastDownTimes'."\n".
