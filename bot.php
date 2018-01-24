@@ -65,18 +65,17 @@ if (!is_null($events['events'])) {
 							else $tt = 'ไม่พบข้อมูล';	
 						}
 
-						elseif(preg_match('/^-ld/', $event['message']['text']))|| preg_match('/^-last/', $event['message']['text']){
+						elseif(preg_match('/^-ltd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
 							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-									$tt = $json['results'][$key]['Customer_Name']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes'];
-									$findPlace = true;
-									break;						
-								}
-								else $tt = 'ไม่พบข้อมูล';
+								$tt = $json['results'][$key]['Customer_Name']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes'];
+								$findPlace = true;
+								break;						
 							}
+							else $tt = 'ไม่พบข้อมูล';	
+						}
 
-						
 						else $tt = '-help เพื่อแสดงคำสั่ง';					
 					
 				}
