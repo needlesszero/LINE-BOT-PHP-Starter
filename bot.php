@@ -30,11 +30,11 @@ if (!is_null($events['events'])) {
 			if(preg_match('/^-help/', $event['message']['text'])||preg_match('/^-h/', $event['message']['text'])){
 				$tt = '-help : เพื่อแสดงคำสั่ง'."\n".
 					  '-f <คำค้นหา> : เพื่อค้นหาสถานที่ประกอบคำที่ต้องการค้นหา'."\n".
-					  '-stat <ชื่อหน่วนงาน> : แสดง status link'."\n".
-					  '-ld /-lastd <ชื่อหน่วนงาน> : แสดง LastDownTimes'."\n".
-					  '-down / -dt <ชื่อหน่วนงาน> : แสดง DowntimeDurations'."\n".
-					  '-lu /-lastu <ชื่อหน่วนงาน> : แสดง LastUpTimes'."\n".
-					  '-up / -ut <ชื่อหน่วนงาน> : แสดง UptimeDurations';
+					  '-stat <ชื่อหน่วยงาน> : แสดง status link'."\n".
+					  '-ld /-lastd <ชื่อหน่วยงาน> : แสดง LastDownTimes'."\n".
+					  '-down / -dt <ชื่อหน่วยงาน> : แสดง DowntimeDurations'."\n".
+					  '-lu /-lastu <ชื่อหน่วยงาน> : แสดง LastUpTimes'."\n".
+					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
 					  
 			}
 			elseif(preg_match('/^-f/', $event['message']['text'])){
