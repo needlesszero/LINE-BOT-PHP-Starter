@@ -99,7 +99,7 @@ if (!is_null($events['events'])) {
 								$findPlace = true;
 								break;						
 							}
-							else $tt = 'ไม่พบข้อมูล';
+							else $tt = 'ไม่พบข้อมูล';	
 						}
 
 						elseif(preg_match('/^-ltd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
@@ -196,24 +196,20 @@ if (!is_null($events['events'])) {
 			$result = curl_exec($ch);
 			curl_close($ch);
 
-			
+
 			$url = 'https://powerful-badlands-66623.herokuapp.com/im.json';
 			$content = file_get_contents($url);
-			$json = json_decode($content, true);
-			if(stripos('needlesszero',$event['message']['text']){
-				if (!is_null($events['events'])) {
-					// Loop through each event
-					foreach ($events['events'] as $event) {
-						// Reply only when message sent is in 'text' format
-						if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
-							// Get text sent
-							$text = $event['message']['text'];
-							// Get replyToken
-							$replyToken = $event['replyToken'];
-						}
+			if (!is_null($events['events'])) {
+			// Loop through each event
+				foreach ($events['events'] as $event) {
+					// Reply only when message sent is in 'text' format
+					if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+						// Get text sent
+						$text = $event['message']['text'];
+						// Get replyToken
+						$replyToken = $event['replyToken'];
 					}
 				}
-				
 			}
 
 			echo $result . "\r\n";
