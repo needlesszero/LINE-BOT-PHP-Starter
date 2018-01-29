@@ -198,7 +198,8 @@ if (!is_null($events['events'])) {
 
 
 			$url = 'https://powerful-badlands-66623.herokuapp.com/im.json';
-			$content = file_get_contents($url);
+			$content = file_get_contents($url);			
+			$json = json_decode($content, true);
 			if (!is_null($events['events'])) {
 			// Loop through each event
 				foreach ($events['events'] as $event) {
@@ -208,6 +209,30 @@ if (!is_null($events['events'])) {
 						$text = $event['message']['text'];
 						// Get replyToken
 						$replyToken = $event['replyToken'];
+						$messages = [
+							['type' => 'text',
+							'text' => 'Username-Authentication'],
+							['type' => 'text',
+							'text' => $tt]
+						];
+
+			// Make a POST Request to Messaging API to reply to sender
+			$url = 'https://api.line.me/v2/bot/message/reply';
+			$data = [
+				'replyToken' => $replyToken,
+				'messages' => [$messages[1]],
+			];
+			$post = json_encode($data);
+			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+			$result = curl_exec($ch);
+			curl_close($ch);
 					}
 				}
 			}
