@@ -7,6 +7,7 @@ $access_token = 'KygJBTnV/xAS9QNhJgQymbEZFw92G8Mj0RjrD3ycZEYbO9+I1a4e4dUqbvIo9Rv
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
+$events2 = json_decode($content, true);
 
 $url = 'https://powerful-badlands-66623.herokuapp.com/im.json';
 $content = file_get_contents($url);
@@ -194,15 +195,14 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 			$result = curl_exec($ch);
-			curl_close($ch);
 
 
 			$url = 'https://powerful-badlands-66623.herokuapp.com/im.json';
 			$content = file_get_contents($url);			
 			$json = json_decode($content, true);
-			if (!is_null($events['events'])) {
+			if (!is_null($events2['events'])) {
 			// Loop through each event
-				foreach ($events['events'] as $event) {
+				foreach ($events2['events'] as $event) {
 					// Reply only when message sent is in 'text' format
 					if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 						// Get text sent
@@ -216,23 +216,23 @@ if (!is_null($events['events'])) {
 							'text' => $tt]
 						];
 
-			// Make a POST Request to Messaging API to reply to sender
-			$url = 'https://api.line.me/v2/bot/message/reply';
-			$data = [
-				'replyToken' => $replyToken,
-				'messages' => [$messages[1]],
-			];
-			$post = json_encode($data);
-			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+						// Make a POST Request to Messaging API to reply to sender
+						$url = 'https://api.line.me/v2/bot/message/reply';
+						$data = [
+							'replyToken' => $replyToken,
+							'messages' => [$messages[1]],
+						];
+						$post = json_encode($data);
+						$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			$result = curl_exec($ch);
-			curl_close($ch);
+						$ch = curl_init($url);
+						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+						curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+						curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+						curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+						$result = curl_exec($ch);
+						curl_close($ch);
 					}
 				}
 			}
