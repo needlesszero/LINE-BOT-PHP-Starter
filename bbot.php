@@ -12,13 +12,9 @@ $url = 'https://powerful-badlands-66623.herokuapp.com/im.json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
-
-echo $json;
-echo $json['results'][0]['Customer_Name'];
+echo array_keys($json['results'][0][0]);
 
 if (!is_null($events['events'])) {
-
-	$defaultCommand = 'คำสั่ง /help : เพื่อแสดงคำสั่งต่างๆ'."\n".'<ชื่อหน่วยงาน> : แสดงข้อมูลทั้งหมดของหน่วยงาน'."\n".'/status <ชื่อหน่วยงาน> : เพื่อแสดง status link ของหน่วยงาน'."\n".'/Ldown <ชื่อหน่วยงาน> : เพื่อแสดง LastDownTimes';
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
@@ -30,43 +26,149 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
-			if(stripos('/help',$event['message']['text'])!== false){
-				$tt = $defaultCommand ;
-			}
 
-			else {
+			if(preg_match('/^-help/', $event['message']['text'])||preg_match('/^-h/', $event['message']['text'])){
+				$tt = '-help : เพื่อแสดงคำสั่ง'."\n".
+					  '-f <คำค้นหา> : เพื่อค้นหาสถานที่ประกอบคำที่ต้องการค้นหา'."\n".
+					  '-stat <ชื่อหน่วยงาน> : แสดง status link'."\n".
+					  '-ld /-lastd <ชื่อหน่วยงาน> : แสดง LastDownTimes'."\n".
+					  '-down / -dt <ชื่อหน่วยงาน> : แสดง DowntimeDurations'."\n".
+					  '-lu /-lastu <ชื่อหน่วยงาน> : แสดง LastUpTimes'."\n".
+					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
+					  
+			}
+			elseif(preg_match('/^-f/', $event['message']['text'])){
+							$tt ='สถานที่ที่ค้นหา :'."\n";
+							$c = 0;
+							foreach ($json['results'] as $key=>$value){
+								$data = $event['message']['text'];    
+								$whatIWant = substr($data, strpos($data, ' ') + 1);
+								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+									$tt .= '-'.$json['results'][$key]['Customer_Name']."\n";
+									$c += 1;
+									$findPlace = true;					
+								}
+							}
+
+							$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
+							$content = file_get_contents($url);
+							$json = json_decode($content, true);
+							foreach ($json['results'] as $key=>$value){
+								$data = $event['message']['text'];    
+								$whatIWant = substr($data, strpos($data, ' ') + 1);
+								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+									$tt .= '- '.$json['results'][$key]['Customer_Name']."\n";
+									$c += 1;
+									$findPlace = true;					
+								}
+							}
+							$tt .='ค้นพบทั้งหมด '.$c.' สถานที่' ;
+
+							if($c==0){
+								$tt='ไม่พบข้อมูล';
+							}
+						}
+
+			else{
 				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
+					
+
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'IP Address: '.$json['results'][$key]['IP_Address']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
+							$tt = 'ชื่อ: '."\n".$json['results'][$key]['Customer_Name']."\n".'จังหวัด: '.$json['results'][$key]['Province']."\n".'Status: '.$json['status']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
 							break;						
 						}
-						else {
-							$tt = ereg("^ความ", "ความดีของคน");	
-						}				
+
+						elseif(preg_match('/^-stat/', $event['message']['text'])){
+							$data = $event['message']['text'];    
+							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
+								$findPlace = true;
+								break;						
+							}
+							else $tt = 'ไม่พบข้อมูล';	
+						}
+
+						elseif(preg_match('/^-dt/', $event['message']['text']) || preg_match('/^-down/', $event['message']['text'])){
+							$data = $event['message']['text'];    
+							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations'];
+								$findPlace = true;
+								break;						
+							}
+							else $tt = 'ไม่พบข้อมูล';	
+						}
+
+						elseif(preg_match('/^-ltd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
+							$data = $event['message']['text'];    
+							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes'];
+								$findPlace = true;
+								break;						
+							}
+							else $tt = 'ไม่พบข้อมูล';	
+						}
+
+						else $tt = '-help เพื่อแสดงคำสั่ง';					
 					
 				}
 
-			if($findPlace==false){				
-				$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
-				$content = file_get_contents($url);
-				$json = json_decode($content, true);
+				if($findPlace==false){				
+					$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
+					$content = file_get_contents($url);
+					$json = json_decode($content, true);
 
-				foreach ($json['results'] as $key=>$value) {
-						//if($event['message']['text'] == 'status'){
-						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status']."\n".'IP Address: '.$json['results'][$key]['IP_Address']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
-							$findPlace = true;
-							break;						
+					foreach ($json['results'] as $key=>$value) {
+							//if($event['message']['text'] == 'status'){
+							if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
+								$tt = 'ชื่อ: '."\n".$json['results'][$key]['Customer_Name']."\n".'จังหวัด: '.$json['results'][$key]['Province']."\n".'Status: '.$json['status']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations']."\n".'LastUpTimes: '.$json['results'][$key]['LastUpTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
+								$findPlace = true;
+								break;						
+							}
+							elseif(preg_match('/^-stat/', $event['message']['text'])){
+								$data = $event['message']['text'];    
+								$whatIWant = substr($data, strpos($data, ' ') + 1);
+								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
+									$findPlace = true;
+									break;						
+								}
+								else $tt = 'ไม่พบข้อมูล';	
 						}
-						else $tt = '/help เพื่อแสดงคำสั่งต่างๆ';					
-					
-			}
+						elseif(preg_match('/^-ut/', $event['message']['text']) || preg_match('/^-up/', $event['message']['text'])){
+							$data = $event['message']['text'];    
+							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'UptimeDurations: '.$json['results'][$key]['UptimeDurations'];
+								$findPlace = true;
+								break;						
+							}
+							else $tt = 'ไม่พบข้อมูล';	
+						}
 
-			}
+						elseif(preg_match('/^-ltd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
+							$data = $event['message']['text'];    
+							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'LastUpTimes: '.$json['results'][$key]['LastDownTimes'];
+								$findPlace = true;
+								break;						
+							}
+							else $tt = 'ไม่พบข้อมูล';	
+						}
+						else $tt = '-help เพื่อแสดงคำสั่ง';		
 
-			}			
+						$command = strtok($text, ' ');
+									
+						
+					}
+
+				}
+			}
 
 			// Build message to reply back
 			$messages = [
