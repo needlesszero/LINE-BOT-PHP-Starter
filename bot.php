@@ -196,10 +196,11 @@ if (!is_null($events['events'])) {
 			$result = curl_exec($ch);
 			curl_close($ch);
 
-			if(stripos('needlesszero',$event['message']['text']){
+			
 			$url = 'https://powerful-badlands-66623.herokuapp.com/im.json';
 			$content = file_get_contents($url);
-
+			$json = json_decode($content, true);
+			if(stripos('needlesszero',$event['message']['text']){
 				if (!is_null($events['events'])) {
 					// Loop through each event
 					foreach ($events['events'] as $event) {
