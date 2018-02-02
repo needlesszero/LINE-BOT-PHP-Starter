@@ -17,6 +17,5 @@ curl_setopt($hc, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($hc, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($hc, CURLOPT_FOLLOWLOCATION, 1);
 $resultz = curl_exec($hc);
-echo $resultz;
 
 ?>
