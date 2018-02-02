@@ -3,16 +3,14 @@ $access_token = 'KygJBTnV/xAS9QNhJgQymbEZFw92G8Mj0RjrD3ycZEYbO9+I1a4e4dUqbvIo9Rv
 
 $messages = [
 				['type' => 'text',
-				'text' => 'tt'],
-				['type' => 'text',
-				'text' => 'asdasdsad']
+				'text' => 'tt']
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
-				'messages' => [$messages[0]],
+				'messages' => [$messages],
 			];
 			$post = json_encode($data);
 
