@@ -9,9 +9,14 @@ $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-$result[0] = curl_exec($ch);
-$result[1] = curl_exec($ch);
-curl_close($ch);
-
+$result = curl_exec($ch);
 echo $result;
+
+$hc = curl_init($url);
+curl_setopt($hc, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($hc, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($hc, CURLOPT_FOLLOWLOCATION, 1);
+$resultz = curl_exec($hc);
+echo $resultz;
+
 ?>
