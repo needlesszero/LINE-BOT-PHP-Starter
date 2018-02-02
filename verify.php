@@ -6,7 +6,7 @@ $messages = [
 				'text' => 'asdsad']
 			];
 // Parse JSON
-$post = json_decode($content, true);
+$post = json_decode($messages, true);
 
 $url = 'https://api.line.me/v1/oauth/verify';
 
