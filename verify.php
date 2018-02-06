@@ -16,6 +16,6 @@ $url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 
-echo $json
+echo $json['feed']['entry'];
 
 ?>
