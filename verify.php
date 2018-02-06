@@ -12,4 +12,10 @@ curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 $result = curl_exec($ch);
 echo $result;
 
+$url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/od6/public/values?alt=json';
+$content = file_get_contents($url);
+$json = json_decode($content, true);
+
+echo $json
+
 ?>
