@@ -11,9 +11,8 @@ $events = json_decode($content, true);
 $url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/1/public/values?alt=json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
-$json = $json['feed']['entry'];
 $findPlace = false;
-echo $json['feed']['entry'][0]['gsx$customername']['$t'];
+echo $json = $json['feed']['entry'][0]['gsx$customername']['$t'];;
 
 if (!is_null($events['events'])) {
 	// Loop through each event
