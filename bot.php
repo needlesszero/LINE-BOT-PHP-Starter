@@ -74,10 +74,18 @@ if (!is_null($events['events'])) {
 						//if($event['message']['text'] == 'status'){
 					
 
-						if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) !== false){
+						elseif(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) !== false){
+							if(strcmp($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) !== false){
 							$tt = 'ชื่อ: '."\n".$json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'จังหวัด: '.$json['feed']['entry'][$key]['gsx$province']['$t']."\n".'Status: Down'.$json['status']['$t']."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['gsx$downtimedorations']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['gsx$lastdowntimes']['$t']."\n".'Customer_SLA: '.$json['feed']['entry'][$key]['gsx$customersla']['$t'];
 							$findPlace = true;
-							break;						
+							break;
+							}
+							else{
+								$tt = 'ชื่อ: '."\n".$json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'จังหวัด: '.$json['feed']['entry'][$key]['gsx$province']['$t']."\n".'Status: Down'.$json['status']['$t']."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['gsx$downtimedorations']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['gsx$lastdowntimes']['$t']."\n".'Customer_SLA: '.$json['feed']['entry'][$key]['gsx$customersla']['$t'];
+							$findPlace = true;
+							}
+
+													
 						}
 
 						elseif(preg_match('/^-stat/', $event['message']['text'])){
@@ -86,7 +94,7 @@ if (!is_null($events['events'])) {
 							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
 								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
 								$findPlace = true;
-								break;						
+								break;		
 							}
 							else $tt = 'ไม่พบข้อมูล';	
 						}
