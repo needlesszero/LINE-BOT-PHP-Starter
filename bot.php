@@ -37,10 +37,10 @@ if (!is_null($events['events'])) {
 					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
 					  
 			}
-			elseif(preg_match('/^-f/', $event['message']['text'])){
+			/*elseif(preg_match('/^-f/', $event['message']['text'])){
 							$tt ='สถานที่ที่ค้นหา :'."\n";
 							$c = 0;
-							foreach ($json['results'] as $key=>$value){
+							foreach ($json['feed']['entry'] as $key=>$value){
 								$data = $event['message']['text'];    
 								$whatIWant = substr($data, strpos($data, ' ') + 1);
 								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
@@ -67,15 +67,15 @@ if (!is_null($events['events'])) {
 							if($c==0){
 								$tt='ไม่พบข้อมูล';
 							}
-						}
+						}*/
 
 			else{
-				foreach ($json['results'] as $key=>$value) {
+				foreach ($json['feed']['entry'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 					
 
-						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = 'ชื่อ: '."\n".$json['results'][$key]['Customer_Name']."\n".'จังหวัด: '.$json['results'][$key]['Province']."\n".'Status: '.$json['status']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
+						if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) !== false){
+							$tt = 'ชื่อ: '."\n".$json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'จังหวัด: '.$json['feed']['entry'][$key]['gsx$province']['$t']."\n".'Status: Down'.$json['status']['$t']."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['gsx$downtimedorations']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['gsx$lastdowntimes']['$t']."\n".'Customer_SLA: '.$json['feed']['entry'][$key]['gsx$customersla']['$t'];
 							$findPlace = true;
 							break;						
 						}
