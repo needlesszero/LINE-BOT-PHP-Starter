@@ -8,11 +8,11 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-$url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/1/public/values?alt=json';
+$url = 'https://powerful-badlands-66623.herokuapp.com/im.json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
-echo $json = $json['feed']['entry'][0]['gsx$customername']['$t'];;
+echo array_keys($json['results'][0][0]);
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -40,24 +40,24 @@ if (!is_null($events['events'])) {
 			elseif(preg_match('/^-f/', $event['message']['text'])){
 							$tt ='สถานที่ที่ค้นหา :'."\n";
 							$c = 0;
-							foreach ($json['feed']['entry'] as $key=>$value){
+							foreach ($json['results'] as $key=>$value){
 								$data = $event['message']['text'];    
 								$whatIWant = substr($data, strpos($data, ' ') + 1);
-								if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
-									$tt .= '-'.$json['feed']['entry'][$key]['gsx$customername']['$t']."\n";
+								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+									$tt .= '-'.$json['results'][$key]['Customer_Name']."\n";
 									$c += 1;
 									$findPlace = true;					
 								}
 							}
 
-							$url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/2/public/values?alt=json';
+							$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
 							$content = file_get_contents($url);
 							$json = json_decode($content, true);
 							foreach ($json['results'] as $key=>$value){
 								$data = $event['message']['text'];    
 								$whatIWant = substr($data, strpos($data, ' ') + 1);
-								if(stripos($json['feed']['entry'][$key]['Customer_Name'],$whatIWant) !== false){
-									$tt .= '- '.$json['feed']['entry'][$key]['Customer_Name']['$t']."\n";
+								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+									$tt .= '- '.$json['results'][$key]['Customer_Name']."\n";
 									$c += 1;
 									$findPlace = true;					
 								}
@@ -70,12 +70,12 @@ if (!is_null($events['events'])) {
 						}
 
 			else{
-				foreach ($json['feed']['entry'] as $key=>$value) {
+				foreach ($json['results'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 					
 
-						if(stripos($json['feed']['entry'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = 'ชื่อ: '."\n".$json['feed']['entry'][$key]['Customer_Name']['$t']."\n".'จังหวัด: '.$json['feed']['entry'][$key]['Province']['$t']."\n".'Status: DOWN'."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['DowntimeDorations']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['LastDownTimes']['$t']."\n".'Customer_SLA: '.$json['feed']['entry'][$key]['Customer_SLA']['$t'];
+						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
+							$tt = 'ชื่อ: '."\n".$json['results'][$key]['Customer_Name']."\n".'จังหวัด: '.$json['results'][$key]['Province']."\n".'Status: '.$json['status']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
 							break;						
 						}
@@ -83,8 +83,8 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-stat/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['feed']['entry'][$key]['Customer_Name']['$t'],$whatIWant) !== false){
-								$tt = $json['feed']['entry'][$key]['Customer_Name']['$t']."\n".'Status: DOWN';
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
 								$findPlace = true;
 								break;						
 							}
@@ -94,8 +94,8 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-dt/', $event['message']['text']) || preg_match('/^-down/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['feed']['entry'][$key]['Customer_Name']['$t'],$whatIWant) !== false){
-								$tt = $json['feed']['entry'][$key]['Customer_Name']['$t']."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['DowntimeDorations']['$t'];
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations'];
 								$findPlace = true;
 								break;						
 							}
@@ -105,8 +105,8 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-ltd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['feed']['entry'][$key]['Customer_Name']['$t'],$whatIWant) !== false){
-								$tt = $json['feed']['entry'][$key]['Customer_Name']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['LastDownTimes']['$t'];
+							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = $json['results'][$key]['Customer_Name']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes'];
 								$findPlace = true;
 								break;						
 							}
@@ -118,7 +118,7 @@ if (!is_null($events['events'])) {
 				}
 
 				if($findPlace==false){				
-					$url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/2/public/values?alt=json';
+					$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
 					$content = file_get_contents($url);
 					$json = json_decode($content, true);
 
