@@ -50,14 +50,14 @@ if (!is_null($events['events'])) {
 								}
 							}
 
-							$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
+							$url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/2/public/values?alt=json';
 							$content = file_get_contents($url);
 							$json = json_decode($content, true);
 							foreach ($json['results'] as $key=>$value){
 								$data = $event['message']['text'];    
 								$whatIWant = substr($data, strpos($data, ' ') + 1);
-								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-									$tt .= '- '.$json['results'][$key]['Customer_Name']."\n";
+								if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
+									$tt .= '- '.$json['feed']['entry'][$key]['gsx$customername']['$t']."\n";
 									$c += 1;
 									$findPlace = true;					
 								}
@@ -70,21 +70,21 @@ if (!is_null($events['events'])) {
 						}
 
 			else{
-				foreach ($json['results'] as $key=>$value) {
+				foreach ($json['feed']['entry'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 					
 
-						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = 'ชื่อ: '."\n".$json['results'][$key]['Customer_Name']."\n".'จังหวัด: '.$json['results'][$key]['Province']."\n".'Status: '.$json['status']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
+						if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) !== false){
+							$tt = 'ชื่อ: '."\n".$json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'จังหวัด: '.$json['feed']['entry'][$key]['gsx$province']['$t']."\n".'Status: Down'.$json['status']['$t']."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['gsx$downtimedorations']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['gsx$lastdowntimes']['$t']."\n".'Customer_SLA: '.$json['feed']['entry'][$key]['gsx$customersla']['$t'];
 							$findPlace = true;
 							break;						
 						}
 
-						elseif(preg_match('/^-stat/', $event['message']['text'])){
+						elseif(preg_match('/^-stat/', $fevent['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
+							if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
+								$tt = $json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'Status: DOWN'.$json['status'];
 								$findPlace = true;
 								break;						
 							}
@@ -94,8 +94,8 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-dt/', $event['message']['text']) || preg_match('/^-down/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = $json['results'][$key]['Customer_Name']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations'];
+							if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
+								$tt = $json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['gsx$downtimedorations']['$t'];
 								$findPlace = true;
 								break;						
 							}
@@ -105,8 +105,8 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-ltd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = $json['results'][$key]['Customer_Name']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes'];
+							if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t']],$whatIWant) !== false){
+								$tt = $json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['gsx$lastdowntimes']['$t'];
 								$findPlace = true;
 								break;						
 							}

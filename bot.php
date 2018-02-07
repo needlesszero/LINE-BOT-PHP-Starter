@@ -40,7 +40,7 @@ if (!is_null($events['events'])) {
 			}
 
 			else{
-				foreach ($json['results'] as $key=>$value) {
+				foreach ($json['feed']['entry'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 					
 
