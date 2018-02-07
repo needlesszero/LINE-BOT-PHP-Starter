@@ -8,11 +8,12 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-$url = 'https://powerful-badlands-66623.herokuapp.com/im.json';
+$url = '$url = https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/1/public/values?alt=json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
-echo array_keys($json['results'][0][0]);
+$json = $json['feed']['entry'][0]['gsx$customername']['$t'];
+echo $json;
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -37,37 +38,6 @@ if (!is_null($events['events'])) {
 					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
 					  
 			}
-			elseif(preg_match('/^-f/', $event['message']['text'])){
-							$tt ='สถานที่ที่ค้นหา :'."\n";
-							$c = 0;
-							foreach ($json['results'] as $key=>$value){
-								$data = $event['message']['text'];    
-								$whatIWant = substr($data, strpos($data, ' ') + 1);
-								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-									$tt .= '-'.$json['results'][$key]['Customer_Name']."\n";
-									$c += 1;
-									$findPlace = true;					
-								}
-							}
-
-							$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
-							$content = file_get_contents($url);
-							$json = json_decode($content, true);
-							foreach ($json['results'] as $key=>$value){
-								$data = $event['message']['text'];    
-								$whatIWant = substr($data, strpos($data, ' ') + 1);
-								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-									$tt .= '- '.$json['results'][$key]['Customer_Name']."\n";
-									$c += 1;
-									$findPlace = true;					
-								}
-							}
-							$tt .='ค้นพบทั้งหมด '.$c.' สถานที่' ;
-
-							if($c==0){
-								$tt='ไม่พบข้อมูล';
-							}
-						}
 
 			else{
 				foreach ($json['results'] as $key=>$value) {
