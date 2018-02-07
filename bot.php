@@ -8,11 +8,12 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-$url = 'ผ';
+$url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/1/public/values?alt=json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
+$json = $json['feed']['entry'];
 $findPlace = false;
-echo array_keys($json['results'][0][0]);
+echo $json['feed']['entry'][0]['gsx$customername']['$t'];
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -40,7 +41,7 @@ if (!is_null($events['events'])) {
 			elseif(preg_match('/^-f/', $event['message']['text'])){
 							$tt ='สถานที่ที่ค้นหา :'."\n";
 							$c = 0;
-							foreach ($json['results'] as $key=>$value){
+							foreach ($json['feed']['entry'] as $key=>$value){
 								$data = $event['message']['text'];    
 								$whatIWant = substr($data, strpos($data, ' ') + 1);
 								if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
@@ -56,8 +57,8 @@ if (!is_null($events['events'])) {
 							foreach ($json['results'] as $key=>$value){
 								$data = $event['message']['text'];    
 								$whatIWant = substr($data, strpos($data, ' ') + 1);
-								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-									$tt .= '- '.$json['results'][$key]['Customer_Name']."\n";
+								if(stripos($json['feed']['entry'][$key]['Customer_Name'],$whatIWant) !== false){
+									$tt .= '- '.$json['feed']['entry'][$key]['Customer_Name']['$t']."\n";
 									$c += 1;
 									$findPlace = true;					
 								}
@@ -70,12 +71,12 @@ if (!is_null($events['events'])) {
 						}
 
 			else{
-				foreach ($json['results'] as $key=>$value) {
+				foreach ($json['feed']['entry'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 					
 
-						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = 'ชื่อ: '."\n".$json['results'][$key]['Customer_Name']."\n".'จังหวัด: '.$json['results'][$key]['Province']."\n".'Status: '.$json['status']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
+						if(stripos($json['feed']['entry'][$key]['Customer_Name'],$event['message']['text']) !== false){
+							$tt = 'ชื่อ: '."\n".$json['feed']['entry'][$key]['Customer_Name']['$t']."\n".'จังหวัด: '.$json['feed']['entry'][$key]['Province']['$t']."\n".'Status: DOWN'."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['DowntimeDorations']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['LastDownTimes']['$t']."\n".'Customer_SLA: '.$json['feed']['entry'][$key]['Customer_SLA']['$t'];
 							$findPlace = true;
 							break;						
 						}
@@ -83,8 +84,8 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-stat/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
+							if(stripos($json['feed']['entry'][$key]['Customer_Name']['$t'],$whatIWant) !== false){
+								$tt = $json['feed']['entry'][$key]['Customer_Name']['$t']."\n".'Status: DOWN';
 								$findPlace = true;
 								break;						
 							}
@@ -94,8 +95,8 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-dt/', $event['message']['text']) || preg_match('/^-down/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = $json['results'][$key]['Customer_Name']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations'];
+							if(stripos($json['feed']['entry'][$key]['Customer_Name']['$t'],$whatIWant) !== false){
+								$tt = $json['feed']['entry'][$key]['Customer_Name']['$t']."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['DowntimeDorations']['$t'];
 								$findPlace = true;
 								break;						
 							}
@@ -105,8 +106,8 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-ltd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = $json['results'][$key]['Customer_Name']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes'];
+							if(stripos($json['feed']['entry'][$key]['Customer_Name']['$t'],$whatIWant) !== false){
+								$tt = $json['feed']['entry'][$key]['Customer_Name']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['LastDownTimes']['$t'];
 								$findPlace = true;
 								break;						
 							}
