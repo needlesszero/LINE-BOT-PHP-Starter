@@ -8,11 +8,11 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-$url = 'https://powerful-badlands-66623.herokuapp.com/im.json';
+$url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/1/public/values?alt=json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
-echo array_keys($json['results'][0][0]);
+echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -37,10 +37,10 @@ if (!is_null($events['events'])) {
 					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
 					  
 			}
-			elseif(preg_match('/^-f/', $event['message']['text'])){
+			/*elseif(preg_match('/^-f/', $event['message']['text'])){
 							$tt ='สถานที่ที่ค้นหา :'."\n";
 							$c = 0;
-							foreach ($json['results'] as $key=>$value){
+							foreach ($json['feed']['entry'] as $key=>$value){
 								$data = $event['message']['text'];    
 								$whatIWant = substr($data, strpos($data, ' ') + 1);
 								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
@@ -67,17 +67,22 @@ if (!is_null($events['events'])) {
 							if($c==0){
 								$tt='ไม่พบข้อมูล';
 							}
-						}
+						}*/
 
 			else{
-				foreach ($json['results'] as $key=>$value) {
+				foreach ($json['feed']['entry'] as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 					
 
-						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
-							$tt = 'ชื่อ: '."\n".$json['results'][$key]['Customer_Name']."\n".'จังหวัด: '.$json['results'][$key]['Province']."\n".'Status: '.$json['status']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
+						if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) !== false){
+								$tt = 'ชื่อ: '."\n".$json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'จังหวัด: '.$json['feed']['entry'][$key]['gsx$province']['$t']."\n".'Status: Down'.$json['status']['$t']."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['gsx$downtimedorations']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['gsx$lastdowntimes']['$t']."\n".'Customer_SLA: '.$json['feed']['entry'][$key]['gsx$customersla']['$t'];
 							$findPlace = true;
-							//break;						
+							}
+
+													
+						if($json['feed']['entry'][$key]['gsx$customername']['$t'] === $event['message']['text']){
+							$tt = 'ชื่อ: '."\n".$json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'จังหวัด: '.$json['feed']['entry'][$key]['gsx$province']['$t']."\n".'Status: Down'.$json['status']['$t']."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['gsx$downtimedorations']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['gsx$lastdowntimes']['$t']."\n".'Customer_SLA: '.$json['feed']['entry'][$key]['gsx$customersla']['$t'];
+							$findPlace = true;
 						}
 
 						elseif(preg_match('/^-stat/', $event['message']['text'])){
@@ -86,7 +91,7 @@ if (!is_null($events['events'])) {
 							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
 								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
 								$findPlace = true;
-								break;						
+								break;		
 							}
 							else $tt = 'ไม่พบข้อมูล';	
 						}
@@ -113,10 +118,11 @@ if (!is_null($events['events'])) {
 							else $tt = 'ไม่พบข้อมูล';	
 						}
 
-						else 
+						else {
 							if($findPlace==false){
 								$tt = '-help เพื่อแสดงคำสั่ง';	
-								}				
+								}	
+						}				
 					
 				}
 
