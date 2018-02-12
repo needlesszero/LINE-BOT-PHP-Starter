@@ -13,7 +13,6 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
 echo $json['feed']['entry'][0]['gsx$customername']['$t'];
-echo strcasecmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์"];
 
 if (!is_null($events['events'])) {
 	// Loop through each event
