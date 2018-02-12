@@ -75,8 +75,8 @@ if (!is_null($events['events'])) {
 						//if($event['message']['text'] == 'status'){
 					
 
-						if(strcmp($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) == true){
-							if(strcmp($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) == true){
+						if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) !== false){
+							if(strcmp($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) !== false){
 							$tt = 'ชื่อ: '."\n".$json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'จังหวัด: '.$json['feed']['entry'][$key]['gsx$province']['$t']."\n".'Status: Down'.$json['status']['$t']."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['gsx$downtimedorations']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['gsx$lastdowntimes']['$t']."\n".'Customer_SLA: '.$json['feed']['entry'][$key]['gsx$customersla']['$t'];
 							$findPlace = true;
 							break;
