@@ -13,6 +13,7 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
 echo $json['feed']['entry'][0]['gsx$customername']['$t'];
+echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์"]
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -74,8 +75,8 @@ if (!is_null($events['events'])) {
 						//if($event['message']['text'] == 'status'){
 					
 
-						if(strcmp($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) !== false){
-							if(strcmp($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) !== false){
+						if(strcmp($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) == true){
+							if(strcmp($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) == true){
 							$tt = 'ชื่อ: '."\n".$json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'จังหวัด: '.$json['feed']['entry'][$key]['gsx$province']['$t']."\n".'Status: Down'.$json['status']['$t']."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['gsx$downtimedorations']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['gsx$lastdowntimes']['$t']."\n".'Customer_SLA: '.$json['feed']['entry'][$key]['gsx$customersla']['$t'];
 							$findPlace = true;
 							break;
