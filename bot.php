@@ -77,7 +77,7 @@ if (!is_null($events['events'])) {
 						if(stripos($json['results'][$key]['Customer_Name'],$event['message']['text']) !== false){
 							$tt = 'ชื่อ: '."\n".$json['results'][$key]['Customer_Name']."\n".'จังหวัด: '.$json['results'][$key]['Province']."\n".'Status: '.$json['status']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes']."\n".'Customer_SLA: '.$json['results'][$key]['Customer_SLA'];
 							$findPlace = true;
-							break;						
+							//break;						
 						}
 
 						elseif(preg_match('/^-stat/', $event['message']['text'])){
@@ -113,7 +113,10 @@ if (!is_null($events['events'])) {
 							else $tt = 'ไม่พบข้อมูล';	
 						}
 
-						else $tt = '-help เพื่อแสดงคำสั่ง';					
+						else 
+							if($findPlace==false){
+								$tt = '-help เพื่อแสดงคำสั่ง';	
+								}				
 					
 				}
 
