@@ -12,7 +12,7 @@ $url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
-echo stripos("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
+echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
 
 if (!is_null($events['events'])) {
 	// Loop through each event
