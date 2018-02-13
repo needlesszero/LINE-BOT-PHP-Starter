@@ -88,8 +88,8 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-stat/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = $json['results'][$key]['Customer_Name']."\n".'Status: '.$json['status'];
+							if(stripos(json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
+								$tt = json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'Status: '.$json['status'];
 								$findPlace = true;
 								break;		
 							}
@@ -99,8 +99,8 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-dt/', $event['message']['text']) || preg_match('/^-down/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = $json['results'][$key]['Customer_Name']."\n".'DowntimeDuration: '.$json['results'][$key]['DowntimeDorations'];
+							if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
+								$tt = $json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'DowntimeDuration: '.$json['feed']['entry'][$key]['gsx$downtimedorations']['$t'];
 								$findPlace = true;
 								break;						
 							}
@@ -110,8 +110,8 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-ltd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = $json['results'][$key]['Customer_Name']."\n".'LastDownTimes: '.$json['results'][$key]['LastDownTimes'];
+							if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
+								$tt = $json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'LastDownTimes: '.$json['feed']['entry'][$key]['gsx$lastdowntimes']['$t'];
 								$findPlace = true;
 								break;						
 							}
@@ -127,7 +127,7 @@ if (!is_null($events['events'])) {
 				}
 
 				if($findPlace==false){				
-					$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
+					$url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/2/public/values?alt=json';
 					$content = file_get_contents($url);
 					$json = json_decode($content, true);
 
