@@ -18,14 +18,14 @@ if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
-
+		$uid = $event['source']['userId'];
 
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
-			$uid = $event['source']['userId'];
+			
 
 
 			if(preg_match('/^-help/', $event['message']['text'])||preg_match('/^-h/', $event['message']['text'])){
@@ -185,11 +185,11 @@ if (!is_null($events['events'])) {
 				}
 			}
 
-			/*if(strpos('U237064aef8646f8a0f49e8794a05aa3',$event['source']['userId']) !== false){
+			if(stripos('U237064aef8646f8a0f49e8794a05aa3f',$event['source']['userId']) !== false){
 			}
 			else{
 				$tt = 'Authentication Failed';
-			}*/
+			}
 
 			// Build message to reply back
 			$messages = [
