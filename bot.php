@@ -185,7 +185,7 @@ if (!is_null($events['events'])) {
 				}
 			}
 
-			if(stripos('U237064aef8646f8a0f49e',$uid) !== false){
+			if(stripos('U237064aef8646f8a0f49e8794a05aa3',$uid) !== false){
 			}
 			else{
 				$tt = 'Authentication Failed';
