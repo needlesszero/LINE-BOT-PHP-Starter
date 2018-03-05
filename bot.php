@@ -40,7 +40,7 @@ if (!is_null($events['events'])) {
 			}
 
 			if(preg_match('/^-uid/', $event['message']['text'])){
-				$tt = uid;
+				$tt = $uid;
 					  
 			}
 			/*elseif(preg_match('/^-f/', $event['message']['text'])){
