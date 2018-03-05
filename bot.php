@@ -25,6 +25,7 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
+			$uid = $events['source']['userId'];
 
 
 			if(preg_match('/^-help/', $event['message']['text'])||preg_match('/^-h/', $event['message']['text'])){
@@ -35,6 +36,11 @@ if (!is_null($events['events'])) {
 					  '-down / -dt <ชื่อหน่วยงาน> : แสดง DowntimeDurations'."\n".
 					  '-lu /-lastu <ชื่อหน่วยงาน> : แสดง LastUpTimes'."\n".
 					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
+					  
+			}
+
+			if(preg_match('/^-uid/', $event['message']['text'])){
+				$tt = uid;
 					  
 			}
 			/*elseif(preg_match('/^-f/', $event['message']['text'])){
@@ -88,7 +94,7 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-stat/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos(json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
+							if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
 								$tt = json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'Status: '.$json['status'];
 								$findPlace = true;
 								break;		
