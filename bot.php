@@ -19,7 +19,7 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
 
-
+		if(preg_match('U237064aef8646f8a0f49e8794a05aa33',$event['source']['userId'])){
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
@@ -184,6 +184,11 @@ if (!is_null($events['events'])) {
 
 				}
 			}
+		}
+
+		else {
+			$tt = 'ท่านไม่มีสิทธิ์ในการใช้งาน';
+		}
 
 			// Build message to reply back
 			$messages = [
