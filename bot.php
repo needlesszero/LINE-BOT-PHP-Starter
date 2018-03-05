@@ -185,11 +185,11 @@ if (!is_null($events['events'])) {
 				}
 			}
 
-			if(stripos('U237064aef8646f8a0f49e8794a05aa3',$event['source']['userId']) !== false){
+			/*if(strpos('U237064aef8646f8a0f49e8794a05aa3',$event['source']['userId']) !== false){
 			}
 			else{
 				$tt = 'Authentication Failed';
-			}
+			}*/
 
 			// Build message to reply back
 			$messages = [
