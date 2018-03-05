@@ -25,7 +25,7 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
-			$uid = $events['source']['userId'];
+			$uid = $event['source']['userId'];
 
 
 			if(preg_match('/^-help/', $event['message']['text'])||preg_match('/^-h/', $event['message']['text'])){
