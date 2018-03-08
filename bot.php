@@ -20,6 +20,13 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		$uid = $event['source']['userId'];
 
+		if(stripos('U237064aef8646f8a0f49e8794a05aa3f',$event['source']['userId']) !== false){
+			}
+		else{
+				$tt = 'Authentication Failed';
+				break;
+			}
+
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
@@ -185,11 +192,7 @@ if (!is_null($events['events'])) {
 				}
 			}
 
-			if(stripos('U237064aef8646f8a0f49e8794a05aa3f',$event['source']['userId']) !== false){
-			}
-			else{
-				$tt = 'Authentication Failed';
-			}
+			
 
 			// Build message to reply back
 			$messages = [
