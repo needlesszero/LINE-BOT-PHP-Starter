@@ -29,7 +29,7 @@ if (!is_null($events['events'])) {
 		if($authenSuccess == true)
 		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
 			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
-					if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+				if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
@@ -226,6 +226,7 @@ if (!is_null($events['events'])) {
 			echo $result . "\r\n";
 				}
 			else{
+				$authenSuccess = false;
 				$tt = 'Authentication Failed';
 				break;
 				}
