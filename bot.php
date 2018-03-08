@@ -26,8 +26,20 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		$uid = $event['source']['userId'];
 
+		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
+			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
+				$authen = true;
+				break;
+				}
+			else{
+				$tt = 'Authentication Failed';
+				$authen = false;
+				}
+			}
+			
 
-		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+			if($authen !== false) {
+				if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
@@ -191,20 +203,12 @@ if (!is_null($events['events'])) {
 
 				}
 			}
+			};
 
-			foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
-			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
-				$authen = true;
-				}
-			else{
-				$tt = 'Authentication Failed';
-				$authen = false;
-				break;
-				}
-			}
+
 			
 
-			if($authen !== false) $tt = 'ไม่พบคำสั่ง';
+			
 
 			// Build message to reply back
 			$messages = [
