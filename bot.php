@@ -18,14 +18,18 @@ $json = json_decode($content, true);
 $findPlace = false;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
 
+$authenSuccess = true;
+
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
 		$uid = $event['source']['userId'];
 
-
-		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+		if($authenSuccess == true)
+		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
+			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
+					if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
@@ -190,14 +194,7 @@ if (!is_null($events['events'])) {
 				}
 			}
 
-			foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
-			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
-				}
-			else{
-				$tt = 'Authentication Failed';
-				break;
-				}
-			}
+
 			
 
 			// Build message to reply back
@@ -227,6 +224,15 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 
 			echo $result . "\r\n";
+				}
+			else{
+				$tt = 'Authentication Failed';
+				break;
+				}
+			}
+		else
+			break;
+		
 		}
 
 	}
