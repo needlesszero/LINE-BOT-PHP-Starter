@@ -9,8 +9,8 @@ $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 
 $urlAuthen = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/3/public/values?alt=json';
-$content = file_get_contents($urlAuthen);
-$jsonAuthen = json_decode($content, true);
+$contentAuthen = file_get_contents($urlAuthen);
+$jsonAuthen = json_decode($contentAuthen, true);
 
 $url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/1/public/values?alt=json';
 $content = file_get_contents($url);
@@ -24,10 +24,8 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		$uid = $event['source']['userId'];
 
-		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
-			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
 
-				if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
@@ -192,6 +190,14 @@ if (!is_null($events['events'])) {
 				}
 			}
 
+			foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
+			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
+				}
+			else{
+				$tt = 'Authentication Failed';
+				break;
+				}
+			}
 			
 
 			// Build message to reply back
@@ -222,19 +228,6 @@ if (!is_null($events['events'])) {
 
 			echo $result . "\r\n";
 		}
-				
-				}
-			else{
-					$tt = 'Authentication Failed';
-					break;
-				}
-			}
-
-					
-
-		
-
-		
 
 	}
 }
