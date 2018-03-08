@@ -16,9 +16,9 @@ $url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
-echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
 
 $authenSuccess = false ;
+echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -26,18 +26,19 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		$uid = $event['source']['userId'];
 
+
 		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
 			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
-				$authenSuccess = true;
+					$authenSuccess = true;
 				}
 			else{
-				$tt = 'Authentication Failed';
-				$authenSuccess = false ;
-				break;
+					$tt = 'Authentication Failed';
+					$authenSuccess = false ;
 				}
 			}
+
 		if($authenSuccess !== false){
-			if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
@@ -201,6 +202,7 @@ if (!is_null($events['events'])) {
 
 				}
 			}
+		}
 
 
 			
@@ -233,10 +235,6 @@ if (!is_null($events['events'])) {
 
 			echo $result . "\r\n";
 		}
-		else{
-			break;
-		}
-		
 
 	}
 }
