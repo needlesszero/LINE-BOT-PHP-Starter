@@ -18,7 +18,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
 
-$authenSuccess = true;
+$authenSuccess == false ;
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -26,10 +26,18 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		$uid = $event['source']['userId'];
 
-		if($authenSuccess == true)
 		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
 			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
-				if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+				$authenSuccess = true;
+				}
+			else{
+				$tt = 'Authentication Failed';
+				$authenSuccess = false ;
+				break;
+				}
+			}
+		if($authenSuccess !== false)
+			if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
@@ -224,16 +232,9 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 
 			echo $result . "\r\n";
-				}
-			else{
-				$authenSuccess = false;
-				$tt = 'Authentication Failed';
-				break;
-				}
-			}
-		else
+		}
+		else{
 			break;
-		
 		}
 
 	}
