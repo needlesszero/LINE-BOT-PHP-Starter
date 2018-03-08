@@ -18,7 +18,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
 
-$authenSuccess == false ;
+$authenSuccess = false ;
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -27,7 +27,7 @@ if (!is_null($events['events'])) {
 		$uid = $event['source']['userId'];
 
 		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
-			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
+			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
 				$authenSuccess = true;
 				}
 			else{
