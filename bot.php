@@ -8,6 +8,10 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
+$urlAuthen = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/3/public/values?alt=json';
+$content = file_get_contents($urlAuthen);
+$jsonAuthen = json_decode($content, true);
+
 $url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/1/public/values?alt=json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
@@ -20,12 +24,17 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		$uid = $event['source']['userId'];
 
-		if(stripos('U237064aef8646f8a0f49e8794a05aa3f',$event['source']['userId']) !== false){
-			}
-		else{
-				$tt = 'Authentication Failed';
-				break;
-			}
+		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {
+					if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
+						}
+					else{
+							$tt = 'Authentication Failed';
+							break;
+						}
+
+					}
+
+		
 
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
