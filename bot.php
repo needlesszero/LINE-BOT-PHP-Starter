@@ -27,7 +27,7 @@ if (!is_null($events['events'])) {
 		$uid = $event['source']['userId'];
 
 		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
-			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
+			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
 				$authen = true;
 				break;
 				}
