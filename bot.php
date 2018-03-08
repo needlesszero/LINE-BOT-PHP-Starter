@@ -16,9 +16,9 @@ $url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
-
-$authenSuccess = false ;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
+
+$authen = false;
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -27,17 +27,6 @@ if (!is_null($events['events'])) {
 		$uid = $event['source']['userId'];
 
 
-		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
-			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
-					$authenSuccess = true;
-				}
-			else{
-					$tt = 'Authentication Failed';
-					$authenSuccess = false ;
-				}
-			}
-
-		if($authenSuccess !== false){
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
@@ -202,10 +191,20 @@ if (!is_null($events['events'])) {
 
 				}
 			}
-		}
 
-
+			foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
+			if(stripos($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
+				$authen = true;
+				}
+			else{
+				$tt = 'Authentication Failed';
+				$authen = false;
+				break;
+				}
+			}
 			
+
+			if($authen !== false) $tt = 'ไม่พบคำสั่ง';
 
 			// Build message to reply back
 			$messages = [
