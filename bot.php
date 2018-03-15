@@ -1,5 +1,16 @@
 <?php
 
+$objConnect = mssql_connect("localhost","sa","");
+	if($objConnect)
+	{
+		echo "Database Connected.";
+	}
+	else
+	{
+		echo "Database Connect Failed.";
+	}
+
+	mssql_close($objConnect);
 
 $access_token = 'KygJBTnV/xAS9QNhJgQymbEZFw92G8Mj0RjrD3ycZEYbO9+I1a4e4dUqbvIo9Rv+OROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj60DFs60UEbMhmV1fc5mEFF+GXDdqzqmAs+50FUkrVwCwdB04t89/1O/w1cDnyilFU=';
 
@@ -62,37 +73,6 @@ if (!is_null($events['events'])) {
 				$tt = $uid;
 					  
 			}
-			/*elseif(preg_match('/^-f/', $event['message']['text'])){
-							$tt ='สถานที่ที่ค้นหา :'."\n";
-							$c = 0;
-							foreach ($json['feed']['entry'] as $key=>$value){
-								$data = $event['message']['text'];    
-								$whatIWant = substr($data, strpos($data, ' ') + 1);
-								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-									$tt .= '-'.$json['results'][$key]['Customer_Name']."\n";
-									$c += 1;
-									$findPlace = true;					
-								}
-							}
-
-							$url = 'https://powerful-badlands-66623.herokuapp.com/im2.json';
-							$content = file_get_contents($url);
-							$json = json_decode($content, true);
-							foreach ($json['results'] as $key=>$value){
-								$data = $event['message']['text'];    
-								$whatIWant = substr($data, strpos($data, ' ') + 1);
-								if(stripos($json['results'][$key]['Customer_Name'],$whatIWant) !== false){
-									$tt .= '- '.$json['results'][$key]['Customer_Name']."\n";
-									$c += 1;
-									$findPlace = true;					
-								}
-							}
-							$tt .='ค้นพบทั้งหมด '.$c.' สถานที่' ;
-
-							if($c==0){
-								$tt='ไม่พบข้อมูล';
-							}
-						}*/
 
 			else{
 				foreach ($json['feed']['entry'] as $key=>$value) {
