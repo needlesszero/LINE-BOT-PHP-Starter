@@ -1,7 +1,7 @@
 <?php
 
 
-$host = 'localhost';
+$host = 'DESKTOP-610DSVH';
 $user = 'sa';
 $pass = 'needless001';
 $db = 'dbtest';
