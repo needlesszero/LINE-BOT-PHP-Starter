@@ -4,7 +4,7 @@
 $host = 'localhost';
 $user = 'sa';
 $pass = 'needless001';
-$db = 'dbtest';
+$db = 'master';
 
 $con = mysqli_connect($host,$user,$pass,$db);
 if (mysqli_connect_errno())
