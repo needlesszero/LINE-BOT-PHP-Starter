@@ -1,6 +1,6 @@
 <?php
 
-$objConnect = mssql_connect("localhost","sa","");
+$objConnect = mssql_connect("localhost","sa","needless001");
 	if($objConnect)
 	{
 		echo "Database Connected.";
