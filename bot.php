@@ -1,16 +1,16 @@
 <?php
 
-$objConnect = mssql_connect("DESKTOP-610DSVH","sa","needless001");
-	if($objConnect)
-	{
-		echo "Database Connected.";
-	}
-	else
-	{
-		echo "Database Connect Failed.";
-	}
 
-	mssql_close($objConnect);
+$host = 'localhost';
+$user = 'sa';
+$pass = 'needless001';
+$db = 'dbtest';
+
+$con = mysqli_connect($host,$user,$pass,$db);
+if (mysqli_connect_errno())
+{
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
 
 $access_token = 'KygJBTnV/xAS9QNhJgQymbEZFw92G8Mj0RjrD3ycZEYbO9+I1a4e4dUqbvIo9Rv+OROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj60DFs60UEbMhmV1fc5mEFF+GXDdqzqmAs+50FUkrVwCwdB04t89/1O/w1cDnyilFU=';
 
