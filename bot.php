@@ -37,6 +37,10 @@ if (!is_null($events['events'])) {
 				}
 			}
 			
+			if(preg_match('/^-uid/', $event['message']['text'])){
+				$tt = $uid;
+					  
+			}
 
 			if($authen !== false) {
 				if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
@@ -58,10 +62,7 @@ if (!is_null($events['events'])) {
 					  
 			}
 
-			else if(preg_match('/^-uid/', $event['message']['text'])){
-				$tt = $uid;
-					  
-			}
+			
 
 			else{
 				foreach ($json['feed']['entry'] as $key=>$value) {
@@ -114,7 +115,7 @@ if (!is_null($events['events'])) {
 
 						else {
 							if($findPlace==false){
-								$tt = '-help เพื่อแสดงคำสั่งดซโว้ยยยยยย';	
+								$tt = '-help เพื่อแสดงคำสั่ง';	
 								}	
 						}				
 					
@@ -163,7 +164,7 @@ if (!is_null($events['events'])) {
 							}
 							else $tt = 'ไม่พบข้อมูล';	
 						}
-						else $tt = '-help เพื่อแสดงคำสั่งนะจ๊ะ';		
+						else $tt = '-help เพื่อแสดงคำสั่ง';		
 
 						$command = strtok($text, ' ');
 									
@@ -172,7 +173,7 @@ if (!is_null($events['events'])) {
 
 				}
 			}
-			}
+			};
 
 
 			
