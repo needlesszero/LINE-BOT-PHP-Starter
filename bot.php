@@ -11,7 +11,7 @@ $events = json_decode($content, true);
 $urlAuthen = 'https://line.gin.totisp.net/user.json';
 $contentAuthen = file_get_contents($urlAuthen);
 $jsonAuthen = json_decode($contentAuthen, true);
-echo $jsonAuthen[0];
+echo $jsonAuthen[0]['uid'];
 
 $urlAuthen = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/3/public/values?alt=json';
 $contentAuthen = file_get_contents($urlAuthen);
