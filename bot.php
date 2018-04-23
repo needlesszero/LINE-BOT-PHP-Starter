@@ -8,10 +8,10 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-$urlAuthen = 'https://line.gin.totisp.net/user.json';
+$urlAuthen = 'https://line.gin.totisp.net/testJson.php';
 $contentAuthen = file_get_contents($urlAuthen);
 $jsonAuthen = json_decode($contentAuthen, true);
-echo $jsonAuthen[0]['uid'];
+echo $jsonAuthen;
 
 $urlAuthen = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/3/public/values?alt=json';
 $contentAuthen = file_get_contents($urlAuthen);
