@@ -114,7 +114,7 @@ if (!is_null($events['events'])) {
 
 						else {
 							if($findPlace==false){
-								$tt = '-help เพื่อแสดงคำสั่ง';	
+								$tt = '-help เพื่อแสดงคำสั่งดซโว้ยยยยยย';	
 								}	
 						}				
 					
