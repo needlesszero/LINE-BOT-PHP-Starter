@@ -17,6 +17,8 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
 echo $jsonAuthen['feed']['entry'][0]['gsx$userid']['$t'];
+echo "U237064aef8646f8a0f49e8794a05aa3f";
+echo strcmp($jsonAuthen['feed']['entry'][0]['gsx$userid']['$t'],"U237064aef8646f8a0f49e8794a05aa3f");
 
 $authen = false;
 
