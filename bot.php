@@ -34,7 +34,7 @@ if (!is_null($events['events'])) {
 
 
 		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
-			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
+			if($authen){
 				$authen = true;
 				break;
 				}
