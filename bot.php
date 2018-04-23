@@ -27,13 +27,13 @@ if (!is_null($events['events'])) {
 		$uid = $event['source']['userId'];
 
 		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
-			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
-				$authen = true;
-				break;
-				}
-			else{
+			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== 0){
 				$tt = 'Authentication Failed';
 				$authen = false;
+				}
+			else{
+				$authen = true;
+				break;
 				}
 			}
 			
