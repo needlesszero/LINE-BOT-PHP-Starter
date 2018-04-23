@@ -17,6 +17,16 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
+if(strcmp($jsonAuthen['feed']['entry'][0]['gsx$userid']['$t'],"U237064aef8646f8a0f49e8794a05aa3f") !== false){
+				$authen = true;
+				echo "authen";
+				}
+			else{
+				$tt = 'Authentication Failed';
+				$authen = false;
+				echo $tt;
+				}
+			}
 
 $authen = false;
 
@@ -27,13 +37,13 @@ if (!is_null($events['events'])) {
 		$uid = $event['source']['userId'];
 
 		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
-			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) != 0){
-				$tt = 'Authentication Failed';
-				$authen = false;
-				}
-			else{								
+			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
 				$authen = true;
 				break;
+				}
+			else{
+				$tt = 'Authentication Failed';
+				$authen = false;
 				}
 			}
 			
