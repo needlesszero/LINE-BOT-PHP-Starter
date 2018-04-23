@@ -78,6 +78,7 @@ if (!is_null($events['events'])) {
 
 			if(preg_match('/^-help/', $event['message']['text'])||preg_match('/^-h/', $event['message']['text'])){
 				$tt = '-help : เพื่อแสดงคำสั่ง'."\n" ;
+			}
 		}
 
 		if(preg_match('/^-uid/', $event['message']['text'])){
