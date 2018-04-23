@@ -26,13 +26,6 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		$uid = $event['source']['userId'];
 
-		if(preg_match('/^-uid/', $event['message']['text'])){
-			$tt = $uid;
-			$replyToken = $event['replyToken'];
-					  
-		}
-
-
 		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
 			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) == 0){
 				$authen = true;
@@ -82,6 +75,12 @@ if (!is_null($events['events'])) {
 			$tt = 'Authentication Failed';
 			$authen = false;
 			$replyToken = $event['replyToken'];
+		}
+
+		if(preg_match('/^-uid/', $event['message']['text'])){
+			$tt = $uid;
+			$replyToken = $event['replyToken'];
+					  
 		}
 
 
