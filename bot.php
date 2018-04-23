@@ -41,6 +41,7 @@ if (!is_null($events['events'])) {
 			else{
 				$tt = 'Authentication Failed';
 				$authen = false;
+				$replyToken = $event['replyToken'];
 				}
 			}
 			
