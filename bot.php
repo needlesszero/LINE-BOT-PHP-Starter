@@ -17,7 +17,7 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
-if(strcmp($jsonAuthen['feed']['entry'][0]['gsx$userid']['$t'],"U237064aef8646f8a0f49e8794a05aa3f") !== false){
+if(strcmp($jsonAuthen['feed']['entry'][0]['gsx$userid']['$t'],"U237064aef8646f8a0f49e8794a05aa3f") !== 0){
 				$authen = true;
 				echo "authen";
 				}
