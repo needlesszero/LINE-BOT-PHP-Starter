@@ -8,7 +8,7 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-$urlAuthen = 'line.gin.totisp.net/testJson.php';
+$urlAuthen = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/3/public/values?alt=json';
 $contentAuthen = file_get_contents($urlAuthen);
 $jsonAuthen = json_decode($contentAuthen, true);
 
@@ -17,7 +17,7 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
-echo $jsonAuthen[0];
+
 $authen = false;
 
 if (!is_null($events['events'])) {
@@ -26,8 +26,8 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		$uid = $event['source']['userId'];
 
-		foreach ($jsonAuthen as $key=>$value) {					
-			if(strcmp($jsonAuthen[$key]['uid'],$event['source']['userId']) !== false){
+		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
+			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
 				$authen = true;
 				break;
 				}
@@ -172,7 +172,12 @@ if (!is_null($events['events'])) {
 
 				}
 			}
-			};			
+			};
+
+
+			
+
+			
 
 			// Build message to reply back
 			$messages = [

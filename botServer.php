@@ -8,7 +8,7 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-$urlAuthen = 'line.gin.totisp.net/testJson.php';
+$urlAuthen = '10.22.1.26/testJson.php';
 $contentAuthen = file_get_contents($urlAuthen);
 $jsonAuthen = json_decode($contentAuthen, true);
 
