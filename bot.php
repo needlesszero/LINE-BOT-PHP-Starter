@@ -17,7 +17,7 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
-echo $jsonAuthen[0];
+echo "asdsadsad";
 $authen = false;
 
 if (!is_null($events['events'])) {
