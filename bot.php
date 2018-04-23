@@ -72,12 +72,12 @@ if (!is_null($events['events'])) {
 		}
 
 		else{
-			$tt = 'Authentication Failed';
+			$tt = 'ท่านไม่ได้รับสิทธิ์ในการเข้าใช้ระบบ'."\n".'กรุณาพิมพ์คำสั่ง -help : เพื่อแสดงคำสั่ง';
 			$authen = false;
 			$replyToken = $event['replyToken'];
 
 			if(preg_match('/^-help/', $event['message']['text'])||preg_match('/^-h/', $event['message']['text'])){
-				$tt = '-help : เพื่อแสดงคำสั่ง'."\n" ;
+				$tt = '-help : เพื่อแสดงคำสั่ง'."\n"."-uid : เพื่อแสดง UserID" ;
 			}
 		}
 
