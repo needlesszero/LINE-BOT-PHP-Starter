@@ -16,9 +16,7 @@ $url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 $findPlace = false;
-echo $jsonAuthen['feed']['entry'][0]['gsx$userid']['$t'];
-echo "U237064aef8646f8a0f49e8794a05aa3f";
-echo strcmp("U237064aef8646f8a0f49e8794a05aa3f","U237064aef8646f8a0f49e8794a05aa3f");
+echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
 
 $authen = false;
 
@@ -29,7 +27,7 @@ if (!is_null($events['events'])) {
 		$uid = $event['source']['userId'];
 
 		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
-			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) == 0){
+			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
 				$authen = true;
 				break;
 				}
