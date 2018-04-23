@@ -36,6 +36,7 @@ if (!is_null($events['events'])) {
 				$authen = false;
 				}
 			}
+		}
 			
 			if(preg_match('/^-uid/', $event['message']['text'])){
 				$tt = $uid;
@@ -169,8 +170,8 @@ if (!is_null($events['events'])) {
 					}
 
 				}
+			
 			}
-			};
 
 
 			
