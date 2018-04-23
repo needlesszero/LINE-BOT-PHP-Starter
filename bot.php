@@ -67,7 +67,7 @@ if (!is_null($events['events'])) {
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
 							if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
-								$tt = json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'Status: Down'.$json['status'];
+								$tt = $json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'Status: Down'.$json['status'];
 								$findPlace = true;
 								break;		
 							}
