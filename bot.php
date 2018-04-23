@@ -18,7 +18,7 @@ $json = json_decode($content, true);
 $findPlace = false;
 echo $jsonAuthen['feed']['entry'][0]['gsx$userid']['$t'];
 echo "U237064aef8646f8a0f49e8794a05aa3f";
-echo strcmp($jsonAuthen['feed']['entry'][0]['gsx$userid']['$t'],"U237064aef8646f8a0f49e8794a05aa3f");
+echo strcmp("U237064aef8646f8a0f49e8794a05aa3f","U237064aef8646f8a0f49e8794a05aa3f");
 
 $authen = false;
 
@@ -29,7 +29,7 @@ if (!is_null($events['events'])) {
 		$uid = $event['source']['userId'];
 
 		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
-			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) !== false){
+			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) == 0){
 				$authen = true;
 				break;
 				}
