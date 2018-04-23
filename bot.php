@@ -75,6 +75,9 @@ if (!is_null($events['events'])) {
 			$tt = 'Authentication Failed';
 			$authen = false;
 			$replyToken = $event['replyToken'];
+
+			if(preg_match('/^-help/', $event['message']['text'])||preg_match('/^-h/', $event['message']['text'])){
+				$tt = '-help : เพื่อแสดงคำสั่ง'."\n" ;
 		}
 
 		if(preg_match('/^-uid/', $event['message']['text'])){
