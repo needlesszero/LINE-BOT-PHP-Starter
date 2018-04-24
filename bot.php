@@ -38,11 +38,11 @@ if (!is_null($events['events'])) {
 			
 			if(preg_match('/^-help/', $event['message']['text'])||preg_match('/^-h/', $event['message']['text'])){
 				$tt = '-help : เพื่อแสดงคำสั่ง'."\n".
-					  '-f <คำค้นหา> : เพื่อค้นหาสถานที่ประกอบคำที่ต้องการค้นหา'."\n".
+					  //'-f <คำค้นหา> : เพื่อค้นหาสถานที่ประกอบคำที่ต้องการค้นหา'."\n".
 					  '-stat <ชื่อหน่วยงาน> : แสดง status link'."\n".
-					  '-ld /-lastd <ชื่อหน่วยงาน> : แสดง LastDownTimes'."\n".
+					  '-ltd /-lastd <ชื่อหน่วยงาน> : แสดง LastDownTimes'."\n".
 					  '-down / -dt <ชื่อหน่วยงาน> : แสดง DowntimeDurations'."\n".
-					  '-lu /-lastu <ชื่อหน่วยงาน> : แสดง LastUpTimes'."\n".
+					  '-ltu /-lastu <ชื่อหน่วยงาน> : แสดง LastUpTimes'."\n".
 					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
 					  
 			}
@@ -137,7 +137,7 @@ if (!is_null($events['events'])) {
 							else $tt = 'ไม่พบข้อมูล';	
 						}
 
-						elseif(preg_match('/^-ltd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
+						elseif(preg_match('/^-ltu/', $event['message']['text']) || preg_match('/^-lastu/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
 							if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
