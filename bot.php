@@ -4,7 +4,7 @@ $access_token = 'am1ve2WFidjcmj3wS/c+QqoulSxJ4UKI0iwjrdoN5/HOcuFiORAgVGSQ/g3kqRZ
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
-$text = file_get_contents('https://line.gin.totisp.net/test.txt');
+$textTest = file_get_contents('https://line.gin.totisp.net/test.txt');
 echo $text;
 $urlAuthen = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/3/public/values?alt=json';
 $contentAuthen = file_get_contents($urlAuthen);
@@ -184,7 +184,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				['type' => 'text',
-				'text' => $text],
+				'text' => $textTest],
 				['type' => 'text',
 				'text' => $tt]
 			];
