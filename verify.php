@@ -1,17 +1,14 @@
 <?php
-header('Content-Type: text/html; charset=utf-8');
+// create a new cURL resource
+$ch = curl_init();
 
-$access_token = 'KygJBTnV/xAS9QNhJgQymbEZFw92G8Mj0RjrD3ycZEYbO9+I1a4e4dUqbvIo9Rv+OROLnYrlXO5peau/5MeriEs/kUu4iu0WojXBWLqXqj60DFs60UEbMhmV1fc5mEFF+GXDdqzqmAs+50FUasdasdkrVwCwdB04t89/1O/w1cDnyilFU=';
+// set URL and other appropriate options
+curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v1/oauth/verify");
+curl_setopt($ch, CURLOPT_HEADER, 0);
 
-$url = 'https://api.line.me/v1/oauth/verify';
+// grab URL and pass it to the browser
+curl_exec($ch);
 
-$headers = array('Authorization: Bearer ' . $access_token);
-
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-$result = curl_exec($ch);
-echo $result;
-
+// close cURL resource, and free up system resources
+curl_close($ch);
 ?>
