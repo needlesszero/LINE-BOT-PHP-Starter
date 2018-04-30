@@ -4,7 +4,7 @@ $access_token = 'am1ve2WFidjcmj3wS/c+QqoulSxJ4UKI0iwjrdoN5/HOcuFiORAgVGSQ/g3kqRZ
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
-$urlAuthen = 'https://line.gin.totisp.net/results.json';
+$urlAuthen = 'https://line.gin.totisp.net/user_authentication.json';
 $contentAuthen = file_get_contents($urlAuthen);
 $jsonAuthen = json_decode($contentAuthen, true);
 
