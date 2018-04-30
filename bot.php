@@ -4,7 +4,7 @@ $access_token = 'am1ve2WFidjcmj3wS/c+QqoulSxJ4UKI0iwjrdoN5/HOcuFiORAgVGSQ/g3kqRZ
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
-$urlAuthen = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/3/public/values?alt=json';
+$urlAuthen = 'https://line.gin.totisp.net/results.json';
 $contentAuthen = file_get_contents($urlAuthen);
 $jsonAuthen = json_decode($contentAuthen, true);
 $url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/1/public/values?alt=json';
@@ -18,8 +18,8 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
 		$uid = $event['source']['userId'];
-		foreach ($jsonAuthen['feed']['entry'] as $key=>$value) {					
-			if(strcmp($jsonAuthen['feed']['entry'][$key]['gsx$userid']['$t'],$event['source']['userId']) == 0){
+		foreach($json as $key=>$value) {					
+			if(strcmp($jsonAuthen[$key]['uid'],$event['source']['userId']) == 0){
 				$authen = true;
 				break;
 				}
