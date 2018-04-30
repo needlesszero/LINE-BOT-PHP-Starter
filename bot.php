@@ -18,7 +18,7 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
 		$uid = $event['source']['userId'];
-		foreach($json as $key=>$value) {					
+		foreach($jsonAuthen as $key=>$value) {					
 			if(strcmp($jsonAuthen[$key]['uid'],$event['source']['userId']) == 0){
 				$authen = true;
 				break;
