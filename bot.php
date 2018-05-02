@@ -52,8 +52,7 @@ if (!is_null($events['events'])) {
 					  '-ltd /-lastd <ชื่อหน่วยงาน> : แสดง LastDownTimes'."\n".
 					  '-down / -dt <ชื่อหน่วยงาน> : แสดง DowntimeDurations'."\n".
 					  '-ltu /-lastu <ชื่อหน่วยงาน> : แสดง LastUpTimes'."\n".
-					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations'
-					  '-c <ชื่อหน่วยงาน> : ตรวจสอบข้อมูลเคส';
+					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
 					  
 			}
 
@@ -79,9 +78,7 @@ if (!is_null($events['events'])) {
 										'Log: '.$jsonTicket[$key]['body'];
 								$checkCase = true;
 							}
-					else $tt = 'ไม่พบข้อมูล';	
-					}
-					
+						}
 			}			
 			else{
 			foreach ($json as $key=>$value) {
