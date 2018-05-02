@@ -50,13 +50,36 @@ if (!is_null($events['events'])) {
 			$replyToken = $event['replyToken'];
 			
 			if(preg_match('/^-help/', $event['message']['text'])||preg_match('/^-h/', $event['message']['text'])){
+				if($pri_lv == 3){
 				$tt = '-help : เพื่อแสดงคำสั่ง'."\n".
 					  //'-f <คำค้นหา> : เพื่อค้นหาสถานที่ประกอบคำที่ต้องการค้นหา'."\n".
+					  '-uid : เพื่อแสดง UserID'."\n".
 					  '-stat <ชื่อหน่วยงาน> : แสดง status link'."\n".
 					  '-ltd /-lastd <ชื่อหน่วยงาน> : แสดง LastDownTimes'."\n".
 					  '-down / -dt <ชื่อหน่วยงาน> : แสดง DowntimeDurations'."\n".
 					  '-ltu /-lastu <ชื่อหน่วยงาน> : แสดง LastUpTimes'."\n".
 					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
+					  '-c <ชื่อหน่วยงาน> : ตรวจสอบข้อมูลเคส';
+					}
+				elseif($pri_lv == 2){
+					$tt = '-help : เพื่อแสดงคำสั่ง'."\n".
+					  //'-f <คำค้นหา> : เพื่อค้นหาสถานที่ประกอบคำที่ต้องการค้นหา'."\n".
+					  '-uid : เพื่อแสดง UserID'."\n".
+					  '-stat <ชื่อหน่วยงาน> : แสดง status link'."\n".
+					  '-ltd /-lastd <ชื่อหน่วยงาน> : แสดง LastDownTimes'."\n".
+					  '-down / -dt <ชื่อหน่วยงาน> : แสดง DowntimeDurations'."\n".
+					  '-ltu /-lastu <ชื่อหน่วยงาน> : แสดง LastUpTimes'."\n".
+					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
+					}
+				}
+				elseif($pri_lv == 1){
+					$tt = '-help : เพื่อแสดงคำสั่ง'."\n".
+					  //'-f <คำค้นหา> : เพื่อค้นหาสถานที่ประกอบคำที่ต้องการค้นหา'."\n".
+					  '-uid : เพื่อแสดง UserID'."\n".
+					  '-down / -dt <ชื่อหน่วยงาน> : แสดง DowntimeDurations'."\n".
+					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
+					}
+				}
 					  
 			}
 
