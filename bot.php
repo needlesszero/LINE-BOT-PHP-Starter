@@ -87,6 +87,7 @@ if (!is_null($events['events'])) {
 				$data = $event['message']['text'];    
 				$whatIWant = substr($data, strpos($data, ' ') + 1);
 				foreach ($jsonTicket as $key=>$value) {
+					if($pri_lv == 3){
 					if(stripos($jsonTicket[$key]['subject'],$whatIWant) !== false){
 								$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
 										'Customar Name: '.$jsonTicket[$key]['subject']."\n".
@@ -106,6 +107,8 @@ if (!is_null($events['events'])) {
 								$checkCase = true;
 							}
 						}
+					}
+					else "คุณไม่ได้รับสิทธิ์ในการใช้คำสั่งนี้";
 			}			
 			else{
 			foreach ($json as $key=>$value) {
