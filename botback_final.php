@@ -3,7 +3,7 @@ $access_token = 'am1ve2WFidjcmj3wS/c+QqoulSxJ4UKI0iwjrdoN5/HOcuFiORAgVGSQ/g3kqRZ
 // Get POST body content
 $content = file_get_contents('php://input');
 
-call_node();
+//call_node();
 // Parse JSON
 $events = json_decode($content, true);
 $urlAuthen = 'https://line.gin.totisp.net/user_authentication.json';
@@ -15,13 +15,14 @@ $content = file_get_contents($url);
 $json = json_decode($content, true);
 
 $urlticket = 'https://line.gin.totisp.net/ginosticket_db.json';
-$contentTicket = file_get_contents($url);
-$jsonTicket = json_decode($content, true);
+$contentTicket = file_get_contents($urlticket);
+$jsonTicket = json_decode($contentTicket, true);
 
 $findPlace = false;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
 $authen = false;
-$checkCase = false;
+
+$privilege = 0 ;
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -31,6 +32,7 @@ if (!is_null($events['events'])) {
 		foreach($jsonAuthen as $key=>$value) {					
 			if(strcmp($jsonAuthen[$key]['uid'],$event['source']['userId']) == 0){
 				$authen = true;
+				$privilege = $jsonAuthen[$key]['pri_lv'];
 				break;
 				}
 			else{
@@ -53,37 +55,46 @@ if (!is_null($events['events'])) {
 					  '-ltd /-lastd <ชื่อหน่วยงาน> : แสดง LastDownTimes'."\n".
 					  '-down / -dt <ชื่อหน่วยงาน> : แสดง DowntimeDurations'."\n".
 					  '-ltu /-lastu <ชื่อหน่วยงาน> : แสดง LastUpTimes'."\n".
-					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
+					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations'
+					  '-c <ชื่อหน่วยงาน> : ตรวจสอบข้อมูลเคส';
 					  
 			}
-			elseif(preg_match('/^-c/', $event['message']['text']){
+
+			elseif(preg_match('/^-c/', $event['message']['text'])){
 				$data = $event['message']['text'];    
 				$whatIWant = substr($data, strpos($data, ' ') + 1);
-				foreach ($jsonTicket as $key=>$value) {
-					if(stripos($jsonTicket[$key]['subject'],$whatIWant) !== false){
-								$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
-										'Customar Name: '.$jsonTicket[$key]['subject']."\n".
-										'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
-										'Status: '.$jsonTicket[$key]['status']."\n".
-										'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
-										'Log: '.$jsonTicket[$key]['body'];
-								$checkCase = true;
+				if($privilege>1){
+					foreach ($jsonTicket as $key=>$value) {
+						if(stripos($jsonTicket[$key]['subject'],$whatIWant) !== false){
+									$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
+											'Customar Name: '.$jsonTicket[$key]['subject']."\n".
+											'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
+											'Status: '.$jsonTicket[$key]['status']."\n".
+											'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
+											'Log: '.$jsonTicket[$key]['body'];
+									$checkCase = true;
+								}
+						elseif(stripos($jsonTicket[$key]['circuitid'],$whatIWant) !== false){
+									$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
+											'Customar Name: '.$jsonTicket[$key]['subject']."\n".
+											'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
+											'Status: '.$jsonTicket[$key]['status']."\n".
+											'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
+											'Log: '.$jsonTicket[$key]['body'];
+									$checkCase = true;
+								}
+						else $tt = 'ไม่พบข้อมูล';
 							}
-					if(stripos($jsonTicket[$key]['circuitid'],$whatIWant) !== false){
-								$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
-										'Customar Name: '.$jsonTicket[$key]['subject']."\n".
-										'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
-										'Status: '.$jsonTicket[$key]['status']."\n".
-										'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
-										'Log: '.$jsonTicket[$key]['body'];
-								$checkCase = true;
-							}
-			}		
+						
+					}
+				else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';
+			}			
 			else{
 			foreach ($json as $key=>$value) {
-						//if($event['message']['text'] == 'status'){				
-
-						if(stripos($json[$key]['Customer_Name'],$event['message']['text']) !== false){
+						//if($event['message']['text'] == 'status'){
+						if(stripos($json[$key]['Customer_Name'],$event['message']['text']) !== false){		
+								
+							if($privilege==3){
 								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
 										'จังหวัด: '.$json[$key]['Province']."\n".
 										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
@@ -92,11 +103,14 @@ if (!is_null($events['events'])) {
 										'LastDownTimes: '.$json[$key]['LastDownTimes']['date']."\n".
 										'LastUpTimes: '.$json[$key]['LastUptimes']['date']."\n".
 										'Customer_SLA: '.$json[$key]['Customer_SLA'];
-
 								$findPlace = true;
 							}
-
+							else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';
+								
+							}
 						if(stripos($json[$key]['Curcuit_ID'],$event['message']['text']) !== false){
+
+							if($privilege==3){
 								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
 										'จังหวัด: '.$json[$key]['Province']."\n".
 										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
@@ -106,9 +120,12 @@ if (!is_null($events['events'])) {
 										'LastUpTimes: '.$json[$key]['LastUptimes']['date']."\n".
 										'Customer_SLA: '.$json[$key]['Customer_SLA'];
 								$findPlace = true;
+							}
+							else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';
 							}
 													
 						if($json[$key]['Customer_Name'] === $event['message']['text']){
+							if($privilege==3){
 								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
 										'จังหวัด: '.$json[$key]['Province']."\n".
 										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
@@ -118,62 +135,74 @@ if (!is_null($events['events'])) {
 										'LastUpTimes: '.$json[$key]['LastUptimes']['date']."\n".
 										'Customer_SLA: '.$json[$key]['Customer_SLA'];
 								$findPlace = true;
+								}
+							else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';
 						}
 
 						elseif(preg_match('/^-stat/', $event['message']['text'])){
-							$data = $event['message']['text'];    
-							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							if($privilege==3 || $privilege==1){
+								$data = $event['message']['text'];    
+								$whatIWant = substr($data, strpos($data, ' ') + 1);
 
-							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = 	$json[$key]['Customer_Name']."\n".
-										'Status: Down'.$json['status'];
+								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = 	$json[$key]['Customer_Name']."\n".
+											'Status: Down'.$json['status'];
 
-								$findPlace = true;
-								break;		
+									$findPlace = true;
+									break;		
+								}
+								else $tt = 'ไม่พบข้อมูล';	
 							}
-							else $tt = 'ไม่พบข้อมูล';	
+							else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';
 						}
 
 						elseif(preg_match('/^-dt/', $event['message']['text']) || preg_match('/^-down/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							if($privilege==3){
+								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = 	$json[$key]['Customer_Name']."\n".
+											'DowntimeDuration: '.$json[$key]['DowntimeDorations'];
 
-							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = 	$json[$key]['Customer_Name']."\n".
-										'DowntimeDuration: '.$json[$key]['DowntimeDorations'];
-
-								$findPlace = true;
-								break;						
-							}
-							else $tt = 'ไม่พบข้อมูล';	
+									$findPlace = true;
+									break;						
+								}
+								else $tt = 'ไม่พบข้อมูล';	
+								}
+							else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';
+						}
 						}
 
 						elseif(preg_match('/^-ltd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							
-							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = 	$json[$key]['Customer_Name']."\n".
-										'LastDownTimes: '.$json[$key]['LastDownTimes']['date'];
+							if($privilege==3){
+								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = 	$json[$key]['Customer_Name']."\n".
+											'LastDownTimes: '.$json[$key]['LastDownTimes']['date'];
 
-								$findPlace = true;
-								break;						
-							}
-							else $tt = 'ไม่พบข้อมูล';	
+									$findPlace = true;
+									break;						
+								}
+								else $tt = 'ไม่พบข้อมูล';
+								}
+							else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';	
 						}
 
 						elseif(preg_match('/^-utd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							
-							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = 	$json[$key]['Customer_Name']."\n".
-										'LastUpTimes: '.$json[$key]['LastUptimes']['date'];
+							if($privilege==3 || $privilege==1){
+								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = 	$json[$key]['Customer_Name']."\n".
+											'LastUpTimes: '.$json[$key]['LastUptimes']['date'];
 
-								$findPlace = true;
-								break;						
-							}
-							else $tt = 'ไม่พบข้อมูล';	
+									$findPlace = true;
+									break;						
+								}
+								else $tt = 'ไม่พบข้อมูล';
+								}
+							else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';	
 						}
 
 						else {
@@ -192,76 +221,93 @@ if (!is_null($events['events'])) {
 					foreach ($json as $key=>$value) {
 							//if($event['message']['text'] == 'status'){
 							if(stripos($json[$key]['Customer_Name'],$event['message']['text']) !== false){
-								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
-										'จังหวัด: '.$json[$key]['Province']."\n".
-										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
-										'Status: UP'."\n".
-										'DowntimeDuration: '.$json[$key]['UptimeDurations']."\n".
-										'LastDownTimes: '.$json[$key]['LastUpTimes']['date']."\n".
-										'LastUpTimes: '.$json[$key]['LastBoot']['date']."\n".
-										'Customer_SLA: '.$json[$key]['Customer_SLA'];
-								$findPlace = true;
-								break;						
+								if($privilege==3){
+									$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
+											'จังหวัด: '.$json[$key]['Province']."\n".
+											'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
+											'Status: UP'."\n".
+											'DowntimeDuration: '.$json[$key]['UptimeDurations']."\n".
+											'LastDownTimes: '.$json[$key]['LastUpTimes']['date']."\n".
+											'LastUpTimes: '.$json[$key]['LastBoot']['date']."\n".
+											'Customer_SLA: '.$json[$key]['Customer_SLA'];
+									$findPlace = true;
+									break;
+									}
+								else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';						
 							}
 							elseif(stripos($json[$key]['Customer_Name'],$event['message']['text']) !== false){
-								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
-										'จังหวัด: '.$json[$key]['Province']."\n".
-										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
-										'Status: UP'."\n".
-										'UptimeDurations: '.$json[$key]['UptimeDurations']."\n".
-										'LastDownTimes: '.$json[$key]['LastUpTimes']['date']."\n".
-										'LastUpTimes: '.$json[$key]['LastBoot']['date']."\n".
-										'Customer_SLA: '.$json[$key]['Customer_SLA'];
-								$findPlace = true;
-								break;						
+								if($privilege==3){
+									$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
+											'จังหวัด: '.$json[$key]['Province']."\n".
+											'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
+											'Status: UP'."\n".
+											'UptimeDurations: '.$json[$key]['UptimeDurations']."\n".
+											'LastDownTimes: '.$json[$key]['LastUpTimes']['date']."\n".
+											'LastUpTimes: '.$json[$key]['LastBoot']['date']."\n".
+											'Customer_SLA: '.$json[$key]['Customer_SLA'];
+									$findPlace = true;
+									break;	
+									}
+								else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';					
 							}
 							elseif(preg_match('/^-stat/', $event['message']['text'])){
-								$data = $event['message']['text'];    
-								$whatIWant = substr($data, strpos($data, ' ') + 1);
-								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-									$tt = 	$json[$key]['Customer_Name']."\n".
-											'Status: Up';
-									$findPlace = true;
-									break;						
-								}
-								else $tt = 'ไม่พบข้อมูล';	
+								if($privilege==3 || $privilege==1){
+									$data = $event['message']['text'];    
+									$whatIWant = substr($data, strpos($data, ' ') + 1);
+									if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+										$tt = 	$json[$key]['Customer_Name']."\n".
+												'Status: Up';
+										$findPlace = true;
+										break;						
+									}
+									else $tt = 'ไม่พบข้อมูล';
+									}
+								else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';	
 						}
 						elseif(preg_match('/^-ut/', $event['message']['text']) || preg_match('/^-up/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = 	$json[$key]['Customer_Name']."\n".
-										'UptimeDurations: '.$json[$key]['UptimeDurations'];
-								$findPlace = true;
-								break;						
-							}
-							else $tt = 'ไม่พบข้อมูล';	
+							if($privilege==3){
+								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = 	$json[$key]['Customer_Name']."\n".
+											'UptimeDurations: '.$json[$key]['UptimeDurations'];
+									$findPlace = true;
+									break;						
+								}
+								else $tt = 'ไม่พบข้อมูล';
+								}
+							else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';	
 						}
 
 						elseif(preg_match('/^-ltu/', $event['message']['text']) || preg_match('/^-lastu/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = 	$json[$key]['Customer_Name']."\n".
-										'LastUpTimes: '.$json[$key]['LastUpTimes']['date'];
-								$findPlace = true;
-								break;						
+							if($privilege==3){
+								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = 	$json[$key]['Customer_Name']."\n".
+											'LastUpTimes: '.$json[$key]['LastUpTimes']['date'];
+									$findPlace = true;
+									break;						
+								}
+								else $tt = 'ไม่พบข้อมูล';	
 							}
-							else $tt = 'ไม่พบข้อมูล';	
+							else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';
 						}
 
 						elseif(preg_match('/^-lstb/', $event['message']['text']) || preg_match('/^-lastb/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							
-							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = 	$json[$key]['Customer_Name']."\n".
-										'LastUpTimes: '.$json[$key]['LastBoot']['date'];
+							if($privilege==3){
+								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = 	$json[$key]['Customer_Name']."\n".
+											'LastUpTimes: '.$json[$key]['LastBoot']['date'];
 
-								$findPlace = true;
-								break;						
-							}
-							else $tt = 'ไม่พบข้อมูล';	
+									$findPlace = true;
+									break;						
+									}
+								else $tt = 'ไม่พบข้อมูล'
+									}
+							else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help เพื่อแสดงคำสั่ง';;	
 						}
 						else $tt = '-help เพื่อแสดงคำสั่ง';		
 
@@ -313,40 +359,3 @@ if (!is_null($events['events'])) {
 		}
 	}
 echo "OK";
-
-function call_node(){
-	$ch = curl_init();
-
-	// set URL and other appropriate options
-	curl_setopt($ch, CURLOPT_URL, "https://line.gin.totisp.net/call_nodedown.php");
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-
-	// grab URL and pass it to the browser
-	curl_exec($ch);
-
-	// close cURL resource, and free up system resources
-	curl_close($ch);
-	
-	$ch = curl_init();
-	// set URL and other appropriate options
-	curl_setopt($ch, CURLOPT_URL, "https://line.gin.totisp.net/call_nodeup.php");
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-
-	// grab URL and pass it to the browser
-	curl_exec($ch);
-
-	// close cURL resource, and free up system resources
-	curl_close($ch);
-
-	$ch = curl_init();
-	// set URL and other appropriate options
-	curl_setopt($ch, CURLOPT_URL, "https://line.gin.totisp.net/call_nodeup.php");
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-
-	// grab URL and pass it to the browser
-	curl_exec($ch);
-
-	// close cURL resource, and free up system resources
-	curl_close($ch);
-	
-}
