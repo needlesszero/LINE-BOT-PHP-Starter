@@ -162,7 +162,7 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-stat/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if($pri_lv == 3||$pri_lv == 2 || $pri_lv == 2 ){
+							if($pri_lv == 3||$pri_lv == 2 || $pri_lv == 1 ){
 								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
 									$tt = 	$json[$key]['Customer_Name']."\n".
 											'Status: Down'.$json['status'];
@@ -210,7 +210,7 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-utd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if($pri_lv == 3||$pri_lv == 2 || $pri_lv == 2 ){
+							if($pri_lv == 3||$pri_lv == 2){
 								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
 									$tt = 	$json[$key]['Customer_Name']."\n".
 											'LastUpTimes: '.$json[$key]['LastUptimes']['date'];
@@ -226,7 +226,7 @@ if (!is_null($events['events'])) {
 						else {
 							if($findPlace==false){
 								$tt = '-help เพื่อแสดงคำสั่ง';	
-								}	
+								}
 						}				
 					
 				}
@@ -239,76 +239,96 @@ if (!is_null($events['events'])) {
 					foreach ($json as $key=>$value) {
 							//if($event['message']['text'] == 'status'){
 							if(stripos($json[$key]['Customer_Name'],$event['message']['text']) !== false){
-								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
-										'จังหวัด: '.$json[$key]['Province']."\n".
-										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
-										'Status: UP'."\n".
-										'DowntimeDuration: '.$json[$key]['UptimeDurations']."\n".
-										'LastDownTimes: '.$json[$key]['LastUpTimes']['date']."\n".
-										'LastUpTimes: '.$json[$key]['LastBoot']['date']."\n".
-										'Customer_SLA: '.$json[$key]['Customer_SLA'];
-								$findPlace = true;
-								break;						
+								if($pri_lv == 3||$pri_lv == 2){
+									$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
+											'จังหวัด: '.$json[$key]['Province']."\n".
+											'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
+											'Status: UP'."\n".
+											'DowntimeDuration: '.$json[$key]['UptimeDurations']."\n".
+											'LastDownTimes: '.$json[$key]['LastUpTimes']['date']."\n".
+											'LastUpTimes: '.$json[$key]['LastBoot']['date']."\n".
+											'Customer_SLA: '.$json[$key]['Customer_SLA'];
+									$findPlace = true;
+									break;	
+								}
+								else "-help เพื่อแสดงคำสั่ง";						
 							}
 							elseif(stripos($json[$key]['Customer_Name'],$event['message']['text']) !== false){
-								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
-										'จังหวัด: '.$json[$key]['Province']."\n".
-										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
-										'Status: UP'."\n".
-										'UptimeDurations: '.$json[$key]['UptimeDurations']."\n".
-										'LastDownTimes: '.$json[$key]['LastUpTimes']['date']."\n".
-										'LastUpTimes: '.$json[$key]['LastBoot']['date']."\n".
-										'Customer_SLA: '.$json[$key]['Customer_SLA'];
-								$findPlace = true;
-								break;						
+								if($pri_lv == 3||$pri_lv == 2){
+									$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
+											'จังหวัด: '.$json[$key]['Province']."\n".
+											'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
+											'Status: UP'."\n".
+											'UptimeDurations: '.$json[$key]['UptimeDurations']."\n".
+											'LastDownTimes: '.$json[$key]['LastUpTimes']['date']."\n".
+											'LastUpTimes: '.$json[$key]['LastBoot']['date']."\n".
+											'Customer_SLA: '.$json[$key]['Customer_SLA'];
+									$findPlace = true;
+									break;
+									}
+								else "-help เพื่อแสดงคำสั่ง";						
 							}
 							elseif(preg_match('/^-stat/', $event['message']['text'])){
 								$data = $event['message']['text'];    
 								$whatIWant = substr($data, strpos($data, ' ') + 1);
-								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-									$tt = 	$json[$key]['Customer_Name']."\n".
-											'Status: Up';
-									$findPlace = true;
-									break;						
+								if($pri_lv == 3||$pri_lv == 2 || $pri_lv == 1 ){
+									if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+										$tt = 	$json[$key]['Customer_Name']."\n".
+												'Status: Up';
+										$findPlace = true;
+										break;						
+									}
+									else $tt = 'ไม่พบข้อมูล';
 								}
-								else $tt = 'ไม่พบข้อมูล';	
+								else "-help เพื่อแสดงคำสั่ง";	
 						}
 						elseif(preg_match('/^-ut/', $event['message']['text']) || preg_match('/^-up/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = 	$json[$key]['Customer_Name']."\n".
-										'UptimeDurations: '.$json[$key]['UptimeDurations'];
-								$findPlace = true;
-								break;						
-							}
-							else $tt = 'ไม่พบข้อมูล';	
+							if($pri_lv == 3||$pri_lv == 2){
+								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+									
+										$tt = 	$json[$key]['Customer_Name']."\n".
+												'UptimeDurations: '.$json[$key]['UptimeDurations'];
+										$findPlace = true;
+										break;	
+										}
+								else $tt = 'ไม่พบข้อมูล';		
+									}
+
+								else "-help เพื่อแสดงคำสั่ง";				
+							
 						}
 
 						elseif(preg_match('/^-ltu/', $event['message']['text']) || preg_match('/^-lastu/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = 	$json[$key]['Customer_Name']."\n".
-										'LastUpTimes: '.$json[$key]['LastUpTimes']['date'];
-								$findPlace = true;
-								break;						
-							}
-							else $tt = 'ไม่พบข้อมูล';	
+							if($pri_lv == 3||$pri_lv == 2){
+								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = 	$json[$key]['Customer_Name']."\n".
+											'LastUpTimes: '.$json[$key]['LastUpTimes']['date'];
+									$findPlace = true;
+									break;						
+								}
+								else $tt = 'ไม่พบข้อมูล';
+								}
+							else "-help เพื่อแสดงคำสั่ง";
 						}
 
 						elseif(preg_match('/^-lstb/', $event['message']['text']) || preg_match('/^-lastb/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							
-							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = 	$json[$key]['Customer_Name']."\n".
-										'LastUpTimes: '.$json[$key]['LastBoot']['date'];
+							if($pri_lv == 3||$pri_lv == 2){
+								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = 	$json[$key]['Customer_Name']."\n".
+											'LastUpTimes: '.$json[$key]['LastBoot']['date'];
 
-								$findPlace = true;
-								break;						
-							}
-							else $tt = 'ไม่พบข้อมูล';	
+									$findPlace = true;
+									break;						
+								}
+								else $tt = 'ไม่พบข้อมูล';
+								}
+							else "-help เพื่อแสดงคำสั่ง";	
 						}
 						else $tt = '-help เพื่อแสดงคำสั่ง';		
 
