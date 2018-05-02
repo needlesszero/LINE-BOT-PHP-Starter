@@ -70,7 +70,7 @@ if (!is_null($events['events'])) {
 					  '-down / -dt <ชื่อหน่วยงาน> : แสดง DowntimeDurations'."\n".
 					  '-ltu /-lastu <ชื่อหน่วยงาน> : แสดง LastUpTimes'."\n".
 					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
-					}
+					
 				}
 				elseif($pri_lv == 1){
 					$tt = '-help : เพื่อแสดงคำสั่ง'."\n".
@@ -78,7 +78,7 @@ if (!is_null($events['events'])) {
 					  '-uid : เพื่อแสดง UserID'."\n".
 					  '-down / -dt <ชื่อหน่วยงาน> : แสดง DowntimeDurations'."\n".
 					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
-					}
+					
 				}
 					  
 			}
