@@ -107,8 +107,9 @@ if (!is_null($events['events'])) {
 								$checkCase = true;
 							}
 						}
+						else "-help เพื่อแสดงคำสั่ง";
 					}
-					else "คุณไม่ได้รับสิทธิ์ในการใช้คำสั่งนี้";
+
 			}			
 			else{
 			foreach ($json as $key=>$value) {
