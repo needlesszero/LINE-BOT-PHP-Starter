@@ -14,9 +14,14 @@ $url = 'https://line.gin.totisp.net/results_nodedown.json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 
+$urlticket = 'https://line.gin.totisp.net/ginosticket_db.json';
+$contentTicket = file_get_contents($urlticket);
+$jsonTicket = json_decode($contentTicket, true);
+
 $findPlace = false;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
 $authen = false;
+$checkCase = false;
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -51,11 +56,32 @@ if (!is_null($events['events'])) {
 					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
 					  
 			}
-			
+			elseif(preg_match('/^-c/', $event['message']['text']){
+				$data = $event['message']['text'];    
+				$whatIWant = substr($data, strpos($data, ' ') + 1);
+				foreach ($jsonTicket as $key=>$value) {
+					if(stripos($jsonTicket[$key]['subject'],$whatIWant) !== false){
+								$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
+										'Customar Name: '.$jsonTicket[$key]['subject']."\n".
+										'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
+										'Status: '.$jsonTicket[$key]['status']."\n".
+										'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
+										'Log: '.$jsonTicket[$key]['body'];
+								$checkCase = true;
+							}
+					if(stripos($jsonTicket[$key]['circuitid'],$whatIWant) !== false){
+								$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
+										'Customar Name: '.$jsonTicket[$key]['subject']."\n".
+										'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
+										'Status: '.$jsonTicket[$key]['status']."\n".
+										'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
+										'Log: '.$jsonTicket[$key]['body'];
+								$checkCase = true;
+							}
+			}		
 			else{
 			foreach ($json as $key=>$value) {
-						//if($event['message']['text'] == 'status'){
-					
+						//if($event['message']['text'] == 'status'){				
 
 						if(stripos($json[$key]['Customer_Name'],$event['message']['text']) !== false){
 								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
@@ -66,6 +92,7 @@ if (!is_null($events['events'])) {
 										'LastDownTimes: '.$json[$key]['LastDownTimes']['date']."\n".
 										'LastUpTimes: '.$json[$key]['LastUptimes']['date']."\n".
 										'Customer_SLA: '.$json[$key]['Customer_SLA'];
+
 								$findPlace = true;
 							}
 
@@ -300,8 +327,10 @@ function call_node(){
 	// close cURL resource, and free up system resources
 	curl_close($ch);
 	
+	$ch = curl_init();
+
 	// set URL and other appropriate options
-	curl_setopt($ch, CURLOPT_URL, "https://line.gin.totisp.net/call_nodedown.php");
+	curl_setopt($ch, CURLOPT_URL, "https://line.gin.totisp.net/call_nodeup.php");
 	curl_setopt($ch, CURLOPT_HEADER, 0);
 
 	// grab URL and pass it to the browser
@@ -310,5 +339,15 @@ function call_node(){
 	// close cURL resource, and free up system resources
 	curl_close($ch);
 
-	
+	$ch = curl_init();
+
+	// set URL and other appropriate options
+	curl_setopt($ch, CURLOPT_URL, "https://line.gin.totisp.net/call_ticket.php");
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+
+	// grab URL and pass it to the browser
+	curl_exec($ch);
+
+	// close cURL resource, and free up system resources
+	curl_close($ch);
 }
