@@ -88,35 +88,34 @@ if (!is_null($events['events'])) {
 				$whatIWant = substr($data, strpos($data, ' ') + 1);
 				foreach ($jsonTicket as $key=>$value) {
 					if($pri_lv == 3){
-					if(stripos($jsonTicket[$key]['subject'],$whatIWant) !== false){
-								$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
-										'Customar Name: '.$jsonTicket[$key]['subject']."\n".
-										'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
-										'Status: '.$jsonTicket[$key]['status']."\n".
-										'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
-										'Log: '.$jsonTicket[$key]['body'];
-								$checkCase = true;
+						if(stripos($jsonTicket[$key]['subject'],$whatIWant) !== false){
+									$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
+											'Customar Name: '.$jsonTicket[$key]['subject']."\n".
+											'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
+											'Status: '.$jsonTicket[$key]['status']."\n".
+											'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
+											'Log: '.$jsonTicket[$key]['body'];
+									$checkCase = true;
+								}
+						elseif(stripos($jsonTicket[$key]['circuitid'],$whatIWant) !== false){
+									$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
+											'Customar Name: '.$jsonTicket[$key]['subject']."\n".
+											'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
+											'Status: '.$jsonTicket[$key]['status']."\n".
+											'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
+											'Log: '.$jsonTicket[$key]['body'];
+									$checkCase = true;
+								}
 							}
-					elseif(stripos($jsonTicket[$key]['circuitid'],$whatIWant) !== false){
-								$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
-										'Customar Name: '.$jsonTicket[$key]['subject']."\n".
-										'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
-										'Status: '.$jsonTicket[$key]['status']."\n".
-										'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
-										'Log: '.$jsonTicket[$key]['body'];
-								$checkCase = true;
-							}
-						}
 						else "-help เพื่อแสดงคำสั่ง";
 					}
 
 			}			
 			else{
 			foreach ($json as $key=>$value) {
-						//if($event['message']['text'] == 'status'){
-					
-
+						//if($event['message']['text'] == 'status'){					
 						if(stripos($json[$key]['Customer_Name'],$event['message']['text']) !== false){
+							if($pri_lv == 3||$pri_lv == 2){
 								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
 										'จังหวัด: '.$json[$key]['Province']."\n".
 										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
@@ -126,9 +125,12 @@ if (!is_null($events['events'])) {
 										'LastUpTimes: '.$json[$key]['LastUptimes']['date']."\n".
 										'Customer_SLA: '.$json[$key]['Customer_SLA'];
 								$findPlace = true;
+								}
+								else "-help เพื่อแสดงคำสั่ง";
 							}
 
 						if(stripos($json[$key]['Curcuit_ID'],$event['message']['text']) !== false){
+							if($pri_lv == 3||$pri_lv == 2){
 								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
 										'จังหวัด: '.$json[$key]['Province']."\n".
 										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
@@ -138,6 +140,8 @@ if (!is_null($events['events'])) {
 										'LastUpTimes: '.$json[$key]['LastUptimes']['date']."\n".
 										'Customer_SLA: '.$json[$key]['Customer_SLA'];
 								$findPlace = true;
+								}
+								else "-help เพื่อแสดงคำสั่ง";
 							}
 													
 						if($json[$key]['Customer_Name'] === $event['message']['text']){
