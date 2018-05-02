@@ -22,8 +22,6 @@ $findPlace = false;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
 $authen = false;
 
-$privilege = 0 ;
-
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
@@ -32,7 +30,6 @@ if (!is_null($events['events'])) {
 		foreach($jsonAuthen as $key=>$value) {					
 			if(strcmp($jsonAuthen[$key]['uid'],$event['source']['userId']) == 0){
 				$authen = true;
-				$privilege = $jsonAuthen[$key]['pri_lv'];
 				break;
 				}
 			else{
