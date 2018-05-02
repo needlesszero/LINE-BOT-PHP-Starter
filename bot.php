@@ -2,6 +2,8 @@
 $access_token = 'am1ve2WFidjcmj3wS/c+QqoulSxJ4UKI0iwjrdoN5/HOcuFiORAgVGSQ/g3kqRZS5LxyKOklfZo+oQ+HWnn++keNv9IjRjZk2rA7GM1X9AKeYUui1G/XFcOXcD05EqDUkgsomTrvvui2K4hGb9DuzgdB04t89/1O/w1cDnyilFU=';
 // Get POST body content
 $content = file_get_contents('php://input');
+
+call_node();
 // Parse JSON
 $events = json_decode($content, true);
 $urlAuthen = 'https://line.gin.totisp.net/user_authentication.json';
@@ -253,3 +255,27 @@ if (!is_null($events['events'])) {
 		}
 	}
 echo "OK";
+
+function call_node(){
+	$ch = curl_init();
+
+	// set URL and other appropriate options
+	curl_setopt($ch, CURLOPT_URL, "https://line.gin.totisp.net/call_nodedown.php");
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+
+	// grab URL and pass it to the browser
+	curl_exec($ch);
+
+	// close cURL resource, and free up system resources
+	curl_close($ch);
+	
+	// set URL and other appropriate options
+	curl_setopt($ch, CURLOPT_URL, "https://line.gin.totisp.net/call_nodedown.php");
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+
+	// grab URL and pass it to the browser
+	curl_exec($ch);
+
+	// close cURL resource, and free up system resources
+	curl_close($ch);
+}
