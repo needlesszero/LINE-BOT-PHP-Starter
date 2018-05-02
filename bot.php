@@ -145,29 +145,34 @@ if (!is_null($events['events'])) {
 							}
 													
 						if($json[$key]['Customer_Name'] === $event['message']['text']){
-								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
-										'จังหวัด: '.$json[$key]['Province']."\n".
-										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
-										'Status: Down'."\n".
-										'DowntimeDuration: '.$json[$key]['DowntimeDorations']."\n".
-										'LastDownTimes: '.$json[$key]['LastDownTimes']['date']."\n".
-										'LastUpTimes: '.$json[$key]['LastUptimes']['date']."\n".
-										'Customer_SLA: '.$json[$key]['Customer_SLA'];
-								$findPlace = true;
+							if($pri_lv == 3||$pri_lv == 2){
+									$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
+											'จังหวัด: '.$json[$key]['Province']."\n".
+											'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
+											'Status: Down'."\n".
+											'DowntimeDuration: '.$json[$key]['DowntimeDorations']."\n".
+											'LastDownTimes: '.$json[$key]['LastDownTimes']['date']."\n".
+											'LastUpTimes: '.$json[$key]['LastUptimes']['date']."\n".
+											'Customer_SLA: '.$json[$key]['Customer_SLA'];
+									$findPlace = true;
+								}
+								else "-help เพื่อแสดงคำสั่ง";
 						}
 
 						elseif(preg_match('/^-stat/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							if($pri_lv == 3||$pri_lv == 2 || $pri_lv == 2 ){
+								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = 	$json[$key]['Customer_Name']."\n".
+											'Status: Down'.$json['status'];
 
-							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
-								$tt = 	$json[$key]['Customer_Name']."\n".
-										'Status: Down'.$json['status'];
-
-								$findPlace = true;
-								break;		
+									$findPlace = true;
+									break;		
+								}
+								else $tt = 'ไม่พบข้อมูล';
 							}
-							else $tt = 'ไม่พบข้อมูล';	
+							else "-help เพื่อแสดงคำสั่ง";
 						}
 
 						elseif(preg_match('/^-dt/', $event['message']['text']) || preg_match('/^-down/', $event['message']['text'])){
