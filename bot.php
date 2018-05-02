@@ -3,7 +3,7 @@ $access_token = 'am1ve2WFidjcmj3wS/c+QqoulSxJ4UKI0iwjrdoN5/HOcuFiORAgVGSQ/g3kqRZ
 // Get POST body content
 $content = file_get_contents('php://input');
 
-call_node();
+//call_node();
 // Parse JSON
 $events = json_decode($content, true);
 $urlAuthen = 'https://line.gin.totisp.net/user_authentication.json';
@@ -13,6 +13,10 @@ $jsonAuthen = json_decode($contentAuthen, true);
 $url = 'https://line.gin.totisp.net/results_nodedown.json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
+
+$urlticket = 'https://line.gin.totisp.net/ginosticket_db.json';
+$contentTicket = file_get_contents($urlticket);
+$jsonTicket = json_decode($contentTicket, true);
 
 $findPlace = false;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
