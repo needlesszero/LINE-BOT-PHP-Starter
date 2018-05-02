@@ -157,28 +157,43 @@ if (!is_null($events['events'])) {
 					
 				}
 				
-					if($findPlace==false){				
-						$url = 'https://spreadsheets.google.com/feeds/list/1frT-QCU8A5Egh1XV3nW-8miICBvA6xTTSRHWG26lyqE/2/public/values?alt=json';
+				if($findPlace==false){				
+					$url = 'https://line.gin.totisp.net/results_nodeup.json';
 					$content = file_get_contents($url);
 					$json = json_decode($content, true);
 
-					foreach ($json['results'] as $key=>$value) {
+					foreach ($json as $key=>$value) {
 							//if($event['message']['text'] == 'status'){
-							if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$event['message']['text']) !== false){
-								$tt = 'ชื่อ: '."\n".$json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'จังหวัด: '.$json['feed']['entry'][$key]['gsx$province']['$t']."\n".'Status: Up'."\n".'UptimeDurations: '.$json['feed']['entry'][$key]['gsx$uptimedurations']['$t']."\n".'LastUpTimes: '.$json['feed']['entry'][$key]['gsx$lastuptimes']['$t']."\n".'Customer_SLA: '.$json['feed']['entry'][$key]['gsx$customersla']['$t'];
+							if(stripos($json[$key]['Customer_Name'],$event['message']['text']) !== false){
+								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
+										'จังหวัด: '.$json[$key]['Province']."\n".
+										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
+										'Status: UP'."\n".
+										'DowntimeDuration: '.$json[$key]['UptimeDurations']."\n".
+										'LastDownTimes: '.$json[$key]['LastUpTimes']['date']."\n".
+										'LastUpTimes: '.$json[$key]['LastBoot']['date']."\n".
+										'Customer_SLA: '.$json[$key]['Customer_SLA'];
 								$findPlace = true;
 								break;						
 							}
-							elseif(stripos($json['feed']['entry'][$key]['gsx$curcuitid']['$t'],$event['message']['text']) !== false){
-								$tt = 'ชื่อ: '."\n".$json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'จังหวัด: '.$json['feed']['entry'][$key]['gsx$province']['$t']."\n".'Status: Up'."\n".'UptimeDurations: '.$json['feed']['entry'][$key]['gsx$uptimedurations']['$t']."\n".'LastUpTimes: '.$json['feed']['entry'][$key]['gsx$lastuptimes']['$t']."\n".'Customer_SLA: '.$json['feed']['entry'][$key]['gsx$customersla']['$t'];
+							elseif(stripos($json[$key]['Customer_Name'],$event['message']['text']) !== false){
+								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
+										'จังหวัด: '.$json[$key]['Province']."\n".
+										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
+										'Status: UP'."\n".
+										'UptimeDurations: '.$json[$key]['UptimeDurations']."\n".
+										'LastDownTimes: '.$json[$key]['LastUpTimes']['date']."\n".
+										'LastUpTimes: '.$json[$key]['LastBoot']['date']."\n".
+										'Customer_SLA: '.$json[$key]['Customer_SLA'];
 								$findPlace = true;
 								break;						
 							}
 							elseif(preg_match('/^-stat/', $event['message']['text'])){
 								$data = $event['message']['text'];    
 								$whatIWant = substr($data, strpos($data, ' ') + 1);
-								if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
-									$tt = $json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'Status: Up'.$json['status'];
+								if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+									$tt = 	$json[$key]['Customer_Name']."\n".
+											'Status: Up';
 									$findPlace = true;
 									break;						
 								}
@@ -187,8 +202,9 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-ut/', $event['message']['text']) || preg_match('/^-up/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
-								$tt = $json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'UptimeDurations: '.$json['feed']['entry'][$key]['gsx$uptimedurations']['$t'];
+							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = 	$json[$key]['Customer_Name']."\n".
+										'UptimeDurations: '.$json[$key]['UptimeDurations'];
 								$findPlace = true;
 								break;						
 							}
@@ -198,8 +214,23 @@ if (!is_null($events['events'])) {
 						elseif(preg_match('/^-ltu/', $event['message']['text']) || preg_match('/^-lastu/', $event['message']['text'])){
 							$data = $event['message']['text'];    
 							$whatIWant = substr($data, strpos($data, ' ') + 1);
-							if(stripos($json['feed']['entry'][$key]['gsx$customername']['$t'],$whatIWant) !== false){
-								$tt = $json['feed']['entry'][$key]['gsx$customername']['$t']."\n".'LastUpTimes: '.$json['feed']['entry'][$key]['gsx$lastuptimes']['$t'];
+							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = 	$json[$key]['Customer_Name']."\n".
+										'LastUpTimes: '.$json[$key]['LastUpTimes']['date'];
+								$findPlace = true;
+								break;						
+							}
+							else $tt = 'ไม่พบข้อมูล';	
+						}
+
+						elseif(preg_match('/^-lstb/', $event['message']['text']) || preg_match('/^-lastb/', $event['message']['text'])){
+							$data = $event['message']['text'];    
+							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							
+							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = 	$json[$key]['Customer_Name']."\n".
+										'LastUpTimes: '.$json[$key]['LastBoot']['date'];
+
 								$findPlace = true;
 								break;						
 							}
