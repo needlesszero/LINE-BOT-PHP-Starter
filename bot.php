@@ -59,6 +59,16 @@ if (!is_null($events['events'])) {
 			if(preg_match('/^-c/', $event['message']['text'])){
 				$data = $event['message']['text'];    
 				$whatIWant = substr($data, strpos($data, ' ') + 1);
+				foreach ($jsonTicket as $key=>$value) {
+					if(stripos($jsonTicket[$key]['subject'],$whatIWant) !== false){
+								$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
+										'Customar Name: '.$jsonTicket[$key]['subject']."\n".
+										'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
+										'Status: '.$jsonTicket[$key]['status']."\n".
+										'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
+										'Log: '.$jsonTicket[$key]['body'];
+								$checkCase = true;
+							}
 			}			
 			else{
 			foreach ($json as $key=>$value) {
