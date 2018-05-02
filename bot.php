@@ -54,7 +54,12 @@ if (!is_null($events['events'])) {
 					  '-ltu /-lastu <ชื่อหน่วยงาน> : แสดง LastUpTimes'."\n".
 					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
 					  
-			}		
+			}
+
+			if(preg_match('/^-c/', $event['message']['text'])){
+				$data = $event['message']['text'];    
+				$whatIWant = substr($data, strpos($data, ' ') + 1);
+			}			
 			else{
 			foreach ($json as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
