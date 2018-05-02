@@ -14,10 +14,6 @@ $url = 'https://line.gin.totisp.net/results_nodedown.json';
 $content = file_get_contents($url);
 $json = json_decode($content, true);
 
-$urlticket = 'https://line.gin.totisp.net/ginosticket_db.json';
-$contentTicket = file_get_contents($url);
-$jsonTicket = json_decode($content, true);
-
 $findPlace = false;
 echo strcmp("สำนักงานบังคับคดีจังหวัดบุรีรัมย์","สำนักงานบังคับคดีจังหวัดบุรีรัมย์");
 $authen = false;
@@ -314,12 +310,5 @@ function call_node(){
 	// close cURL resource, and free up system resources
 	curl_close($ch);
 
-	curl_setopt($ch, CURLOPT_URL, "https://line.gin.totisp.net/call_ticket.php");
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-
-	// grab URL and pass it to the browser
-	curl_exec($ch);
-
-	// close cURL resource, and free up system resources
-	curl_close($ch);
+	
 }
