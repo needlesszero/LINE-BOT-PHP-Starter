@@ -62,7 +62,7 @@ if (!is_null($events['events'])) {
 										'Status: Down'."\n".
 										'DowntimeDuration: '.$json[$key]['DowntimeDorations']."\n".
 										'LastDownTimes: '.$json[$key]['LastDownTimes']['date']."\n".
-										'LastUpTimes: '.$json[$key]['LastUpTimes']['date']."\n".
+										'LastUpTimes: '.$json[$key]['LastUptimes']['date']."\n".
 										'Customer_SLA: '.$json[$key]['Customer_SLA'];
 								$findPlace = true;
 							}
@@ -74,7 +74,7 @@ if (!is_null($events['events'])) {
 										'Status: Down'."\n".
 										'DowntimeDuration: '.$json[$key]['DowntimeDorations']."\n".
 										'LastDownTimes: '.$json[$key]['LastDownTimes']['date']."\n".
-										'LastUpTimes: '.$json[$key]['LastUpTimes']['date']."\n".
+										'LastUpTimes: '.$json[$key]['LastUptimes']['date']."\n".
 										'Customer_SLA: '.$json[$key]['Customer_SLA'];
 								$findPlace = true;
 							}
@@ -86,7 +86,7 @@ if (!is_null($events['events'])) {
 										'Status: Down'."\n".
 										'DowntimeDuration: '.$json[$key]['DowntimeDorations']."\n".
 										'LastDownTimes: '.$json[$key]['LastDownTimes']['date']."\n".
-										'LastUpTimes: '.$json[$key]['LastUpTimes']['date']."\n".
+										'LastUpTimes: '.$json[$key]['LastUptimes']['date']."\n".
 										'Customer_SLA: '.$json[$key]['Customer_SLA'];
 								$findPlace = true;
 						}
@@ -125,7 +125,21 @@ if (!is_null($events['events'])) {
 							
 							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
 								$tt = 	$json[$key]['Customer_Name']."\n".
-										'LastDownTimes: '.'LastDownTimes: '.$json[$key]['LastDownTimes']['date'];
+										'LastDownTimes: '.$json[$key]['LastDownTimes']['date'];
+
+								$findPlace = true;
+								break;						
+							}
+							else $tt = 'ไม่พบข้อมูล';	
+						}
+
+						elseif(preg_match('/^-utd/', $event['message']['text']) || preg_match('/^-lastd/', $event['message']['text'])){
+							$data = $event['message']['text'];    
+							$whatIWant = substr($data, strpos($data, ' ') + 1);
+							
+							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
+								$tt = 	$json[$key]['Customer_Name']."\n".
+										'LastUpTimes: '.$json[$key]['LastUptimes']['date'];
 
 								$findPlace = true;
 								break;						
