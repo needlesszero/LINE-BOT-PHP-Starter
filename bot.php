@@ -69,6 +69,7 @@ if (!is_null($events['events'])) {
 										'Log: '.$jsonTicket[$key]['body'];
 								$checkCase = true;
 							}
+						}
 			}			
 			else{
 			foreach ($json as $key=>$value) {
