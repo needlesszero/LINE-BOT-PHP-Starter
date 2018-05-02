@@ -52,7 +52,8 @@ if (!is_null($events['events'])) {
 					  '-ltd /-lastd <ชื่อหน่วยงาน> : แสดง LastDownTimes'."\n".
 					  '-down / -dt <ชื่อหน่วยงาน> : แสดง DowntimeDurations'."\n".
 					  '-ltu /-lastu <ชื่อหน่วยงาน> : แสดง LastUpTimes'."\n".
-					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
+					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations'
+					  '-c <ชื่อหน่วยงาน> : ตรวจสอบข้อมูลเคส';
 					  
 			}
 
@@ -69,7 +70,7 @@ if (!is_null($events['events'])) {
 										'Log: '.$jsonTicket[$key]['body'];
 								$checkCase = true;
 							}
-					if(stripos($jsonTicket[$key]['circuitid'],$whatIWant) !== false){
+					elseif(stripos($jsonTicket[$key]['circuitid'],$whatIWant) !== false){
 								$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
 										'Customar Name: '.$jsonTicket[$key]['subject']."\n".
 										'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
@@ -79,6 +80,7 @@ if (!is_null($events['events'])) {
 								$checkCase = true;
 							}
 						}
+					else $tt = 'ไม่พบข้อมูล';	
 			}			
 			else{
 			foreach ($json as $key=>$value) {
