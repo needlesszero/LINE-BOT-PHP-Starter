@@ -61,8 +61,8 @@ if (!is_null($events['events'])) {
 										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
 										'Status: Down'."\n".
 										'DowntimeDuration: '.$json[$key]['DowntimeDorations']."\n".
-										'LastDownTimes: '.$json[$key]['LastDownTimes']."\n".
-										'LastUpTimes: '.$json[$key]['LastUpTimes']."\n".
+										'LastDownTimes: '.$json[$key]['LastDownTimes']['date']."\n".
+										'LastUpTimes: '.$json[$key]['LastUpTimes']['date']."\n".
 										'Customer_SLA: '.$json[$key]['Customer_SLA'];
 								$findPlace = true;
 							}
@@ -73,8 +73,8 @@ if (!is_null($events['events'])) {
 										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
 										'Status: Down'."\n".
 										'DowntimeDuration: '.$json[$key]['DowntimeDorations']."\n".
-										'LastDownTimes: '.$json[$key]['LastDownTimes']."\n".
-										'LastUpTimes: '.$json[$key]['LastUpTimes']."\n".
+										'LastDownTimes: '.$json[$key]['LastDownTimes']['date']."\n".
+										'LastUpTimes: '.$json[$key]['LastUpTimes']['date']."\n".
 										'Customer_SLA: '.$json[$key]['Customer_SLA'];
 								$findPlace = true;
 							}
@@ -85,8 +85,8 @@ if (!is_null($events['events'])) {
 										'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
 										'Status: Down'."\n".
 										'DowntimeDuration: '.$json[$key]['DowntimeDorations']."\n".
-										'LastDownTimes: '.$json[$key]['LastDownTimes']."\n".
-										'LastUpTimes: '.$json[$key]['LastUpTimes']."\n".
+										'LastDownTimes: '.$json[$key]['LastDownTimes']['date']."\n".
+										'LastUpTimes: '.$json[$key]['LastUpTimes']['date']."\n".
 										'Customer_SLA: '.$json[$key]['Customer_SLA'];
 								$findPlace = true;
 						}
@@ -125,7 +125,7 @@ if (!is_null($events['events'])) {
 							
 							if(stripos($json[$key]['Customer_Name'],$whatIWant) !== false){
 								$tt = 	$json[$key]['Customer_Name']."\n".
-										'LastDownTimes: '.'LastDownTimes: '.$json[$key]['LastDownTimes'];
+										'LastDownTimes: '.'LastDownTimes: '.$json[$key]['LastDownTimes']['date'];
 
 								$findPlace = true;
 								break;						
