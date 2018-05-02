@@ -63,36 +63,33 @@ if (!is_null($events['events'])) {
 			elseif(preg_match('/^-c/', $event['message']['text'])){
 				$data = $event['message']['text'];    
 				$whatIWant = substr($data, strpos($data, ' ') + 1);
-				if($privilege>1){
-					foreach ($jsonTicket as $key=>$value) {
-						if(stripos($jsonTicket[$key]['subject'],$whatIWant) !== false){
-									$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
-											'Customar Name: '.$jsonTicket[$key]['subject']."\n".
-											'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
-											'Status: '.$jsonTicket[$key]['status']."\n".
-											'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
-											'Log: '.$jsonTicket[$key]['body'];
-									$checkCase = true;
-								}
-						elseif(stripos($jsonTicket[$key]['circuitid'],$whatIWant) !== false){
-									$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
-											'Customar Name: '.$jsonTicket[$key]['subject']."\n".
-											'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
-											'Status: '.$jsonTicket[$key]['status']."\n".
-											'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
-											'Log: '.$jsonTicket[$key]['body'];
-									$checkCase = true;
-								}
+				foreach ($jsonTicket as $key=>$value) {
+					if(stripos($jsonTicket[$key]['subject'],$whatIWant) !== false){
+								$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
+										'Customar Name: '.$jsonTicket[$key]['subject']."\n".
+										'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
+										'Status: '.$jsonTicket[$key]['status']."\n".
+										'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
+										'Log: '.$jsonTicket[$key]['body'];
+								$checkCase = true;
 							}
-						else $tt = 'ไม่พบข้อมูล';
-					}
-				else $tt = 'ท่านไม่มีสิทธิ์ในการเข้าถึงคำสั่งนี้ -help แสดงคำสั่ง';
+					elseif(stripos($jsonTicket[$key]['circuitid'],$whatIWant) !== false){
+								$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
+										'Customar Name: '.$jsonTicket[$key]['subject']."\n".
+										'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
+										'Status: '.$jsonTicket[$key]['status']."\n".
+										'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
+										'Log: '.$jsonTicket[$key]['body'];
+								$checkCase = true;
+							}
+						}
+					else $tt = 'ไม่พบข้อมูล';	
 			}			
 			else{
 			foreach ($json as $key=>$value) {
 						//if($event['message']['text'] == 'status'){
 					
-				
+
 						if(stripos($json[$key]['Customer_Name'],$event['message']['text']) !== false){
 								$tt = 	'ชื่อ: '."\n".$json[$key]['Customer_Name']."\n".
 										'จังหวัด: '.$json[$key]['Province']."\n".
