@@ -72,7 +72,7 @@ if (!is_null($events['events'])) {
 					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
 					
 				}
-				elseif($pri_lv == 1){
+				else{
 					$tt = '-help : เพื่อแสดงคำสั่ง'."\n".
 					  //'-f <คำค้นหา> : เพื่อค้นหาสถานที่ประกอบคำที่ต้องการค้นหา'."\n".
 					  '-uid : เพื่อแสดง UserID'."\n".
