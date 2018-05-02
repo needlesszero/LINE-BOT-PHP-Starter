@@ -56,7 +56,7 @@ if (!is_null($events['events'])) {
 					  '-up / -ut <ชื่อหน่วยงาน> : แสดง UptimeDurations';
 					  
 			}
-			elseif(preg_match('/^-c/', $event['message']['text'])){
+			elseif(preg_match('/^-c/', $event['message']['text']){
 				$data = $event['message']['text'];    
 				$whatIWant = substr($data, strpos($data, ' ') + 1);
 				foreach ($jsonTicket as $key=>$value) {
