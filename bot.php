@@ -298,7 +298,7 @@ function call_node(){
 	curl_exec($ch);
 
 	// close cURL resource, and free up system resources
-	curl_close($ch);
+	//curl_close($ch);
 	
 	// set URL and other appropriate options
 	curl_setopt($ch, CURLOPT_URL, "https://line.gin.totisp.net/call_nodeup.php");
