@@ -69,6 +69,15 @@ if (!is_null($events['events'])) {
 										'Log: '.$jsonTicket[$key]['body'];
 								$checkCase = true;
 							}
+					if(stripos($jsonTicket[$key]['circuitid'],$whatIWant) !== false){
+								$tt = 	'Ticket iD: '."\n".$jsonTicket[$key]['number']."\n".
+										'Customar Name: '.$jsonTicket[$key]['subject']."\n".
+										'Circuit iD: '."\n".$jsonTicket[$key]['circuitid']."\n".
+										'Status: '.$jsonTicket[$key]['status']."\n".
+										'last-time log: '.$jsonTicket[$key]['created']['date']."\n".
+										'Log: '.$jsonTicket[$key]['body'];
+								$checkCase = true;
+							}
 						}
 			}			
 			else{
