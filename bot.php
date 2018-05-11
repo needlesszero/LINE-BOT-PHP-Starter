@@ -253,7 +253,7 @@ if (!is_null($events['events'])) {
 											'จังหวัด: '.$json[$key]['Province']."\n".
 											'CurcuitID: '.$json[$key]['Curcuit_ID']."\n".
 											'Status: UP'."\n".
-											'DowntimeDuration: '.$json[$key]['UptimeDurations']."\n".
+											'UptimeDuration: '.$json[$key]['UptimeDurations']."\n".
 											'LastDownTimes: '.$json[$key]['LastUpTimes']['date']."\n".
 											'LastUpTimes: '.$json[$key]['LastBoot']['date']."\n".
 											'Customer_SLA: '.$json[$key]['Customer_SLA'];
